@@ -11,17 +11,17 @@ public class MyEvents implements Listener {
 
     private OhneeEssentials plugin;
 
-    public MyEvents(OhneeEssentials plugin){
+    public MyEvents(OhneeEssentials plugin) {
         plugin = plugin;
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e) {
         new join(e.getPlayer());
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e){
+    public void onQuit(PlayerQuitEvent e) {
         new quit(e.getPlayer());
     }
 }
