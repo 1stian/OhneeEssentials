@@ -1,3 +1,10 @@
 name: OhneeEssentials
 version: 1.0
-main: com.ohneemc.OhneeEssentials
+main: com.ohneemc.OhneeEssentials.OhneeEssentials
+commands:
+  wild:
+    description: Randomly teleports you to a location in your current world.
+    usage: /wild
+    aliases: [rtp, wilderness]
+    permission: ohnee.basic
+    permission-message: You do not have access to this command(/wild).
