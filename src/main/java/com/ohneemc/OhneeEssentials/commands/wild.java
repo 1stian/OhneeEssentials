@@ -1,5 +1,6 @@
 package com.ohneemc.OhneeEssentials.commands;
 
+import com.ohneemc.OhneeEssentials.resources.chunkHelper;
 import com.ohneemc.OhneeEssentials.resources.intRandomizer;
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import org.bukkit.Chunk;
@@ -14,11 +15,13 @@ public class wild {
 
     private OhneeEssentials plugin;
     private intRandomizer random;
+    private chunkHelper chunk;
 
     public wild(OhneeEssentials plugin) {
         this.plugin = plugin;
     }
-    public wild (intRandomizer rand) {this.random = rand;}
+    public wild(intRandomizer rand) {this.random = rand;}
+    public wild(chunkHelper chunk) {this.chunk = chunk;}
 
     public wild(Player player, Plugin plugin) {
         //FileConfiguration config = plugin.getConfig();
@@ -49,18 +52,7 @@ public class wild {
         final int rX = random.randomInt(maxLX, minLX);
         final int rZ = random.randomInt(maxLZ, minLZ);
 
-        player.sendMessage("Location: rX: " + rX + ", rZ: " + rZ);
-
         Location toLoad = new Location(player.getWorld(), rX, 0 ,rZ);
-        Chunk destChunk = toLoad.getChunk();
-        //plugin.getLogger().info("Loading chunk at: x" + rX + ", z" + rZ);
-        destChunk.load();
-        //plugin.getLogger().info("Chunk loaded!");
-
-        Block hBlock = toLoad.getWorld().getHighestBlockAt(toLoad);
-
-        Location tp = new Location(toLoad.getWorld(), rX, hBlock.getY(), rZ);
-
-        player.teleport(tp);
+        player.teleport(chunk.chunkLoader(toLoad));
     }
 }
