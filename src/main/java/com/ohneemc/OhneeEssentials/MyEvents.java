@@ -12,7 +12,7 @@ public class MyEvents implements Listener {
     private OhneeEssentials plugin;
 
     public MyEvents(OhneeEssentials plugin) {
-        plugin = plugin;
+        this.plugin = plugin;
     }
 
     @EventHandler
