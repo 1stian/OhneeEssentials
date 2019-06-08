@@ -20,7 +20,7 @@ public class CommandClass implements CommandExecutor {
             if (commandSender instanceof Player) {
                 if (commandSender.hasPermission("ohnee.wild")) {
                     if (((Player) commandSender).getPlayer() != null){
-                        new wild(((Player) commandSender).getPlayer());
+                        new wild(((Player) commandSender).getPlayer(), plugin);
                     }else{
                         plugin.getLogger().warning("Player null... While using command /wild");
                     }
