@@ -7,11 +7,11 @@ public class quit {
 
     private OhneeEssentials plugin;
 
-    public quit(OhneeEssentials plugin){
-        plugin = plugin;
+    public quit(OhneeEssentials plugin) {
+        this.plugin = plugin;
     }
 
-    public quit(Player player){
+    public quit(Player player) {
 
     }
 }
