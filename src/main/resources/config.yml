@@ -1,0 +1,9 @@
+Teleport:
+  cooldown: 60
+  countdown: 3
+  wait-for-safe-block: true
+WildTP:
+  maxX: 10000
+  minX: -10000
+  maxZ: 10000
+  minZ: -10000
