@@ -7,7 +7,7 @@ public class join {
 
     private OhneeEssentials plugin;
 
-    public join(OhneeEssentials plugin){
+    public join(OhneeEssentials plugin) {
         plugin = plugin;
     }
 
