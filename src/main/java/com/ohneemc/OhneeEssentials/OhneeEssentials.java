@@ -13,6 +13,8 @@ public class OhneeEssentials extends JavaPlugin {
         config.options().copyDefaults(true);
         this.saveConfig();
 
+        this.reloadConfig();
+
         //Register events class
         this.getServer().getPluginManager().registerEvents(new MyEvents(this), this);
 
