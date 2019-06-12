@@ -3,15 +3,15 @@ package com.ohneemc.OhneeEssentials.events;
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import org.bukkit.entity.Player;
 
-public class join {
+public class Quit {
 
     private OhneeEssentials plugin;
 
-    public join(OhneeEssentials plugin) {
+    public Quit(OhneeEssentials plugin) {
         this.plugin = plugin;
     }
 
-    public join(Player player) {
+    public Quit(Player player) {
 
     }
 }

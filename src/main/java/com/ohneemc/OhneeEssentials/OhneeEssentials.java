@@ -5,10 +5,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class OhneeEssentials extends JavaPlugin {
 
-    public FileConfiguration config = this.getConfig();
+    private FileConfiguration config = this.getConfig();
 
-    public OhneeEssentials pl;
+    private OhneeEssentials pl;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
         pl = this;
@@ -22,7 +23,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MyEvents(this), this);
 
         //Commands
-        this.getCommand("wild").setExecutor(new CommandClass(this));
+        this.getCommand("Wild").setExecutor(new CommandClass(this));
     }
 
     public void onDisable() {

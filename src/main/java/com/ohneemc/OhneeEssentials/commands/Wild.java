@@ -1,13 +1,13 @@
 package com.ohneemc.OhneeEssentials.commands;
 
-import com.ohneemc.OhneeEssentials.resources.chunkHelper;
+import com.ohneemc.OhneeEssentials.resources.ChunkHelper;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class wild {
+public class Wild {
 
-    public wild(final Player player, final Plugin plugin, final chunkHelper chunk) {
+    public Wild(final Player player, final Plugin plugin, final ChunkHelper chunk) {
         try {
             //Debug lines
             //System.out.println("player var debug: " + player);
@@ -24,7 +24,7 @@ public class wild {
                             player.teleport(tp);
                         }
 
-                    }, 60l);
+                    }, 60L);
                 }
             });
 

@@ -1,7 +1,7 @@
 package com.ohneemc.OhneeEssentials;
 
-import com.ohneemc.OhneeEssentials.events.quit;
-import com.ohneemc.OhneeEssentials.events.join;
+import com.ohneemc.OhneeEssentials.events.Quit;
+import com.ohneemc.OhneeEssentials.events.Join;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -11,17 +11,17 @@ public class MyEvents implements Listener {
 
     private OhneeEssentials plugin;
 
-    public MyEvents(OhneeEssentials plugin) {
+    MyEvents(OhneeEssentials plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        new join(e.getPlayer());
+        new Join(e.getPlayer());
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        new quit(e.getPlayer());
+        new Quit(e.getPlayer());
     }
 }

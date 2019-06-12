@@ -8,18 +8,15 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class chunkHelper {
+public class ChunkHelper {
 
     private OhneeEssentials plugin;
 
-    private chunkHelper (OhneeEssentials pl) {
+    private ChunkHelper(OhneeEssentials pl) {
         this.plugin = pl;
     }
 
-    private intRandomizer random;
-
-    public chunkHelper(intRandomizer rand) {
-        this.random = rand;
+    public ChunkHelper(IntRandomizer rand) {
     }
 
     //Getting min and max from config
@@ -28,19 +25,14 @@ public class chunkHelper {
     private Integer maxZ;
     private Integer minZ;
 
-    private int xx;
-    private int zz;
-
     private int maxLX;
     private int minLX;
     private int maxLZ;
     private int minLZ;
 
-    private World world;
-
     private int retries = 0;
 
-    public chunkHelper() {
+    public ChunkHelper() {
 
     }
 
@@ -78,14 +70,9 @@ public class chunkHelper {
         maxLZ = z;
         minLZ = z;
 
-        xx = x;
-        zz = z;
-
-        world = worldLoc;
-
         //player.sendMessage("0");
 
-        Location randomLoc = randomizer(world);
+        Location randomLoc = randomizer(worldLoc);
 
         //player.sendMessage("1");
         if (chunkLoader(randomLoc)) {
@@ -119,8 +106,8 @@ public class chunkHelper {
         minLZ = minZ + minLZ;
 
         //Randomizing ints!
-        int rX = random.randomInt(maxLX, minLX);
-        int rZ = random.randomInt(maxLZ, minLZ);
+        int rX = IntRandomizer.randomInt(maxLX, minLX);
+        int rZ = IntRandomizer.randomInt(maxLZ, minLZ);
 
         int y = world.getHighestBlockYAt(rX, rZ);
 
