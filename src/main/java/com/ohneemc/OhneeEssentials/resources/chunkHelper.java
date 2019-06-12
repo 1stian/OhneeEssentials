@@ -5,26 +5,28 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 public class chunkHelper {
 
     private OhneeEssentials plugin;
+
+    private chunkHelper (OhneeEssentials pl) {
+        this.plugin = pl;
+    }
+
     private intRandomizer random;
 
-    public chunkHelper(OhneeEssentials plugin) {
-        this.plugin = plugin;
-    }
     public chunkHelper(intRandomizer rand) {
         this.random = rand;
     }
 
     //Getting min and max from config
-    private Integer maxX = plugin.getConfig().getInt("WildTP.maxX");
-    private Integer minX = plugin.getConfig().getInt("WildTP.minX");
-    private Integer maxZ = plugin.getConfig().getInt("WildTP.maxZ");
-    private Integer minZ = plugin.getConfig().getInt("WildTP.minZ");
+    private Integer maxX;
+    private Integer minX;
+    private Integer maxZ;
+    private Integer minZ;
 
     private int xx;
     private int zz;
@@ -37,6 +39,10 @@ public class chunkHelper {
     private World world;
 
     private int retries = 0;
+
+    public chunkHelper() {
+
+    }
 
     private  boolean chunkLoader(Location chunkLoc) {
         try {
@@ -51,13 +57,18 @@ public class chunkHelper {
 
     private  boolean safeBlock(Material block) {
         //Material block = loc.getBlock().getType();
-
+        //System.out.println("block var debug: " + block);
         return !(block == Material.WATER || block == Material.LAVA);
     }
 
-    public Location getLoc(Player player) {
+    public Location getLoc(Player player, Plugin plugin) {
         World worldLoc = player.getWorld();
-        Location spawn = world.getSpawnLocation();
+        Location spawn = worldLoc.getSpawnLocation();
+
+        maxX = plugin.getConfig().getInt("WildTP.maxX");
+        minX = plugin.getConfig().getInt("WildTP.minX");
+        maxZ = plugin.getConfig().getInt("WildTP.maxZ");
+        minZ = plugin.getConfig().getInt("WildTP.minZ");
 
         int x = (int) spawn.getX();
         int z = (int) spawn.getY();
@@ -72,27 +83,27 @@ public class chunkHelper {
 
         world = worldLoc;
 
-        player.sendMessage("0");
+        //player.sendMessage("0");
 
-        Location randomLoc = randomizer();
+        Location randomLoc = randomizer(world);
 
-        player.sendMessage("1");
+        //player.sendMessage("1");
         if (chunkLoader(randomLoc)) {
-            player.sendMessage("2");
+            //player.sendMessage("2");
             if (safeBlock(randomLoc.getBlock().getType())) {
-                player.sendMessage("3");
+                //player.sendMessage("3");
                 //Getting highest block
-                Block hBlock = randomLoc.getWorld().getHighestBlockAt(randomLoc);
-                int tX = (int) randomLoc.getX();
-                int tY = hBlock.getY();
-                int tZ = (int) randomLoc.getZ();
+                //int hBlock = randomLoc.getWorld().getHighestBlockYAt(randomLoc);
+                int tX = randomLoc.getBlockX();
+                int tY = randomLoc.getBlockY() + 1;
+                int tZ = randomLoc.getBlockX();
 
                 return new Location(worldLoc, tX, tY, tZ);
             } else {
                 if (retries < 5) {
                     retries++;
                     player.sendMessage("Trying to find location! Try: " + retries + "/5");
-                    getLoc(player);
+                    getLoc(player, plugin);
                 } else {
                     player.sendMessage("Couldn't find any safe locations.. Please try again.");
                 }
@@ -101,7 +112,7 @@ public class chunkHelper {
         return null;
     }
 
-    private  Location randomizer() {
+    private  Location randomizer(World world) {
         maxLX = maxX + maxLX;
         minLX = minX + minLX;
         maxLZ = maxZ + maxLZ;
@@ -111,6 +122,8 @@ public class chunkHelper {
         int rX = random.randomInt(maxLX, minLX);
         int rZ = random.randomInt(maxLZ, minLZ);
 
-        return new Location(world, xx, 0, zz);
+        int y = world.getHighestBlockYAt(rX, rZ);
+
+        return new Location(world, rX, y, rZ);
     }
 }

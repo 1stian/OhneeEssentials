@@ -7,8 +7,11 @@ public class OhneeEssentials extends JavaPlugin {
 
     public FileConfiguration config = this.getConfig();
 
+    public OhneeEssentials pl;
+
     @Override
     public void onEnable() {
+        pl = this;
         //Setting and getting config
         config.options().copyDefaults(true);
         this.saveConfig();

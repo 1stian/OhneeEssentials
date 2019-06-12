@@ -1,29 +1,33 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.resources.chunkHelper;
-import com.ohneemc.OhneeEssentials.resources.intRandomizer;
-import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class wild {
 
-    private OhneeEssentials plugin;
-    private intRandomizer random;
-    private chunkHelper chunk;
-
-    public wild(OhneeEssentials plugin) {
-        this.plugin = plugin;
-    }
-    public wild(intRandomizer rand) {this.random = rand;}
-    public wild(chunkHelper chunk) {this.chunk = chunk;}
-
-    public wild(Player player, Plugin plugin) {
+    public wild(final Player player, final Plugin plugin, final chunkHelper chunk) {
         try {
-            System.out.println("chunk var debug: " + chunk);
-            Location tp = chunk.getLoc(player);
-            player.teleport(tp);
+            //Debug lines
+            //System.out.println("player var debug: " + player);
+            //System.out.println("chunk var debug: " + chunk);
+            //System.out.println("plugin var debug: " + plugin);
+
+            plugin.getServer().getScheduler().runTask(plugin, new Runnable() {
+                public void run() {
+                    final Location tp = chunk.getLoc(player, plugin);
+                    player.sendMessage("You will be teleported in 3 seconds! Hang on!");
+
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                        public void run() {
+                            player.teleport(tp);
+                        }
+
+                    }, 60l);
+                }
+            });
+
         }catch (Exception ex){
             player.sendMessage("Something went wrong.... Please tell your server admin!");
             plugin.getLogger().warning(ex.toString());
