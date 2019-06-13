@@ -2,6 +2,7 @@ package com.ohneemc.OhneeEssentials;
 
 import com.ohneemc.OhneeEssentials.commands.Ohnee;
 import com.ohneemc.OhneeEssentials.commands.Wild;
+import com.ohneemc.OhneeEssentials.events.JoinQuitEvent;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -28,7 +29,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.reloadConfig();
 
         //Register events class
-        this.getServer().getPluginManager().registerEvents(new MyEvents(this), this);
+        this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
 
         //Commands
         this.getCommand("Wild").setExecutor(new Wild(this));
