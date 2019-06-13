@@ -1,5 +1,6 @@
 package com.ohneemc.OhneeEssentials;
 
+import com.ohneemc.OhneeEssentials.commands.Wild;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,7 +24,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MyEvents(this), this);
 
         //Commands
-        this.getCommand("Wild").setExecutor(new CommandClass(this));
+        this.getCommand("Wild").setExecutor(new Wild(this));
     }
 
     public void onDisable() {
