@@ -1,7 +1,7 @@
 package com.ohneemc.OhneeEssentials;
 
+import com.ohneemc.OhneeEssentials.commands.Wild;
 import com.ohneemc.OhneeEssentials.events.Quit;
-import com.ohneemc.OhneeEssentials.events.Join;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -15,9 +15,17 @@ public class MyEvents implements Listener {
         this.plugin = plugin;
     }
 
+    private Wild wild;
+
+    public MyEvents(Wild wild) {
+        this.wild = wild;
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        new Join(e.getPlayer());
+        if (!plugin.coolmap.containsKey(e.getPlayer())){
+            plugin.coolmap.put(e.getPlayer(), (System.currentTimeMillis() / 1000));
+        }
     }
 
     @EventHandler
