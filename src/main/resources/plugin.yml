@@ -1,6 +1,7 @@
 name: OhneeEssentials
 version: 1.0
 main: com.ohneemc.OhneeEssentials.OhneeEssentials
+api-version: 1.14
 commands:
   wild:
     description: Randomly teleports you to a location in your current world.
