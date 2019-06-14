@@ -34,15 +34,14 @@ public class Ohnee implements CommandExecutor {
                     }
 
                     return true;
-
                 }
 
+                return false;
 
             } else {
                 plugin.getLogger().warning("Player null... While using command /Wild");
                 return false;
             }
-            //new Wild(((Player) commandSender).getPlayer());
         }
         return false;
     }
