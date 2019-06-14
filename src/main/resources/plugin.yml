@@ -8,3 +8,8 @@ commands:
     aliases: [rtp, wilderness]
     permission: ohnee.basic
     permission-message: You do not have access to this command(/Wild).
+  ohnee:
+    description: Access to admiin commands
+    usage: /Ohnee
+    permission: ohnee.admin
+    permission-message: You do not have access to this command(/Ohnee).
