@@ -4,13 +4,20 @@ main: com.ohneemc.OhneeEssentials.OhneeEssentials
 api-version: 1.14
 commands:
   wild:
-    description: Randomly teleports you to a location in your current world.
+    description: Randomly teleports you in the world.
     usage: /Wild
     aliases: [rtp, wilderness]
     permission: ohnee.basic
-    permission-message: You do not have access to this command(/Wild).
+    permission-message: You do not have access to this command /Wild.
   ohnee:
     description: Access to admiin commands
-    usage: /Ohnee
+    usage: Missing arguments - /ohnee reload or /ohnee version
     permission: ohnee.admin
-    permission-message: You do not have access to this command(/Ohnee).
+    permission-message: You do not have access to this command /Ohnee.
+permissions:
+  ohnee.*:
+    default: false
+    description: access to every command in OhneeEssentials.
+    children:
+      ohnee.basic: true
+      ohnee.admin: true
