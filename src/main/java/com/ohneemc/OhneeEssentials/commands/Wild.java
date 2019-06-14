@@ -142,12 +142,12 @@ public class Wild implements CommandExecutor {
                 }
 
                 private Object NotFound(Player player) {
+                    running = false;
                     player.sendMessage(MessageHelper.couldnTfind);
                     return true;
                 }
 
                 private Object delayMessage(Player player) {
-
                     player.sendMessage(MessageHelper.youWillbeTped + countdown + " seconds");
                     return true;
                 }
