@@ -1,24 +1,20 @@
-package com.ohneemc.OhneeEssentials;
+package com.ohneemc.OhneeEssentials.events;
 
-import com.ohneemc.OhneeEssentials.commands.Wild;
-import com.ohneemc.OhneeEssentials.events.Quit;
+import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class MyEvents implements Listener {
+public class JoinQuitEvent implements Listener {
 
     private OhneeEssentials plugin;
-
-    MyEvents(OhneeEssentials plugin) {
+    public JoinQuitEvent(OhneeEssentials plugin) {
         this.plugin = plugin;
     }
 
-    private Wild wild;
+    public JoinQuitEvent() {
 
-    public MyEvents(Wild wild) {
-        this.wild = wild;
     }
 
     @EventHandler
@@ -30,6 +26,6 @@ public class MyEvents implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        new Quit(e.getPlayer());
+
     }
 }
