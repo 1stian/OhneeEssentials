@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -14,6 +15,7 @@ import org.bukkit.util.Consumer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Wild implements CommandExecutor {
 
@@ -29,6 +31,11 @@ public class Wild implements CommandExecutor {
     private int maxZ;
     private int minZ;
 
+    private int countdown;
+    private int cooldown;
+
+    private boolean running = false;
+
     private List<Material> materials = new ArrayList<Material>();
 
     private int retries = 0;
@@ -42,27 +49,45 @@ public class Wild implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         //Wild command
         if (command.getName().equalsIgnoreCase("Wild")) {
-            if (commandSender instanceof Player && commandSender.hasPermission("ohnee.Wild")) {
-                if (((Player) commandSender).getPlayer() != null) {
-                    Player player = ((Player) commandSender).getPlayer();
-                    Wild(player, plugin);
-                    return true;
+            if (((Player) commandSender).getPlayer() != null) {
+                Player player = ((Player) commandSender).getPlayer();
+
+                if ((plugin.coolmap.get(player) / 1000 + cooldown) >= (System.currentTimeMillis() / 1000)) {
+                    assert player != null;
+                    Long timeLeft = System.currentTimeMillis() - plugin.coolmap.get(player);
+                    player.sendMessage(MessageHelper.timeLeft + (TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cooldown) + " seconds");
                 } else {
-                    plugin.getLogger().warning("Player null... While using command /Wild");
-                    return false;
+                    if (!running){
+                        running = true;
+                        Wild(player, plugin);
+                    }else{
+                        assert player != null;
+                        player.sendMessage(MessageHelper.alreadyBeingTeleported);
+                    }
                 }
-                //new Wild(((Player) commandSender).getPlayer());
+                return true;
+            } else {
+                plugin.getLogger().warning("Player null... While using command /Wild");
+                return false;
             }
+            //new Wild(((Player) commandSender).getPlayer());
         }
         return false;
     }
 
     private void Wild(final Player player, final Plugin plugin) {
         try {
+            //Getting settings
+            countdown = plugin.getConfig().getInt("Teleport.countdown");
+            cooldown = plugin.getConfig().getInt("Teleport.cooldown");
+
+            //Getting radius
             maxX = plugin.getConfig().getInt("WildTP.Radius.maxX");
             minX = plugin.getConfig().getInt("WildTP.Radius.minX");
             maxZ = plugin.getConfig().getInt("WildTP.Radius.maxZ");
             minZ = plugin.getConfig().getInt("WildTP.Radius.minZ");
+
+            //Getting safeblocks
             List<String> safeBlocks = plugin.getConfig().getStringList("WildTP.SafeBlocks");
 
             final World world = player.getWorld();
@@ -79,7 +104,7 @@ public class Wild implements CommandExecutor {
 
             //Filling list
             for (String material : safeBlocks) {
-                materials.add(Material.getMaterial(material));
+                materials.add(Material.getMaterial(material.toUpperCase()));
             }
 
             final Location[] tp = new Location[1];
@@ -88,9 +113,10 @@ public class Wild implements CommandExecutor {
                 public void run() {
                     tp[0] = getHighestBlock(world, rX, rZ);
                     Block blockY = player.getWorld().getHighestBlockAt(tp[0]);
-                    final Location ready = new Location(world, rX, blockY.getY(), rZ).subtract(0,1,0);
+                    final Location ready = new Location(world, rX, blockY.getY(), rZ).subtract(0, 1, 0);
 
                     if (SafeBlock(ready)) {
+                        callback.accept(delayMessage(player));
                         callback.accept(TeleportPlayer(player, ready));
                     } else {
                         if (retries < 10) {
@@ -104,17 +130,25 @@ public class Wild implements CommandExecutor {
                 }
 
                 private Object TeleportPlayer(final Player player, final Location ready) {
-                    plugin.getServer().getScheduler().runTask(plugin, new Runnable() {
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                         public void run() {
                             player.sendMessage("Teleporting");
-                            player.teleport(ready.add(0,2,0));
+                            OhneeEssentials.coolmap.put(player, (System.currentTimeMillis()));
+                            player.teleport(ready.add(0, 2, 0));
+                            running = false;
                         }
-                    });
+                    }, countdown * 20L);
                     return true;
                 }
 
                 private Object NotFound(Player player) {
-                    player.sendMessage("Couldn't find any location... Please try again.");
+                    player.sendMessage(MessageHelper.couldnTfind);
+                    return true;
+                }
+
+                private Object delayMessage(Player player) {
+
+                    player.sendMessage(MessageHelper.youWillbeTped + countdown + " seconds");
                     return true;
                 }
             });
