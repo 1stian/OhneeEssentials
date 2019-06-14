@@ -28,10 +28,10 @@ public class MessageHelper {
 
         //List of messages to write to file
         List<String> lines = Arrays.asList(
-                "Cooldown-Text;;;You must wait: ",
-                "Already-being-teleported;;;You're already being teleported, be patient!",
-                "You-will-be-teleported;;;You will be teleported in approx: ",
-                "Couldn't-find-location;;;Couldn't find any location... Please try again."
+                "Cooldown-Text;You must wait: ",
+                "Already-being-teleported;You're already being teleported, be patient!",
+                "You-will-be-teleported;You will be teleported in approx: ",
+                "Couldn't-find-location;Couldn't find any location... Please try again."
         );
 
         if (!customMessages.exists()){
@@ -48,7 +48,7 @@ public class MessageHelper {
         }
     }
 
-    public boolean loadMessages(String fileName){
+    public void loadMessages(String fileName){
         List<String> listMsg = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             for(String line; (line = br.readLine()) != null; ) {
@@ -56,22 +56,20 @@ public class MessageHelper {
                 System.out.print(line);
             }
 
-            String l1 = listMsg.get(0).split(";;;")[1];
+            String l1 = listMsg.get(0).split(";")[1];
             timeLeft = l1;
 
-            String l2 = listMsg.get(1).split(";;;")[1];
+            String l2 = listMsg.get(1).split(";")[1];
             alreadyBeingTeleported = l2;
 
-            String l3 = listMsg.get(2).split(";;;")[1];
+            String l3 = listMsg.get(2).split(";")[1];
             youWillbeTped = l3;
 
-            String l4 = listMsg.get(3).split(";;;")[1];
+            String l4 = listMsg.get(3).split(";")[1];
             couldnTfind = l4;
 
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
     }
 }
