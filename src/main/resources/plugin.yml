@@ -29,6 +29,11 @@ commands:
     usage: Missing arguments - /weather clear|thunder|rain <duration in seconds>
     permission: ohnee.weather
     permission-message: You do not have access to this command /weather.
+  time:
+    description: Sets the current worlds time!
+    usage: Missing arguments - /time day|night
+    permission: ohnee.time
+    permission-message: You do not have access to this command /time.
 permissions:
   ohnee.*:
     default: false
@@ -39,3 +44,4 @@ permissions:
       ohnee.tp: true
       ohnee.tphere: true
       ohnee.weather: true
+      ohnee.time: ture
