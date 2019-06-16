@@ -19,17 +19,27 @@ public class Weather implements CommandExecutor {
             Player player = ((Player) commandSender).getPlayer();
             World world = player.getWorld();
 
+            if (strings.length < 1){
+                return false;
+            }
+
             String type = strings[0].toLowerCase();
-            String duration = strings[1];
+            String duration = null;
+
+            if (strings.length > 1){
+                duration = strings[1];
+            }
 
             switch (type){
                 case "clear":
                     world.setThundering(false);
+                    world.setStorm(false);
                     world.setWeatherDuration(0);
-                    player.sendMessage("Weather has been sett to clear!");
+                    player.sendMessage("Weather has been set to clear!");
                     return true;
                 case "thunder":
                     world.setThundering(true);
+                    world.setWeatherDuration(6000);
                     player.sendMessage("Is that... Thunder?!");
                     return true;
                 case "rain":
@@ -38,6 +48,7 @@ public class Weather implements CommandExecutor {
                         world.setWeatherDuration(time * 20);
                         player.sendMessage("Weather has been set to rain");
                     }else{
+                        world.setStorm(true);
                         world.setWeatherDuration(6000);
                         player.sendMessage("Weather has been set to rain");
                     }
