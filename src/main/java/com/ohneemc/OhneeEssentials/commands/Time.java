@@ -19,7 +19,7 @@ public class Time implements CommandExecutor {
             Player player = ((Player) commandSender).getPlayer();
             World world = player.getWorld();
 
-            String type = strings[0];
+            String type = strings[0].toLowerCase();
 
             switch (type){
                 case "day":
