@@ -1,7 +1,10 @@
 name: OhneeEssentials
 version: 1.0
+author: Stian "1stian" Tofte
+website: http://ohneemc.com
 main: com.ohneemc.OhneeEssentials.OhneeEssentials
 api-version: 1.14
+prefix: Ohnee
 commands:
   wild:
     description: Randomly teleports you in the world.
