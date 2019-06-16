@@ -10,10 +10,25 @@ commands:
     permission: ohnee.basic
     permission-message: You do not have access to this command /Wild.
   ohnee:
-    description: Access to admiin commands
+    description: Access to admiin commands.
     usage: Missing arguments - /ohnee reload or /ohnee version
     permission: ohnee.admin
     permission-message: You do not have access to this command /Ohnee.
+  tp:
+    description: Teleport you to a player.
+    usage: Missing arguments - /ohnee reload or /ohnee version
+    permission: ohnee.tp
+    permission-message: You do not have access to this command /tp.
+  tphere:
+    description: Teleport a player to you.
+    usage: Missing arguments - /ohnee reload or /ohnee version
+    permission: ohnee.tphere
+    permission-message: You do not have access to this command /tphere.
+  weather:
+    description: Sets the current worlds weather!
+    usage: Missing arguments - /weather clear|thunder|rain <duration in seconds>
+    permission: ohnee.weather
+    permission-message: You do not have access to this command /weather.
 permissions:
   ohnee.*:
     default: false
@@ -21,3 +36,6 @@ permissions:
     children:
       ohnee.basic: true
       ohnee.admin: true
+      ohnee.tp: true
+      ohnee.tphere: true
+      ohnee.weather: true
