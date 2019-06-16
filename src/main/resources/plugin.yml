@@ -7,10 +7,10 @@ commands:
     description: Randomly teleports you in the world.
     usage: /Wild
     aliases: [rtp, wilderness]
-    permission: ohnee.basic
+    permission: ohnee.wild
     permission-message: You do not have access to this command /Wild.
   ohnee:
-    description: Access to admiin commands.
+    description: Access to admin commands.
     usage: Missing arguments - /ohnee reload or /ohnee version
     permission: ohnee.admin
     permission-message: You do not have access to this command /Ohnee.
@@ -37,7 +37,7 @@ commands:
 permissions:
   ohnee.*:
     default: false
-    description: access to every command in OhneeEssentials.
+    description: Access to every command in OhneeEssentials.
     children:
       ohnee.basic: true
       ohnee.admin: true
@@ -45,3 +45,8 @@ permissions:
       ohnee.tphere: true
       ohnee.weather: true
       ohnee.time: true
+  ohnee.use:
+    default: false
+    description: Access to all the basic uses of OhneeEssentials.
+    children:
+      ohnee.wild: true
