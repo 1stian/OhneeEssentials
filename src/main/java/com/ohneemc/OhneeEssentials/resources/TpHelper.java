@@ -11,6 +11,7 @@ public class TpHelper {
             Player two = plugin.getServer().getPlayer(p2);
             if (one != null && two != null){
                 one.teleport(two.getLocation());
+                one.sendMessage("You've been teleported to: " + two);
                 return true;
             }
             return false;
