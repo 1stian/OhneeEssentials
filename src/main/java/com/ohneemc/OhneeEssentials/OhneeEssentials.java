@@ -3,6 +3,7 @@ package com.ohneemc.OhneeEssentials;
 import com.ohneemc.OhneeEssentials.commands.*;
 import com.ohneemc.OhneeEssentials.events.JoinQuitEvent;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,10 +20,12 @@ public class OhneeEssentials extends JavaPlugin {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
+        //Enabling metrics
+        //Metrics metrics = new Metrics(this);
+
         //Setting and getting config
         config.options().copyDefaults(true);
         this.saveConfig();
-
         this.reloadConfig();
 
         //Register events class
