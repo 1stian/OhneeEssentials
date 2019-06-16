@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class Ohnee implements CommandExecutor {
     private OhneeEssentials plugin;
