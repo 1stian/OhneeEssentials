@@ -1,17 +1,24 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.Arrays;
 
 public class Ohnee implements CommandExecutor {
     private OhneeEssentials plugin;
     public Ohnee(OhneeEssentials ohneeEssentials) {
         this.plugin = ohneeEssentials;
+    }
+
+    private MessageHelper msg;
+    public Ohnee(MessageHelper msg){
+        this.msg = msg;
     }
 
     @Override
@@ -23,8 +30,10 @@ public class Ohnee implements CommandExecutor {
                     System.out.print(strings[0]);
                     switch (strings[0]){
                         case "reload":
+                            File customMessages = new File(plugin.getDataFolder(), "messages.txt");
                             plugin.getConfig();
-                            if (player != null) player.sendMessage("Config has been reloaded");
+                            msg.loadMessages(String.valueOf(customMessages));
+                            if (player != null) player.sendMessage("Config has been reloaded!");
                             break;
 
                         case "version":
