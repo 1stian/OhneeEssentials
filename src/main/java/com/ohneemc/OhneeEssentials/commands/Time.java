@@ -19,6 +19,10 @@ public class Time implements CommandExecutor {
             Player player = ((Player) commandSender).getPlayer();
             World world = player.getWorld();
 
+            if (strings.length < 1){
+                return false;
+            }
+
             String type = strings[0].toLowerCase();
 
             switch (type){
