@@ -15,7 +15,7 @@ public class Weather implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (command.getName().equalsIgnoreCase("Weather")){
+        if (command.getName().equalsIgnoreCase("Weather") && commandSender instanceof Player) {
             Player player = ((Player) commandSender).getPlayer();
             World world = player.getWorld();
 
@@ -26,16 +26,20 @@ public class Weather implements CommandExecutor {
                 case "clear":
                     world.setThundering(false);
                     world.setWeatherDuration(0);
+                    player.sendMessage("Weather has been sett to clear!");
                     return true;
                 case "thunder":
                     world.setThundering(true);
+                    player.sendMessage("Is that... Thunder?!");
                     return true;
                 case "rain":
                     if (duration != null){
                         int time = Integer.parseInt(duration);
                         world.setWeatherDuration(time * 20);
+                        player.sendMessage("Weather has been set to rain");
                     }else{
                         world.setWeatherDuration(6000);
+                        player.sendMessage("Weather has been set to rain");
                     }
                     return true;
             }
