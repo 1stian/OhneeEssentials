@@ -34,6 +34,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Tp").setExecutor(new Tp(this));
         this.getCommand("Tphere").setExecutor(new Tphere(this));
         this.getCommand("Weather").setExecutor(new Weather(this));
+        this.getCommand("Time").setExecutor(new Time(this));
 
         //Create message file and load it
         new MessageHelper(this);
