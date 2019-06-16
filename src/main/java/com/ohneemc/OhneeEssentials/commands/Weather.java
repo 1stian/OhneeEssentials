@@ -19,7 +19,7 @@ public class Weather implements CommandExecutor {
             Player player = ((Player) commandSender).getPlayer();
             World world = player.getWorld();
 
-            String type = strings[0];
+            String type = strings[0].toLowerCase();
             String duration = strings[1];
 
             switch (type){
@@ -34,7 +34,7 @@ public class Weather implements CommandExecutor {
                     return true;
                 case "rain":
                     if (duration != null){
-                        int time = Integer.parseInt(duration);
+                        int time = Integer.parseInt(duration.toLowerCase());
                         world.setWeatherDuration(time * 20);
                         player.sendMessage("Weather has been set to rain");
                     }else{
