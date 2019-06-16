@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 public class Wild implements CommandExecutor {
 
     private OhneeEssentials plugin;
-
     public Wild(OhneeEssentials plugin) {
         this.plugin = plugin;
     }
@@ -54,7 +53,7 @@ public class Wild implements CommandExecutor {
 
                 if ((plugin.coolmap.get(player) / 1000 + cooldown) >= (System.currentTimeMillis() / 1000)) {
                     assert player != null;
-                    Long timeLeft = System.currentTimeMillis() - plugin.coolmap.get(player);
+                    Long timeLeft = System.currentTimeMillis() - OhneeEssentials.coolmap.get(player);
                     player.sendMessage(MessageHelper.timeLeft + (TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cooldown) + " seconds");
                 } else {
                     if (!running){
