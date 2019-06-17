@@ -5,6 +5,7 @@ import com.ohneemc.OhneeEssentials.events.JoinQuitEvent;
 import com.ohneemc.OhneeEssentials.events.KeepXp;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -38,7 +39,8 @@ public class OhneeEssentials extends JavaPlugin {
     @Override
     public void onEnable() {
         //Enabling metrics
-        //Metrics metrics = new Metrics(this);
+        Metrics metrics = new Metrics(this);
+
 
         //Setting and getting config
         config.options().copyDefaults(true);
