@@ -37,6 +37,21 @@ commands:
     usage: Missing arguments - /time day|night
     permission: ohnee.time
     permission-message: You do not have access to this command /time.
+  warp:
+    description: Teleports you to a warp.
+    usage: Missing arguments - /warp <name>
+    permission: ohnee.warp
+    permission-message: You do not have access to this command /warp.
+  setwarp:
+    description: Sets a warp location.
+    usage: Missing arguments - /setwarp <name>
+    permission: ohnee.warp
+    permission-message: You do not have access to this command /setwarp.
+  delwarp:
+    description: Deletes a warp location.
+    usage: Missing arguments - /delwarp <name>
+    permission: ohnee.delwarp
+    permission-message: You do not have access to this command /delwarp.
 permissions:
   ohnee.*:
     default: false
@@ -48,8 +63,12 @@ permissions:
       ohnee.tphere: true
       ohnee.weather: true
       ohnee.time: true
+      ohnee.warp: true
+      ohnee.setwarp: true
+      ohnee.delwarp: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
     children:
       ohnee.wild: true
+      ohnee.warp: true
