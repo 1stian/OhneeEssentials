@@ -67,7 +67,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Setwarp").setExecutor(new Setwarp(this));
         this.getCommand("Delwarp").setExecutor(new Delwarp(this));
 
-        //Testing jenkins2
+        //Testing jenkins3
     }
 
     public void onDisable() {
