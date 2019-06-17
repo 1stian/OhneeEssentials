@@ -69,7 +69,6 @@ public class Wild implements CommandExecutor {
                 plugin.getLogger().warning("Player null... While using command /Wild");
                 return false;
             }
-            //new Wild(((Player) commandSender).getPlayer());
         }
         return false;
     }
