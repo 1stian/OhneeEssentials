@@ -39,7 +39,7 @@ public class OhneeEssentials extends JavaPlugin {
     @Override
     public void onEnable() {
         //Enabling metrics
-        Metrics metrics = new Metrics(this);
+        //Metrics metrics = new Metrics(this);
 
 
         //Setting and getting config
