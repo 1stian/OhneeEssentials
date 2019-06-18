@@ -1,3 +1,9 @@
+PluginSettings:
+  Warp:
+    toml: true
+    yaml: false
+    json: false
+    mysql: false
 Teleport:
   cooldown: 60
   countdown: 3
