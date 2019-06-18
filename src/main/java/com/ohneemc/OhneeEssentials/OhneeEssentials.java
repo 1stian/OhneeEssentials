@@ -5,6 +5,7 @@ import com.ohneemc.OhneeEssentials.events.JoinQuitEvent;
 import com.ohneemc.OhneeEssentials.events.KeepXp;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
+import de.leonhard.storage.Toml;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,6 +23,9 @@ public class OhneeEssentials extends JavaPlugin {
     private File warpFile = new File(getDataFolder(), "warps.yml");
     private FileConfiguration warpConfig = YamlConfiguration.loadConfiguration(warpFile);
     private WarpConfigHelper warpConfigHelper = new WarpConfigHelper(this);
+    private Toml tomlWarpsConfig = new Toml("warps.toml", getDataFolder().toString());
+
+    public Toml tomlWarps() {return  tomlWarpsConfig;}
 
     public FileConfiguration warpConfig() {
         return warpConfig;

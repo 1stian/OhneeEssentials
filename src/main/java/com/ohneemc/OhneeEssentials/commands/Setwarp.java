@@ -1,10 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import de.leonhard.storage.LightningEditor;
 import de.leonhard.storage.Toml;
-import de.leonhard.storage.base.LightningBase;
-import de.leonhard.storage.base.TomlBase;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,8 +15,6 @@ public class Setwarp implements CommandExecutor {
     public Setwarp(OhneeEssentials plugin) {
         this.plugin = plugin;
     }
-
-    Toml toml = new Toml("warps.toml", plugin.getDataFolder().toString());
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -55,12 +50,12 @@ public class Setwarp implements CommandExecutor {
                 plugin.warpConfig().set(warpName + ".yaw", yaw);
 
                 //Toml format test:
-                toml.set(warpName + ".world", world);
-                toml.set(warpName + ".x", x);
-                toml.set(warpName + ".y", y);
-                toml.set(warpName + ".z", z);
-                toml.set(warpName + ".pitch", pitch);
-                toml.set(warpName + ".yaw", yaw);
+                plugin.tomlWarps().set(warpName + ".world", world);
+                plugin.tomlWarps().set(warpName + ".x", x);
+                plugin.tomlWarps().set(warpName + ".y", y);
+                plugin.tomlWarps().set(warpName + ".z", z);
+                plugin.tomlWarps().set(warpName + ".pitch", pitch);
+                plugin.tomlWarps().set(warpName + ".yaw", yaw);
 
                 try {
                     plugin.warpConfig().save(plugin.getWarpFile());
