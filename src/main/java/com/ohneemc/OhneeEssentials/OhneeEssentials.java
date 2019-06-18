@@ -13,10 +13,13 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class OhneeEssentials extends JavaPlugin {
 
@@ -36,13 +39,20 @@ public class OhneeEssentials extends JavaPlugin {
         return warpFile;
     }
 
+    private Plugin pl;
+    public Plugin plugin(){return pl;}
+
     //Maps
     public static HashMap<Player, Long> coolmap = new HashMap<>();
     public static HashMap<String, Location> warpMap = new HashMap<>();
 
+    private HashMap<UUID, Date> playime= new HashMap<>();
+    public HashMap pTime(){return  playime;}
+
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
+        pl = this;
         //Enabling metrics
         //Metrics metrics = new Metrics(this);
 
@@ -62,7 +72,7 @@ public class OhneeEssentials extends JavaPlugin {
         //warpConfigHelper.warpSaver();
 
         //Register events class
-        this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
 
         //Commands

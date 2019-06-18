@@ -10,30 +10,38 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class JoinQuitEvent implements Listener {
 
-    private OhneeEssentials plugin;
+    private OhneeEssentials Ohnee;
     public JoinQuitEvent(OhneeEssentials plugin) {
-        this.plugin = plugin;
+        this.Ohnee = plugin;
     }
 
-    Json userdata;
-
-    public JoinQuitEvent() {
-
-    }
+    private Json userdata;
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        if (!plugin.coolmap.containsKey(e.getPlayer())){
-            plugin.coolmap.put(e.getPlayer(), (System.currentTimeMillis() / 1000));
+        normalJoin(e.getPlayer());
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e) {
+        userLeave(e.getPlayer());
+    }
+
+    private void normalJoin(Player e){
+        Ohnee.pTime().put(e.getPlayer().getUniqueId(), System.currentTimeMillis());
+
+        if (!Ohnee.coolmap.containsKey(e.getPlayer())){
+            Ohnee.coolmap.put(e.getPlayer(), (System.currentTimeMillis() / 1000));
         }
 
-        File uData = new File(plugin.getDataFolder() + "/userdata");
+        System.out.print("DataFolder: " + Ohnee.getDataFolder().getAbsoluteFile());
+        File uData = new File(Ohnee.getDataFolder().getAbsoluteFile() + "/userdata");
         if(!uData.exists()){
             try{
                 uData.mkdir();
@@ -42,38 +50,49 @@ public class JoinQuitEvent implements Listener {
             }
         }
 
-        File first = new File(plugin.getDataFolder() + "/userdata/" + e.getPlayer().getUniqueId().toString());
+        File first = new File(Ohnee.getDataFolder().getAbsoluteFile() + "/userdata/" + e.getPlayer().getUniqueId().toString());
         if (!first.exists()){
+            userdata = new Json(e.getPlayer().getUniqueId().toString(), Ohnee.getDataFolder().getAbsoluteFile() + "/userdata");
             firstJoin(e.getPlayer());
-            userdata = new Json(e.getPlayer().getUniqueId().toString(), plugin.getDataFolder().toString() + "/userdata/");
         }else{
             SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
             Date date = new Date(System.currentTimeMillis());
 
-            userdata = new Json(e.getPlayer().getUniqueId().toString(), plugin.getDataFolder().toString() + "/userdata/");
+            userdata = new Json(e.getPlayer().getUniqueId().toString(), Ohnee.getDataFolder().getAbsoluteFile() + "/userdata");
             userdata.set("PlayerInfo.Name", e.getPlayer().getName());
             userdata.set("PlayerInfo.UUID", e.getPlayer().getUniqueId().toString());
+            userdata.set("PlayerInfo.Banned", false);
             userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
         }
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-
-    }
-
-    public void firstJoin(Player player){
+    private void firstJoin(Player player){
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
 
-        userdata.set("PlayerInfo.Name", player.getPlayer().getName());
-        userdata.set("PlayerInfo.UUID", player.getPlayer().getUniqueId().toString());
+        userdata.set("PlayerInfo.Name", player.getName());
+        userdata.set("PlayerInfo.UUID", player.getUniqueId().toString());
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.Playtime", 0);
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
     }
 
     public void userLeave(Player player){
+        Long joinedTime = (Long) Ohnee.pTime().get(player.getUniqueId());
+        Long timeLeave = System.currentTimeMillis();
+        Long summed = timeLeave - joinedTime;
+        Long currentPlaytime = userdata.getLong("PlayerStats.Playtime");
+        Long ready = currentPlaytime + summed;
+
+        userdata.set("PlayerStats.Playtime", ready);
+
+        Ohnee.pTime().remove(player.getUniqueId());
+
+        //String playtime = String.format("%02d Days, %02d Min, %02d Sec",
+        //        TimeUnit.MILLISECONDS.toDays(summed),
+        //        TimeUnit.MILLISECONDS.toMinutes(summed),
+        //        TimeUnit.MILLISECONDS.toSeconds(summed));
+
 
     }
 }
