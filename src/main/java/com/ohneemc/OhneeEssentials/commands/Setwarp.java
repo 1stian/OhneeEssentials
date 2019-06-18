@@ -16,14 +16,15 @@ public class Setwarp implements CommandExecutor {
         this.plugin = plugin;
     }
 
-    private boolean tomlSave = plugin.getConfig().getBoolean("PluginSettings.Warp.toml");
-    private boolean yamlSave = plugin.getConfig().getBoolean("PluginSettings.Warp.yaml");
-    private boolean jsonSave = plugin.getConfig().getBoolean("PluginSettings.Warp.json");
-    private boolean mysqlSave = plugin.getConfig().getBoolean("PluginSettings.Warp.mysql");
-
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (command.getName().equalsIgnoreCase("Setwarp") && commandSender instanceof Player) {
+            boolean tomlSave = plugin.getConfig().getBoolean("PluginSettings.Warp.toml");
+            boolean yamlSave = plugin.getConfig().getBoolean("PluginSettings.Warp.yaml");
+            boolean jsonSave = plugin.getConfig().getBoolean("PluginSettings.Warp.json");
+            boolean mysqlSave = plugin.getConfig().getBoolean("PluginSettings.Warp.mysql");
+
+
             Player player = ((Player) commandSender).getPlayer();
             String warpName = null;
 
