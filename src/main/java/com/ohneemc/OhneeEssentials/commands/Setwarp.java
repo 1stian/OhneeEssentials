@@ -19,6 +19,8 @@ public class Setwarp implements CommandExecutor {
         this.plugin = plugin;
     }
 
+    Toml toml = new Toml("warps.toml", plugin.getDataFolder().toString());
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (command.getName().equalsIgnoreCase("Setwarp") && commandSender instanceof Player) {
@@ -53,7 +55,12 @@ public class Setwarp implements CommandExecutor {
                 plugin.warpConfig().set(warpName + ".yaw", yaw);
 
                 //Toml format test:
-
+                toml.set(warpName + ".world", world);
+                toml.set(warpName + ".x", x);
+                toml.set(warpName + ".y", y);
+                toml.set(warpName + ".z", z);
+                toml.set(warpName + ".pitch", pitch);
+                toml.set(warpName + ".yaw", yaw);
 
                 try {
                     plugin.warpConfig().save(plugin.getWarpFile());
