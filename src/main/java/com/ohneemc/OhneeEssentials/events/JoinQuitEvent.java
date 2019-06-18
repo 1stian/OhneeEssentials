@@ -33,7 +33,7 @@ public class JoinQuitEvent implements Listener {
             plugin.coolmap.put(e.getPlayer(), (System.currentTimeMillis() / 1000));
         }
 
-        File uData = new File("userdata");
+        File uData = new File("/userdata");
         if(!uData.exists()){
             try{
                 uData.mkdir();
@@ -45,12 +45,12 @@ public class JoinQuitEvent implements Listener {
         File first = new File(plugin.getDataFolder() + "userdata/" + e.getPlayer().getUniqueId().toString());
         if (!first.exists()){
             firstJoin(e.getPlayer());
-            userdata = new Json(e.getPlayer().getUniqueId().toString(), plugin.getDataFolder().toString() + "userdata/");
+            userdata = new Json(e.getPlayer().getUniqueId().toString(), plugin.getDataFolder().toString() + "/userdata/");
         }else{
             SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
             Date date = new Date(System.currentTimeMillis());
 
-            userdata = new Json(e.getPlayer().getUniqueId().toString(), plugin.getDataFolder().toString() + "userdata/");
+            userdata = new Json(e.getPlayer().getUniqueId().toString(), plugin.getDataFolder().toString() + "/userdata/");
             userdata.set("PlayerInfo.Name", e.getPlayer().getName());
             userdata.set("PlayerInfo.UUID", e.getPlayer().getUniqueId().toString());
             userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
