@@ -3,6 +3,7 @@ version: 1.0
 author: Stian "1stian" Tofte
 website: http://ohneemc.com
 main: com.ohneemc.OhneeEssentials.OhneeEssentials
+depend: [PlaceholderAPI]
 api-version: 1.14
 prefix: Ohnee
 commands:
