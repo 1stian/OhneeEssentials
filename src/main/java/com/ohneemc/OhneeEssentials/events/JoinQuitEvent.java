@@ -1,7 +1,6 @@
 package com.ohneemc.OhneeEssentials.events;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import com.ohneemc.OhneeEssentials.commands.Time;
 import de.leonhard.storage.Json;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +11,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class JoinQuitEvent implements Listener {
 
