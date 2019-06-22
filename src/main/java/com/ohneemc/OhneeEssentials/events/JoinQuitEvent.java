@@ -33,11 +33,12 @@ public class JoinQuitEvent implements Listener {
         userLeave(e.getPlayer());
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void normalJoin(Player e){
         Ohnee.pTime().put(e.getPlayer().getUniqueId(), System.currentTimeMillis());
 
-        if (!Ohnee.coolmap.containsKey(e.getPlayer())){
-            Ohnee.coolmap.put(e.getPlayer(), (System.currentTimeMillis() / 1000));
+        if (!OhneeEssentials.coolmap.containsKey(e.getPlayer())){
+            OhneeEssentials.coolmap.put(e.getPlayer(), (System.currentTimeMillis() / 1000));
         }
 
         System.out.print("DataFolder: " + Ohnee.getDataFolder().getAbsoluteFile());
@@ -50,7 +51,7 @@ public class JoinQuitEvent implements Listener {
             }
         }
 
-        File first = new File(Ohnee.getDataFolder().getAbsoluteFile() + "/userdata/" + e.getPlayer().getUniqueId().toString());
+        File first = new File(Ohnee.getDataFolder().getAbsoluteFile() + "/userdata/" + e.getPlayer().getUniqueId().toString() + ".json");
         if (!first.exists()){
             userdata = new Json(e.getPlayer().getUniqueId().toString(), Ohnee.getDataFolder().getAbsoluteFile() + "/userdata");
             firstJoin(e.getPlayer());
@@ -72,12 +73,18 @@ public class JoinQuitEvent implements Listener {
 
         userdata.set("PlayerInfo.Name", player.getName());
         userdata.set("PlayerInfo.UUID", player.getUniqueId().toString());
+        userdata.set("PlayerInfo.Banned", false);
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.Playtime", 0);
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
     }
 
-    public void userLeave(Player player){
+    private void userLeave(Player player){
+        userdata.update();
+
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+
         Long joinedTime = (Long) Ohnee.pTime().get(player.getUniqueId());
         Long timeLeave = System.currentTimeMillis();
         Long summed = timeLeave - joinedTime;
@@ -85,6 +92,7 @@ public class JoinQuitEvent implements Listener {
         Long ready = currentPlaytime + summed;
 
         userdata.set("PlayerStats.Playtime", ready);
+        userdata.set("PlayerStats.LastSeen", formatter.format(date));
 
         Ohnee.pTime().remove(player.getUniqueId());
 
