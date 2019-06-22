@@ -41,6 +41,7 @@ commands:
   warp:
     description: Teleports you to a warp.
     usage: Missing arguments - /warp <name>
+    aliases: [warps]
     permission: ohnee.warp
     permission-message: You do not have access to this command /warp.
   setwarp:
