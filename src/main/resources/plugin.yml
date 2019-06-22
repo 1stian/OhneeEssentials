@@ -20,14 +20,34 @@ commands:
     permission-message: You do not have access to this command /Ohnee.
   tp:
     description: Teleport you to a player.
-    usage: Missing arguments - /ohnee reload or /ohnee version
+    usage: Missing arguments - /tp <player>
     permission: ohnee.tp
     permission-message: You do not have access to this command /tp.
   tphere:
     description: Teleport a player to you.
-    usage: Missing arguments - /ohnee reload or /ohnee version
+    usage: Missing arguments - /tphere <player>
     permission: ohnee.tphere
     permission-message: You do not have access to this command /tphere.
+  tpa:
+    description: Sends a teleport request to a specified player.
+    usage: Missing arguments - /tpa <player>
+    permission: ohnee.tpa
+    permission-message: You do not have access to this command /tpa.
+  tpahere:
+    description: Sends a teleport here request to a specified player.
+    usage: Missing arguments - /tpahere <player>
+    permission: ohnee.tpahere
+    permission-message: You do not have access to this command /tpa.
+  tpaccept:
+    description: Accepts a teleport request.
+    usage: Missing arguments - /tpaccept
+    permission: ohnee.tpaccept
+    permission-message: You do not have access to this command /tpaccept.
+  tpdeny:
+    description: Denies a teleport request.
+    usage: Missing arguments - /tpdeny
+    permission: ohnee.tpdeny
+    permission-message: You do not have access to this command /tpdeny.
   back:
     description: Teleports you to your previous location.
     usage: /back
@@ -68,6 +88,10 @@ permissions:
       ohnee.admin: true
       ohnee.tp: true
       ohnee.tphere: true
+      ohnee.tpa: true
+      ohnee.tpahere: true
+      ohnee.tpaccept: true
+      ohnee.tpdeny: true
       ohnee.weather: true
       ohnee.time: true
       ohnee.warp: true
@@ -80,3 +104,11 @@ permissions:
     children:
       ohnee.wild: true
       ohnee.warp: true
+  ohnee.tpa:
+    default: false
+    description: Access to all the tpa commands.
+    children:
+      ohnee.tpa: true
+      ohnee.tpahere: true
+      ohnee.tpaccept: true
+      ohnee.tpdeny: true
