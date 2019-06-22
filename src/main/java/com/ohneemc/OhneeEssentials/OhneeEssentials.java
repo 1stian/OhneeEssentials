@@ -7,37 +7,27 @@ import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Toml;
+import de.leonhard.storage.Yaml;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class OhneeEssentials extends JavaPlugin {
 
-    private FileConfiguration config = this.getConfig();
-    private File warpFile = new File(getDataFolder(), "warps.yml");
-    private FileConfiguration warpConfig = YamlConfiguration.loadConfiguration(warpFile);
     private WarpConfigHelper warpConfigHelper = new WarpConfigHelper(this);
-    private Toml tomlWarpsConfig = new Toml("warps", getDataFolder().toString());
-    private Json jsonWarpsConfig = new Json("warps", getDataFolder().toString());
+    private Toml tomlWarpsConfig;
+    private Json jsonWarpsConfig;
+    private Yaml ymlWarpsConfig;
+    private Toml settings = new Toml("settings", getDataFolder().toString());
 
     public Toml tomlWarps() {return  tomlWarpsConfig;}
     public Json jsonWarps() {return  jsonWarpsConfig;}
-    public FileConfiguration warpConfig() {
-        return warpConfig;
-    }
-    public File getWarpFile() {
-        return warpFile;
-    }
+    public Yaml yamlWarps() {return  ymlWarpsConfig;}
 
     private Plugin pl;
     public Plugin plugin(){return pl;}
@@ -57,15 +47,28 @@ public class OhneeEssentials extends JavaPlugin {
         //Metrics metrics = new Metrics(this);
 
 
-        //Setting and getting config
-        config.options().copyDefaults(true);
-        this.saveConfig();
-        this.reloadConfig();
+        //Setting defaults!
+        settings.setDefault("PluginSettings.Warp.toml", "false");
+        settings.setDefault("PluginSettings.Warp.yaml", "false");
+        settings.setDefault("PluginSettings.Warp.json", "true");
+        settings.setDefault("PluginSettings.Warp.mysql", "false");
+        settings.setDefault("PluginSettings.Teleport.cooldown", 60);
+        settings.setDefault("PluginSettings.Teleport.countdown", 3);
+        settings.setDefault("PluginSettings.WildTP.Radius.maxX", 10000);
+        settings.setDefault("PluginSettings.WildTP.Radius.minX", -10000);
+        settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 10000);
+        settings.setDefault("PluginSettings.WildTP.Radius.minZ", -10000);
+        List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER", "SAND");
+        settings.setDefault("PluginSettings.WildTP.SafeBlocks", defaltSafeBlocks);
         //Custom message file
-        new MessageHelper(this);
-        //Custom warpFile
-        if (!warpFile.exists()) {
-            saveResource("warps.yml", false);
+        new MessageHelper(this); // <-- This will be redone at some point, so everything will be customizable!
+        //Custom warpFile(Which type of warp saving)
+        if (settings.getBoolean("PluginSettings.Warp.json")){
+            jsonWarpsConfig = new Json("warps", getDataFolder().toString());
+        }else if (settings.getBoolean("PluginSettings.Warp.toml")){
+            tomlWarpsConfig = new Toml("warps", getDataFolder().toString());
+        }else if (settings.getBoolean("PluginSettings.Warp.yaml")){
+            ymlWarpsConfig = new Yaml("warps",getDataFolder().toString());
         }
 
         warpConfigHelper.warpLoad();
