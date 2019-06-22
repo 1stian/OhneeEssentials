@@ -3,6 +3,7 @@ package com.ohneemc.OhneeEssentials;
 import com.ohneemc.OhneeEssentials.commands.*;
 import com.ohneemc.OhneeEssentials.events.JoinQuitEvent;
 import com.ohneemc.OhneeEssentials.events.KeepXp;
+import com.ohneemc.OhneeEssentials.events.LastLocation;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
 import de.leonhard.storage.Json;
@@ -36,8 +37,13 @@ public class OhneeEssentials extends JavaPlugin {
     public static HashMap<Player, Long> coolmap = new HashMap<>();
     public static HashMap<String, Location> warpMap = new HashMap<>();
 
+    //Playtime
     private HashMap<UUID, Date> playime= new HashMap<>();
     public HashMap pTime(){return  playime;}
+
+    //Last location holder
+    private HashMap<UUID, Location> lastLoc = new HashMap<>();
+    public HashMap lLoc(){return  lastLoc;}
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -51,7 +57,7 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.Warp.toml", false);
         settings.setDefault("PluginSettings.Warp.yaml", false);
         settings.setDefault("PluginSettings.Warp.json", true);
-        settings.setDefault("PluginSettings.Warp.mysql", false);
+        //settings.setDefault("PluginSettings.Warp.mysql", false);
         settings.setDefault("PluginSettings.Teleport.cooldown", 60);
         settings.setDefault("PluginSettings.Teleport.countdown", 3);
         settings.setDefault("PluginSettings.WildTP.Radius.maxX", 10000);
@@ -72,17 +78,18 @@ public class OhneeEssentials extends JavaPlugin {
         }
 
         warpConfigHelper.warpLoad();
-        //warpConfigHelper.warpSaver();
 
         //Register events class
         this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
+        this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
 
         //Commands
         this.getCommand("Wild").setExecutor(new Wild(this));
         this.getCommand("ohnee").setExecutor(new Ohnee(this));
         this.getCommand("Tp").setExecutor(new Tp(this));
         this.getCommand("Tphere").setExecutor(new Tphere(this));
+        this.getCommand("Back").setExecutor(new Back(this));
         this.getCommand("Weather").setExecutor(new Weather(this));
         this.getCommand("Time").setExecutor(new Time(this));
         this.getCommand("Warp").setExecutor(new Warp());
