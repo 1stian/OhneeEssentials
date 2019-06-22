@@ -99,6 +99,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Warp").setExecutor(new Warp());
         this.getCommand("Setwarp").setExecutor(new Setwarp(this));
         this.getCommand("Delwarp").setExecutor(new Delwarp(this));
+        this.getCommand("Gamemode").setExecutor(new Gamemode(this));
 
         //Test comment for jenkins/discord.
     }
