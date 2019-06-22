@@ -31,12 +31,23 @@ public class Delwarp implements CommandExecutor {
                 return true;
             } else {
                 OhneeEssentials.warpMap.remove(warpName);
-                plugin.warpConfig().set(warpName, null);
-                try {
-                    plugin.warpConfig().save(plugin.getWarpFile());
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                if (plugin.settings().getBoolean("PluginSettings.Warp.json")){
+                    //JSON
+                    plugin.jsonWarps().set(warpName, null);
+                }else if (plugin.settings().getBoolean("PluginSettings.Warp.toml")){
+                    //Toml
+                    plugin.tomlWarps().set(warpName, null);
+                }else if (plugin.settings().getBoolean("PluginSettings.Warp.yaml")) {
+                    //Yaml
+                    plugin.yamlWarps().set(warpName, null);
                 }
+
+                //try {
+                //    plugin.warpConfig().save(plugin.getWarpFile());
+                //} catch (IOException e) {
+                //    e.printStackTrace();
+                //}
                 player.sendMessage("Warp: " + warpName + " has been removed!");
                 return true;
             }
