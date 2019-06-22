@@ -19,6 +19,7 @@ public class LastLocation implements Listener {
         Player player = e.getPlayer();
         Location loc = player.getLocation();
 
+        //Storing last location before teleport.
         ohnee.lLoc().put(player.getUniqueId(), loc);
     }
 }
