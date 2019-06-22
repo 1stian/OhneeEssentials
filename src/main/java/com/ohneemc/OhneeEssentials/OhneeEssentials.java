@@ -49,10 +49,10 @@ public class OhneeEssentials extends JavaPlugin {
 
 
         //Setting defaults!
-        settings.setDefault("PluginSettings.Warp.toml", "false");
-        settings.setDefault("PluginSettings.Warp.yaml", "false");
-        settings.setDefault("PluginSettings.Warp.json", "true");
-        settings.setDefault("PluginSettings.Warp.mysql", "false");
+        settings.setDefault("PluginSettings.Warp.toml", false);
+        settings.setDefault("PluginSettings.Warp.yaml", false);
+        settings.setDefault("PluginSettings.Warp.json", true);
+        settings.setDefault("PluginSettings.Warp.mysql", false);
         settings.setDefault("PluginSettings.Teleport.cooldown", 60);
         settings.setDefault("PluginSettings.Teleport.countdown", 3);
         settings.setDefault("PluginSettings.WildTP.Radius.maxX", 10000);
@@ -92,10 +92,6 @@ public class OhneeEssentials extends JavaPlugin {
     }
 
     public void onDisable() {
-        //Saving waprs in map.
-        this.getLogger().info("Stopping warp warpConfigHelper.");
-        Bukkit.getScheduler().cancelTask(warpConfigHelper.taskId);
-        this.getLogger().info("Saving warps from memory.");
-        warpConfigHelper.saveFile();
+
     }
 }
