@@ -89,6 +89,10 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("ohnee").setExecutor(new Ohnee(this));
         this.getCommand("Tp").setExecutor(new Tp(this));
         this.getCommand("Tphere").setExecutor(new Tphere(this));
+        this.getCommand("Tpa").setExecutor(new Tpa(this));
+        this.getCommand("Tpahere").setExecutor(new Tpahere(this));
+        this.getCommand("Tpaccept").setExecutor(new Tpaccept(this));
+        this.getCommand("Tpadeny").setExecutor(new Tpdeny(this));
         this.getCommand("Back").setExecutor(new Back(this));
         this.getCommand("Weather").setExecutor(new Weather(this));
         this.getCommand("Time").setExecutor(new Time(this));
