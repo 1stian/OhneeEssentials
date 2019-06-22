@@ -1,13 +1,13 @@
 package com.ohneemc.OhneeEssentials.commands;
 
-import com.google.common.base.Strings;
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import sun.rmi.runtime.Log;
+
+import java.util.Set;
 
 public class Warp implements CommandExecutor {
     @Override
@@ -17,7 +17,12 @@ public class Warp implements CommandExecutor {
             String warpName = null;
 
             if (strings.length < 1) {
-                return false;
+                Set<String> warps = OhneeEssentials.warpMap.keySet();
+                String n1 = warps.toString();
+                String n2 = n1.replaceAll("\\]", "");
+                String name = n2.replaceAll("\\[", "");
+                player.sendMessage("Warps: " + name);
+                return true;
             } else {
                 warpName = strings[0].toLowerCase();
             }
