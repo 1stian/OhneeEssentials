@@ -6,8 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.IOException;
-
 public class Delwarp implements CommandExecutor {
     private OhneeEssentials plugin;
     public Delwarp(OhneeEssentials plugin) {
@@ -30,24 +28,23 @@ public class Delwarp implements CommandExecutor {
                 player.sendMessage("A warp with the name: " + warpName + " does not exist!");
                 return true;
             } else {
-                OhneeEssentials.warpMap.remove(warpName);
+                try {
+                    OhneeEssentials.warpMap.remove(warpName);
 
-                if (plugin.settings().getBoolean("PluginSettings.Warp.json")){
-                    //JSON
-                    plugin.jsonWarps().set(warpName, null);
-                }else if (plugin.settings().getBoolean("PluginSettings.Warp.toml")){
-                    //Toml
-                    plugin.tomlWarps().set(warpName, null);
-                }else if (plugin.settings().getBoolean("PluginSettings.Warp.yaml")) {
-                    //Yaml
-                    plugin.yamlWarps().set(warpName, null);
+                    if (plugin.settings().getBoolean("PluginSettings.Warp.json")){
+                        //JSON
+                        plugin.jsonWarps().set(warpName, null);
+                    }else if (plugin.settings().getBoolean("PluginSettings.Warp.toml")){
+                        //Toml
+                        plugin.tomlWarps().set(warpName, null);
+                    }else if (plugin.settings().getBoolean("PluginSettings.Warp.yaml")) {
+                        //Yaml
+                        plugin.yamlWarps().set(warpName, null);
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                    player.sendMessage("Couldn't delete warp, contact your server admins.");
                 }
-
-                //try {
-                //    plugin.warpConfig().save(plugin.getWarpFile());
-                //} catch (IOException e) {
-                //    e.printStackTrace();
-                //}
                 player.sendMessage("Warp: " + warpName + " has been removed!");
                 return true;
             }
