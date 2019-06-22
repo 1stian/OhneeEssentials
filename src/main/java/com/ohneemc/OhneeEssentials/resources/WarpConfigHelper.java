@@ -1,7 +1,6 @@
 package com.ohneemc.OhneeEssentials.resources;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -12,18 +11,6 @@ public class WarpConfigHelper {
 
     public WarpConfigHelper(OhneeEssentials plugin) {
         this.plugin = plugin;
-    }
-
-    public int taskId;
-
-    public void warpSaver() {
-        taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
-            @Override
-            public void run() {
-                saveFile();
-                plugin.getLogger().info("Saved warps to file.");
-            }
-        }, 300L, 6000L).getTaskId();
     }
 
     public void warpLoad() {
