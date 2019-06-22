@@ -28,6 +28,11 @@ commands:
     usage: Missing arguments - /ohnee reload or /ohnee version
     permission: ohnee.tphere
     permission-message: You do not have access to this command /tphere.
+  back:
+    description: Teleports you to your previous location.
+    usage: /back
+    permission: ohnee.back
+    permission-message: You do not have access to this command /back.
   weather:
     description: Sets the current worlds weather!
     usage: Missing arguments - /weather clear|thunder|rain <duration in seconds>
@@ -68,6 +73,7 @@ permissions:
       ohnee.warp: true
       ohnee.setwarp: true
       ohnee.delwarp: true
+      ohnee.back: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
