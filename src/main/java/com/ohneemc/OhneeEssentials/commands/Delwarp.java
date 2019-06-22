@@ -33,13 +33,13 @@ public class Delwarp implements CommandExecutor {
 
                     if (plugin.settings().getBoolean("PluginSettings.Warp.json")){
                         //JSON
-                        plugin.jsonWarps().set(warpName, null);
+                        plugin.jsonWarps().remove(warpName);
                     }else if (plugin.settings().getBoolean("PluginSettings.Warp.toml")){
                         //Toml
-                        plugin.tomlWarps().set(warpName, null);
+                        plugin.tomlWarps().remove(warpName);
                     }else if (plugin.settings().getBoolean("PluginSettings.Warp.yaml")) {
                         //Yaml
-                        plugin.yamlWarps().set(warpName, null);
+                        plugin.yamlWarps().remove(warpName);
                     }
                 }catch (Exception ex){
                     ex.printStackTrace();
