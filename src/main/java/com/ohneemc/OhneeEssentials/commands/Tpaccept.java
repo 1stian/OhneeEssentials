@@ -9,24 +9,26 @@ import org.bukkit.entity.Player;
 
 public class Tpaccept implements CommandExecutor {
     private OhneeEssentials ohnee;
-    public Tpaccept (OhneeEssentials ohnee){
+
+    public Tpaccept(OhneeEssentials ohnee) {
         this.ohnee = ohnee;
     }
 
     private Maps maps;
-    public Tpaccept(Maps maps){
+
+    public Tpaccept(Maps maps) {
         this.maps = maps;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("Tpaccept") && sender instanceof Player){
+        if (command.getName().equalsIgnoreCase("Tpaccept") && sender instanceof Player) {
             Player player = ((Player) sender).getPlayer();
             String extract = maps.tp().get(player.getName()).toString();
             String[] split = extract.split(",");
-            if (split.length == 2){
+            if (split.length == 2) {
 
-            }else{
+            } else {
 
             }
 
@@ -36,9 +38,9 @@ public class Tpaccept implements CommandExecutor {
 
             player.teleport(target);
 
-            if (split.length == 2){
+            if (split.length == 2) {
                 target.teleport(player);
-            }else {
+            } else {
                 player.teleport(target);
             }
 
