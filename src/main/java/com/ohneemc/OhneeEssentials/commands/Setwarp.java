@@ -7,6 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
+
 public class Setwarp implements CommandExecutor {
     private OhneeEssentials plugin;
 
@@ -18,7 +20,7 @@ public class Setwarp implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (command.getName().equalsIgnoreCase("Setwarp") && commandSender instanceof Player) {
             Player player = ((Player) commandSender).getPlayer();
-            String warpName = null;
+            String warpName;
 
             if (strings.length < 1) {
                 return false;
@@ -27,19 +29,32 @@ public class Setwarp implements CommandExecutor {
             }
 
             if (OhneeEssentials.warpMap.containsKey(warpName)) {
-                player.sendMessage("A warp with the name: " + warpName + " already exists!");
-                return true;
+                if (player != null) {
+                    player.sendMessage("A warp with the name: " + warpName + " already exists!");
+                    return true;
+                }
+                return false;
             } else {
                 try {
-                    Location warpLoc = player.getLocation();
+                    Location warpLoc = player != null ? player.getLocation() : null;
                     OhneeEssentials.warpMap.put(warpName, warpLoc);
 
-                    String world = warpLoc.getWorld().getName();
-                    double x = warpLoc.getX();
-                    double y = warpLoc.getY();
-                    double z = warpLoc.getZ();
-                    float pitch = warpLoc.getPitch();
-                    float yaw = warpLoc.getYaw();
+                    String world = null;
+                    if (warpLoc != null) {
+                        world = Objects.requireNonNull(warpLoc.getWorld()).getName();
+                    }
+                    double x = 0;
+                    double y = 0;
+                    double z = 0;
+                    float pitch = 0;
+                    float yaw = 0;
+                    if (warpLoc != null) {
+                        x = warpLoc.getX();
+                        y = warpLoc.getY();
+                        z = warpLoc.getZ();
+                        pitch = warpLoc.getPitch();
+                        yaw = warpLoc.getYaw();
+                    }
 
                     switch (plugin.fileUse()){
                         case 1:
@@ -72,11 +87,15 @@ public class Setwarp implements CommandExecutor {
                     }
                     //MySql/MariaDB
 
-                    player.sendMessage("Warp: " + warpName + " has been set!");
+                    if (player != null) {
+                        player.sendMessage("Warp: " + warpName + " has been set!");
+                    }
                     return true;
                 }catch (Exception ex){
                     ex.printStackTrace();
-                    player.sendMessage("Couldn't set warp, contact your server admins.");
+                    if (player != null) {
+                        player.sendMessage("Couldn't set warp, contact your server admins.");
+                    }
                 }
             }
         }
