@@ -41,30 +41,34 @@ public class Setwarp implements CommandExecutor {
                     float pitch = warpLoc.getPitch();
                     float yaw = warpLoc.getYaw();
 
-                    if (plugin.settings().getBoolean("PluginSettings.Warp.json")) {
-                        //JSON
-                        plugin.jsonWarps().set(warpName + ".world", world);
-                        plugin.jsonWarps().set(warpName + ".x", x);
-                        plugin.jsonWarps().set(warpName + ".y", y);
-                        plugin.jsonWarps().set(warpName + ".z", z);
-                        plugin.jsonWarps().set(warpName + ".pitch", pitch);
-                        plugin.jsonWarps().set(warpName + ".yaw", yaw);
-                    } else if (plugin.settings().getBoolean("PluginSettings.Warp.toml")) {
-                        //Toml
-                        plugin.tomlWarps().set(warpName + ".world", world);
-                        plugin.tomlWarps().set(warpName + ".x", x);
-                        plugin.tomlWarps().set(warpName + ".y", y);
-                        plugin.tomlWarps().set(warpName + ".z", z);
-                        plugin.tomlWarps().set(warpName + ".pitch", pitch);
-                        plugin.tomlWarps().set(warpName + ".yaw", yaw);
-                    } else if (plugin.settings().getBoolean("PluginSettings.Warp.yaml")) {
-                        //Yaml
-                        plugin.yamlWarps().set(warpName + ".world", world);
-                        plugin.yamlWarps().set(warpName + ".x", x);
-                        plugin.yamlWarps().set(warpName + ".y", y);
-                        plugin.yamlWarps().set(warpName + ".z", z);
-                        plugin.yamlWarps().set(warpName + ".pitch", pitch);
-                        plugin.yamlWarps().set(warpName + ".yaw", yaw);
+                    switch (plugin.fileUse()){
+                        case 1:
+                            //JSON
+                            plugin.jsonWarps().set(warpName + ".world", world);
+                            plugin.jsonWarps().set(warpName + ".x", x);
+                            plugin.jsonWarps().set(warpName + ".y", y);
+                            plugin.jsonWarps().set(warpName + ".z", z);
+                            plugin.jsonWarps().set(warpName + ".pitch", pitch);
+                            plugin.jsonWarps().set(warpName + ".yaw", yaw);
+                            break;
+                        case 2:
+                            //Toml
+                            plugin.tomlWarps().set(warpName + ".world", world);
+                            plugin.tomlWarps().set(warpName + ".x", x);
+                            plugin.tomlWarps().set(warpName + ".y", y);
+                            plugin.tomlWarps().set(warpName + ".z", z);
+                            plugin.tomlWarps().set(warpName + ".pitch", pitch);
+                            plugin.tomlWarps().set(warpName + ".yaw", yaw);
+                            break;
+                        case 3:
+                            //Yaml
+                            plugin.yamlWarps().set(warpName + ".world", world);
+                            plugin.yamlWarps().set(warpName + ".x", x);
+                            plugin.yamlWarps().set(warpName + ".y", y);
+                            plugin.yamlWarps().set(warpName + ".z", z);
+                            plugin.yamlWarps().set(warpName + ".pitch", pitch);
+                            plugin.yamlWarps().set(warpName + ".yaw", yaw);
+                            break;
                     }
                     //MySql/MariaDB
 

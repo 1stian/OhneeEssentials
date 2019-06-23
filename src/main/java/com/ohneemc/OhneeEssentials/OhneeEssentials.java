@@ -24,11 +24,13 @@ public class OhneeEssentials extends JavaPlugin {
     private Json jsonWarpsConfig;
     private Yaml ymlWarpsConfig;
     private Toml settings = new Toml("settings", getDataFolder().toString());
+    private Integer fileType;
 
     public Toml settings() {return  settings;}
     public Toml tomlWarps() {return  tomlWarpsConfig;}
     public Json jsonWarps() {return  jsonWarpsConfig;}
     public Yaml yamlWarps() {return  ymlWarpsConfig;}
+    public Integer fileUse(){return fileType;}
 
     private Plugin pl;
     public Plugin plugin(){return pl;}
@@ -92,7 +94,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Tpa").setExecutor(new Tpa(this));
         this.getCommand("Tpahere").setExecutor(new Tpahere(this));
         this.getCommand("Tpaccept").setExecutor(new Tpaccept(this));
-        this.getCommand("Tpadeny").setExecutor(new Tpdeny(this));
+        this.getCommand("Tpdeny").setExecutor(new Tpdeny(this));
         this.getCommand("Back").setExecutor(new Back(this));
         this.getCommand("Weather").setExecutor(new Weather(this));
         this.getCommand("Time").setExecutor(new Time(this));
@@ -101,7 +103,17 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Delwarp").setExecutor(new Delwarp(this));
         this.getCommand("Gamemode").setExecutor(new Gamemode(this));
 
-        //Test comment for jenkins/discord.
+        //Setting warp file type.
+        if (settings().getBoolean("PluginSettings.Warp.json")){
+            //JSON
+            fileType = 1;
+        }else if (settings().getBoolean("PluginSettings.Warp.toml")){
+            //Toml
+            fileType = 2;
+        }else if (settings().getBoolean("PluginSettings.Warp.yaml")) {
+            //Yaml
+            fileType = 3;
+        }
     }
 
     public void onDisable() {
