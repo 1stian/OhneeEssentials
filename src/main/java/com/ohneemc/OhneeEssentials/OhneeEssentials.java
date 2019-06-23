@@ -111,6 +111,8 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Setwarp").setExecutor(new Setwarp(this));
         this.getCommand("Delwarp").setExecutor(new Delwarp(this));
         this.getCommand("Gamemode").setExecutor(new Gamemode(this));
+        this.getCommand("Setspawn").setExecutor(new Setspawn());
+        this.getCommand("Spawn").setExecutor(new Spawn());
     }
 
     public void onDisable() {

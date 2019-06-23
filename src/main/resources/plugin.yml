@@ -85,6 +85,16 @@ commands:
     aliases: [gm]
     permission: ohnee.gamemode
     permission-message: You do not have access to this command /gamemode.
+  spawn:
+    description: Teleports you to spawn.
+    usage: /spawn
+    permission: ohnee.spawn
+    permission-message: You do not have access to this command /spawn.
+  setspawn:
+    description: Sets world spawn location to your location.
+    usage: /setspawn
+    permission: ohnee.setspawn
+    permission-message: You do not have access to this command /setspawn.
 permissions:
   ohnee.*:
     default: false
@@ -105,12 +115,15 @@ permissions:
       ohnee.delwarp: true
       ohnee.back: true
       ohnee.gamemode: true
+      ohnee.spawn: true
+      ohnee.setspawn: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
     children:
       ohnee.wild: true
       ohnee.warp: true
+      ohnee.spawn: true
   ohnee.tpa:
     default: false
     description: Access to all the tpa commands.
