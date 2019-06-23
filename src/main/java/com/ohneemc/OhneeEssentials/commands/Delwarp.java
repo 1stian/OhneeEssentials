@@ -31,15 +31,19 @@ public class Delwarp implements CommandExecutor {
                 try {
                     OhneeEssentials.warpMap.remove(warpName);
 
-                    if (plugin.settings().getBoolean("PluginSettings.Warp.json")){
-                        //JSON
-                        plugin.jsonWarps().remove(warpName);
-                    }else if (plugin.settings().getBoolean("PluginSettings.Warp.toml")){
-                        //Toml
-                        plugin.tomlWarps().remove(warpName);
-                    }else if (plugin.settings().getBoolean("PluginSettings.Warp.yaml")) {
-                        //Yaml
-                        plugin.yamlWarps().remove(warpName);
+                    switch (plugin.fileUse()){
+                        case 1:
+                            //JSON
+                            plugin.jsonWarps().remove(warpName);
+                            break;
+                        case 2:
+                            //Toml
+                            plugin.tomlWarps().removeKey(warpName);
+                            break;
+                        case 3:
+                            //Yaml
+                            plugin.yamlWarps().removeKey(warpName);
+                            break;
                     }
                 }catch (Exception ex){
                     ex.printStackTrace();
