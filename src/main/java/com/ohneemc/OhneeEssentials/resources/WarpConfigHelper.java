@@ -16,14 +16,20 @@ public class WarpConfigHelper {
     public void warpLoad() {
         try {
 
-            if (plugin.settings().getBoolean("PluginSettings.Warp.json")){
-                loadJson();
-            }else if (plugin.settings().getBoolean("PluginSettings.Warp.toml")){
-                loadToml();
-            }else if (plugin.settings().getBoolean("PluginSettings.Warp.yaml")){
-                loadYaml();
+            switch (plugin.fileUse()){
+                case 1:
+                    //JSON
+                    loadJson();
+                    break;
+                case 2:
+                    //Toml
+                    loadToml();
+                    break;
+                case 3:
+                    //Yaml
+                    loadYaml();
+                    break;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -35,7 +41,7 @@ public class WarpConfigHelper {
         if (!(names.isEmpty())){
             for (String warp : names) {
                 String n1 = warp.replaceAll("\\[", "");
-                String name = n1.replaceAll("\\]", "");
+                String name = n1.replaceAll("]", "");
                 World world = plugin.getServer().getWorld(plugin.jsonWarps().getString(name + ".world"));
                 double x = plugin.jsonWarps().getDouble(name + ".x");
                 double y = plugin.jsonWarps().getDouble(name + ".y");
@@ -57,7 +63,7 @@ public class WarpConfigHelper {
         if (!(names.isEmpty())){
             for (String warp : names) {
                 String n1 = warp.replaceAll("\\[", "");
-                String name = n1.replaceAll("\\]", "");
+                String name = n1.replaceAll("]", "");
                 World world = plugin.getServer().getWorld(plugin.tomlWarps().getString(name + ".world"));
                 double x = plugin.tomlWarps().getDouble(name + ".x");
                 double y = plugin.tomlWarps().getDouble(name + ".y");
@@ -79,7 +85,7 @@ public class WarpConfigHelper {
         if (!(names.isEmpty())){
             for (String warp : names) {
                 String n1 = warp.replaceAll("\\[", "");
-                String name = n1.replaceAll("\\]", "");
+                String name = n1.replaceAll("]", "");
                 World world = plugin.getServer().getWorld(plugin.yamlWarps().getString(name + ".world"));
                 double x = plugin.yamlWarps().getDouble(name + ".x");
                 double y = plugin.yamlWarps().getDouble(name + ".y");
