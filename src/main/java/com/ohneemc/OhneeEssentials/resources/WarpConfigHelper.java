@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.resources;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import com.ohneemc.OhneeEssentials.commands.Ohnee;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -15,7 +16,6 @@ public class WarpConfigHelper {
 
     public void warpLoad() {
         try {
-
             switch (plugin.fileUse()){
                 case 1:
                     //JSON
@@ -50,7 +50,7 @@ public class WarpConfigHelper {
                 Float yaw = plugin.jsonWarps().getFloat(name + ".yaw");
 
                 Location loc = new Location(world, x, y, z, yaw, pitch);
-                OhneeEssentials.warpMap.put(warp, loc);
+                plugin.wMap().put(warp, loc);
             }
         }
 
@@ -72,7 +72,7 @@ public class WarpConfigHelper {
                 Float yaw = plugin.tomlWarps().getFloat(name + ".yaw");
 
                 Location loc = new Location(world, x, y, z, yaw, pitch);
-                OhneeEssentials.warpMap.put(warp, loc);
+                plugin.wMap().put(warp, loc);
             }
         }
 
@@ -94,7 +94,7 @@ public class WarpConfigHelper {
                 Float yaw = plugin.yamlWarps().getFloat(name + ".yaw");
 
                 Location loc = new Location(world, x, y, z, yaw, pitch);
-                OhneeEssentials.warpMap.put(warp, loc);
+                plugin.wMap().put(warp, loc);
             }
         }
 
