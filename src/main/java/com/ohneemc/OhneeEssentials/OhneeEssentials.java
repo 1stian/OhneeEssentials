@@ -36,16 +36,18 @@ public class OhneeEssentials extends JavaPlugin {
     public Plugin plugin(){return pl;}
 
     //Maps
-    public static HashMap<Player, Long> coolmap = new HashMap<>();
-    public static HashMap<String, Location> warpMap = new HashMap<>();
+    private HashMap<Player, Long> coolmap = new HashMap<>();
+    private HashMap<String, Location> warpMap = new HashMap<>();
+    public HashMap<Player, Long> cMap() {return coolmap;}
+    public HashMap<String, Location> wMap() {return warpMap;}
 
     //Playtime
-    private HashMap<UUID, Date> playime= new HashMap<>();
-    public HashMap pTime(){return  playime;}
+    private HashMap<UUID, Long> playime= new HashMap<>();
+    public HashMap<UUID, Long> pTime(){return  playime;}
 
     //Last location holder
     private HashMap<UUID, Location> lastLoc = new HashMap<>();
-    public HashMap lLoc(){return  lastLoc;}
+    public HashMap<UUID, Location> lLoc(){return  lastLoc;}
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -66,10 +68,25 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.WildTP.Radius.minX", -10000);
         settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 10000);
         settings.setDefault("PluginSettings.WildTP.Radius.minZ", -10000);
-        List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER", "SAND");
+        List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER");
         settings.setDefault("PluginSettings.WildTP.SafeBlocks", defaltSafeBlocks);
         //Custom message file
         new MessageHelper(this); // <-- This will be redone at some point, so everything will be customizable!
+
+        //Setting warp file type.
+        if (settings().getBoolean("PluginSettings.Warp.json")){
+            //JSON
+            fileType = 1;
+            jsonWarpsConfig = new Json("warps", getDataFolder().toString());
+        }else if (settings().getBoolean("PluginSettings.Warp.toml")){
+            //Toml
+            fileType = 2;
+            tomlWarpsConfig = new Toml("warps", getDataFolder().toString());
+        }else if (settings().getBoolean("PluginSettings.Warp.yaml")) {
+            //Yaml
+            fileType = 3;
+            ymlWarpsConfig = new Yaml("warps",getDataFolder().toString());
+        }
 
         warpConfigHelper.warpLoad();
 
@@ -90,25 +107,10 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Back").setExecutor(new Back(this));
         this.getCommand("Weather").setExecutor(new Weather());
         this.getCommand("Time").setExecutor(new Time(this));
-        this.getCommand("Warp").setExecutor(new Warp());
+        this.getCommand("Warp").setExecutor(new Warp(this));
         this.getCommand("Setwarp").setExecutor(new Setwarp(this));
         this.getCommand("Delwarp").setExecutor(new Delwarp(this));
         this.getCommand("Gamemode").setExecutor(new Gamemode(this));
-
-        //Setting warp file type.
-        if (settings().getBoolean("PluginSettings.Warp.json")){
-            //JSON
-            fileType = 1;
-            jsonWarpsConfig = new Json("warps", getDataFolder().toString());
-        }else if (settings().getBoolean("PluginSettings.Warp.toml")){
-            //Toml
-            fileType = 2;
-            tomlWarpsConfig = new Toml("warps", getDataFolder().toString());
-        }else if (settings().getBoolean("PluginSettings.Warp.yaml")) {
-            //Yaml
-            fileType = 3;
-            ymlWarpsConfig = new Yaml("warps",getDataFolder().toString());
-        }
     }
 
     public void onDisable() {
