@@ -52,7 +52,7 @@ public class OhneeEssentials extends JavaPlugin {
     public void onEnable() {
         pl = this;
         //Enabling metrics
-        //Metrics metrics = new Metrics(this);
+        Metrics metrics = new Metrics(this);
 
 
         //Setting defaults!
