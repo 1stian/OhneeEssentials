@@ -54,7 +54,7 @@ public class WarpConfigHelper {
             }
         }
 
-        plugin.getLogger().info("Warps loaded: " + names.toString());
+        //plugin.getLogger().info("Warps loaded: " + names.toString());
     }
 
     private void loadToml(){
@@ -76,7 +76,7 @@ public class WarpConfigHelper {
             }
         }
 
-        plugin.getLogger().info("Warps loaded: " + names.toString());
+        //plugin.getLogger().info("Warps loaded: " + names.toString());
     }
 
     private void loadYaml(){
@@ -98,7 +98,7 @@ public class WarpConfigHelper {
             }
         }
 
-        plugin.getLogger().info("Warps loaded: " + names.toString());
+        //plugin.getLogger().info("Warps loaded: " + names.toString());
     }
 
     public void saveFile() {
