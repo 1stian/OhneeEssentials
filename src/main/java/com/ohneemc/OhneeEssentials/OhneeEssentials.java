@@ -26,7 +26,7 @@ public class OhneeEssentials extends JavaPlugin {
     private Toml settings = new Toml("settings", getDataFolder().toString());
     private Integer fileType;
 
-    public Toml settings() {return  settings;}
+    private Toml settings() {return  settings;}
     public Toml tomlWarps() {return  tomlWarpsConfig;}
     public Json jsonWarps() {return  jsonWarpsConfig;}
     public Yaml yamlWarps() {return  ymlWarpsConfig;}
