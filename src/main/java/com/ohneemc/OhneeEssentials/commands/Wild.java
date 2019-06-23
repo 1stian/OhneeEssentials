@@ -10,7 +10,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Consumer;
 
 import java.util.ArrayList;
@@ -20,9 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class Wild implements CommandExecutor {
 
     private OhneeEssentials plugin;
-    public Wild(OhneeEssentials plugin) {
-        this.plugin = plugin;
-    }
 
     //Settings
     private int maxX;
@@ -33,16 +29,27 @@ public class Wild implements CommandExecutor {
     private int countdown;
     private int cooldown;
 
+    private List<String> safeBlocks;
+
     private boolean running = false;
 
-    private List<Material> materials = new ArrayList<Material>();
+    private List<Material> materials = new ArrayList<>();
 
     private int retries = 0;
 
-    private final Consumer<Object> callback = new Consumer<Object>() {
-        public void accept(Object o) {
+    public Wild(OhneeEssentials plugin) {
+        this.plugin = plugin;
+        this.countdown = plugin.settings().getInt("PluginSettings.Teleport.countdown");
+        this.cooldown = plugin.settings().getInt("PluginSettings.Teleport.cooldown");
+        this.maxX = plugin.settings().getInt("PluginSettings.WildTP.Radius.maxX");
+        this.minX = plugin.settings().getInt("PluginSettings.WildTP.Radius.minX");
+        this.maxZ = plugin.settings().getInt("PluginSettings.WildTP.Radius.maxZ");
+        this.minZ = plugin.settings().getInt("PluginSettings.WildTP.Radius.minZ");
+        this.safeBlocks = plugin.settings().getStringList("PluginSettings.WildTP.SafeBlocks");
+    }
 
-        }
+    private final Consumer<Object> callback = o -> {
+
     };
 
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -51,14 +58,14 @@ public class Wild implements CommandExecutor {
             if (((Player) commandSender).getPlayer() != null) {
                 Player player = ((Player) commandSender).getPlayer();
 
-                if ((plugin.coolmap.get(player) / 1000 + cooldown) >= (System.currentTimeMillis() / 1000)) {
+                if (plugin.cMap().containsKey(player) && (plugin.cMap().get(player) / 1000 + cooldown) >= (System.currentTimeMillis() / 1000)) {
                     assert player != null;
-                    Long timeLeft = System.currentTimeMillis() - OhneeEssentials.coolmap.get(player);
+                    Long timeLeft = System.currentTimeMillis() - plugin.cMap().get(player);
                     player.sendMessage(MessageHelper.timeLeft + (TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cooldown) + " seconds");
                 } else {
                     if (!running){
                         running = true;
-                        Wild(player, plugin);
+                        RunWild(player);
                     }else{
                         assert player != null;
                         player.sendMessage(MessageHelper.alreadyBeingTeleported);
@@ -73,28 +80,9 @@ public class Wild implements CommandExecutor {
         return false;
     }
 
-    private void Wild(final Player player, final Plugin plugin) {
+    private void RunWild(final Player player) {
         try {
-            //Getting settings
-            countdown = plugin.getConfig().getInt("Teleport.countdown");
-            cooldown = plugin.getConfig().getInt("Teleport.cooldown");
-
-            //Getting radius
-            maxX = plugin.getConfig().getInt("WildTP.Radius.maxX");
-            minX = plugin.getConfig().getInt("WildTP.Radius.minX");
-            maxZ = plugin.getConfig().getInt("WildTP.Radius.maxZ");
-            minZ = plugin.getConfig().getInt("WildTP.Radius.minZ");
-
-            //Getting safeblocks
-            List<String> safeBlocks = plugin.getConfig().getStringList("WildTP.SafeBlocks");
-
             final World world = player.getWorld();
-
-            //Adding spawn coordinates to ints
-            maxX = maxX + world.getSpawnLocation().getBlockX();
-            minX = minX + world.getSpawnLocation().getBlockX();
-            maxZ = maxZ + world.getSpawnLocation().getBlockZ();
-            minZ = minZ + world.getSpawnLocation().getBlockZ();
 
             //Random location
             final int rX = getX();
@@ -119,7 +107,7 @@ public class Wild implements CommandExecutor {
                     } else {
                         if (retries < 10) {
                             retries++;
-                            Wild(player, plugin);
+                            RunWild(player);
                         } else {
                             callback.accept(NotFound(player));
                             retries = 0;
@@ -128,13 +116,11 @@ public class Wild implements CommandExecutor {
                 }
 
                 private Object TeleportPlayer(final Player player, final Location ready) {
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        public void run() {
-                            player.sendMessage("Teleporting");
-                            OhneeEssentials.coolmap.put(player, (System.currentTimeMillis()));
-                            player.teleport(ready.add(0, 2, 0));
-                            running = false;
-                        }
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        player.sendMessage("Teleporting");
+                        plugin.cMap().put(player, (System.currentTimeMillis()));
+                        player.teleport(ready.add(0, 2, 0));
+                        running = false;
                     }, countdown * 20L);
                     return true;
                 }
