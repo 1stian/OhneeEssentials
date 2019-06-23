@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class JoinQuitEvent implements Listener {
 
@@ -33,10 +34,10 @@ public class JoinQuitEvent implements Listener {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void normalJoin(Player e){
-        Ohnee.pTime().put(e.getPlayer().getUniqueId(), System.currentTimeMillis());
+        Ohnee.pTime().put(Objects.requireNonNull(e.getPlayer()).getUniqueId(), System.currentTimeMillis());
 
-        if (!OhneeEssentials.coolmap.containsKey(e.getPlayer())){
-            OhneeEssentials.coolmap.put(e.getPlayer(), (System.currentTimeMillis() / 1000));
+        if (!Ohnee.cMap().containsKey(e.getPlayer())){
+            Ohnee.cMap().put(e.getPlayer(), System.currentTimeMillis() / 1000);
         }
 
         System.out.print("DataFolder: " + Ohnee.getDataFolder().getAbsoluteFile());
@@ -83,7 +84,7 @@ public class JoinQuitEvent implements Listener {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
 
-        Long joinedTime = (Long) Ohnee.pTime().get(player.getUniqueId());
+        Long joinedTime = Ohnee.pTime().get(player.getUniqueId());
         Long timeLeave = System.currentTimeMillis();
         Long summed = timeLeave - joinedTime;
         Long currentPlaytime = userdata.getLong("PlayerStats.Playtime");
@@ -93,12 +94,5 @@ public class JoinQuitEvent implements Listener {
         userdata.set("PlayerStats.LastSeen", formatter.format(date));
 
         Ohnee.pTime().remove(player.getUniqueId());
-
-        //String playtime = String.format("%02d Days, %02d Min, %02d Sec",
-        //        TimeUnit.MILLISECONDS.toDays(summed),
-        //        TimeUnit.MILLISECONDS.toMinutes(summed),
-        //        TimeUnit.MILLISECONDS.toSeconds(summed));
-
-
     }
 }
