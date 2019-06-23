@@ -24,9 +24,11 @@ public class OhneeEssentials extends JavaPlugin {
     private Json jsonWarpsConfig;
     private Yaml ymlWarpsConfig;
     private Toml settings = new Toml("settings", getDataFolder().toString());
+    private Json worldData = new Json("worlddata", getDataFolder().toString());
     private Integer fileType;
 
     public Toml settings() {return  settings;}
+    public Json worldData() {return worldData;}
     public Toml tomlWarps() {return  tomlWarpsConfig;}
     public Json jsonWarps() {return  jsonWarpsConfig;}
     public Yaml yamlWarps() {return  ymlWarpsConfig;}
@@ -111,8 +113,8 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Setwarp").setExecutor(new Setwarp(this));
         this.getCommand("Delwarp").setExecutor(new Delwarp(this));
         this.getCommand("Gamemode").setExecutor(new Gamemode(this));
-        this.getCommand("Setspawn").setExecutor(new Setspawn());
-        this.getCommand("Spawn").setExecutor(new Spawn());
+        this.getCommand("Setspawn").setExecutor(new Setspawn(this));
+        this.getCommand("Spawn").setExecutor(new Spawn(this));
     }
 
     public void onDisable() {
