@@ -42,7 +42,7 @@ public class Delwarp implements CommandExecutor {
                             break;
                         case 3:
                             //Yaml
-                            plugin.yamlWarps().removeKey(warpName);
+                            plugin.yamlWarps().remove(warpName);
                             break;
                     }
                 }catch (Exception ex){
