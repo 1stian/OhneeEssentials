@@ -28,7 +28,7 @@ public class Setwarp implements CommandExecutor {
                 warpName = strings[0].toLowerCase();
             }
 
-            if (OhneeEssentials.warpMap.containsKey(warpName)) {
+            if (plugin.wMap().containsKey(warpName)) {
                 if (player != null) {
                     player.sendMessage("A warp with the name: " + warpName + " already exists!");
                     return true;
@@ -37,7 +37,7 @@ public class Setwarp implements CommandExecutor {
             } else {
                 try {
                     Location warpLoc = player != null ? player.getLocation() : null;
-                    OhneeEssentials.warpMap.put(warpName, warpLoc);
+                    plugin.wMap().put(warpName, warpLoc);
 
                     String world = null;
                     if (warpLoc != null) {
