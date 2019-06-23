@@ -22,13 +22,15 @@ public class Tpdeny implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpdeny") && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
-            String extract = maps.tp().get(player.getName()).toString();
+            String extract = maps.tp().get(player != null ? player.getName() : null).toString();
             String[] split = extract.split(",");
 
             Player target = ohnee.getServer().getPlayer(split[0]);
 
             maps.tp().remove(player);
-            target.sendMessage(player.getName() + " denied your request.");
+            if (target != null) {
+                target.sendMessage((player != null ? player.getName() : null) + " denied your request.");
+            }
             return true;
         }
         return false;
