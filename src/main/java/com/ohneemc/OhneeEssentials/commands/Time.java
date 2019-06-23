@@ -17,7 +17,7 @@ public class Time implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (command.getName().equalsIgnoreCase("Time") && commandSender instanceof Player){
             Player player = ((Player) commandSender).getPlayer();
-            World world = player.getWorld();
+            World world = player != null ? player.getWorld() : null;
 
             if (strings.length < 1){
                 return false;
@@ -27,13 +27,19 @@ public class Time implements CommandExecutor {
 
             switch (type){
                 case "day":
-                    world.setTime(8000);
-                    player.sendMessage("Time set to day!");
-                    return true;
+                    if (world != null) {
+                        world.setTime(8000);
+                        player.sendMessage("Time set to day!");
+                        return true;
+                    }
+                    return false;
                 case "night":
-                    world.setTime(20000);
-                    player.sendMessage("Time set to night!");
-                    return true;
+                    if (world != null) {
+                        world.setTime(20000);
+                        player.sendMessage("Time set to night!");
+                        return true;
+                    }
+                    return false;
             }
             return false;
         }
