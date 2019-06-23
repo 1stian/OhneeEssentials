@@ -14,27 +14,36 @@ public class Warp implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (command.getName().equalsIgnoreCase("Warp") && commandSender instanceof Player) {
             Player player = ((Player) commandSender).getPlayer();
-            String warpName = null;
+            String warpName;
 
             if (strings.length < 1) {
                 Set<String> warps = OhneeEssentials.warpMap.keySet();
                 String n1 = warps.toString();
-                String n2 = n1.replaceAll("\\]", "");
+                String n2 = n1.replaceAll("]", "");
                 String name = n2.replaceAll("\\[", "");
-                player.sendMessage("Warps: " + name);
-                return true;
+                if (player != null) {
+                    player.sendMessage("Warps: " + name);
+                    return true;
+                }
+                return false;
             } else {
                 warpName = strings[0].toLowerCase();
             }
 
             if (!OhneeEssentials.warpMap.containsKey(warpName)) {
-                player.sendMessage("A warp with the name: " + warpName + " does not exist!");
-                return true;
+                if (player != null) {
+                    player.sendMessage("A warp with the name: " + warpName + " does not exist!");
+                    return true;
+                }
+                return false;
             } else {
                 Location loc = OhneeEssentials.warpMap.get(warpName);
-                player.teleport(loc);
-                player.sendMessage("You've been teleported to: " + warpName);
-                return true;
+                if (player != null) {
+                    player.teleport(loc);
+                    player.sendMessage("You've been teleported to: " + warpName);
+                    return true;
+                }
+                return false;
             }
         }
         return false;
