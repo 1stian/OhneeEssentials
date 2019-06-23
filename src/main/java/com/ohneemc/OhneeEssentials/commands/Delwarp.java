@@ -24,7 +24,7 @@ public class Delwarp implements CommandExecutor {
                 warpName = strings[0].toLowerCase();
             }
 
-            if (!OhneeEssentials.warpMap.containsKey(warpName)) {
+            if (!plugin.wMap().containsKey(warpName)) {
                 if (player != null) {
                     player.sendMessage("A warp with the name: " + warpName + " does not exist!");
                     return true;
@@ -32,7 +32,7 @@ public class Delwarp implements CommandExecutor {
                 return false;
             } else {
                 try {
-                    OhneeEssentials.warpMap.remove(warpName);
+                    plugin.wMap().remove(warpName);
 
                     switch (plugin.fileUse()){
                         case 1:

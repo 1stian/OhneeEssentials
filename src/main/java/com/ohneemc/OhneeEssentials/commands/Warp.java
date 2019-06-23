@@ -10,6 +10,11 @@ import org.bukkit.entity.Player;
 import java.util.Set;
 
 public class Warp implements CommandExecutor {
+    private OhneeEssentials ohnee;
+    public Warp(OhneeEssentials ohnee){
+        this.ohnee = ohnee;
+    }
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (command.getName().equalsIgnoreCase("Warp") && commandSender instanceof Player) {
@@ -17,7 +22,7 @@ public class Warp implements CommandExecutor {
             String warpName;
 
             if (strings.length < 1) {
-                Set<String> warps = OhneeEssentials.warpMap.keySet();
+                Set<String> warps = ohnee.wMap().keySet();
                 String n1 = warps.toString();
                 String n2 = n1.replaceAll("]", "");
                 String name = n2.replaceAll("\\[", "");
@@ -30,14 +35,14 @@ public class Warp implements CommandExecutor {
                 warpName = strings[0].toLowerCase();
             }
 
-            if (!OhneeEssentials.warpMap.containsKey(warpName)) {
+            if (!ohnee.wMap().containsKey(warpName)) {
                 if (player != null) {
                     player.sendMessage("A warp with the name: " + warpName + " does not exist!");
                     return true;
                 }
                 return false;
             } else {
-                Location loc = OhneeEssentials.warpMap.get(warpName);
+                Location loc = ohnee.wMap().get(warpName);
                 if (player != null) {
                     player.teleport(loc);
                     player.sendMessage("You've been teleported to: " + warpName);
