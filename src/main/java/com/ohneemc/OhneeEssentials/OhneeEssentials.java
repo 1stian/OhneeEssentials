@@ -26,7 +26,7 @@ public class OhneeEssentials extends JavaPlugin {
     private Toml settings = new Toml("settings", getDataFolder().toString());
     private Integer fileType;
 
-    private Toml settings() {return  settings;}
+    public Toml settings() {return  settings;}
     public Toml tomlWarps() {return  tomlWarpsConfig;}
     public Json jsonWarps() {return  jsonWarpsConfig;}
     public Yaml yamlWarps() {return  ymlWarpsConfig;}
@@ -70,14 +70,6 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.WildTP.SafeBlocks", defaltSafeBlocks);
         //Custom message file
         new MessageHelper(this); // <-- This will be redone at some point, so everything will be customizable!
-        //Custom warpFile(Which type of warp saving)
-        if (settings.getBoolean("PluginSettings.Warp.json")){
-            jsonWarpsConfig = new Json("warps", getDataFolder().toString());
-        }else if (settings.getBoolean("PluginSettings.Warp.toml")){
-            tomlWarpsConfig = new Toml("warps", getDataFolder().toString());
-        }else if (settings.getBoolean("PluginSettings.Warp.yaml")){
-            ymlWarpsConfig = new Yaml("warps",getDataFolder().toString());
-        }
 
         warpConfigHelper.warpLoad();
 
@@ -96,7 +88,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Tpaccept").setExecutor(new Tpaccept(this));
         this.getCommand("Tpdeny").setExecutor(new Tpdeny(this));
         this.getCommand("Back").setExecutor(new Back(this));
-        this.getCommand("Weather").setExecutor(new Weather(this));
+        this.getCommand("Weather").setExecutor(new Weather());
         this.getCommand("Time").setExecutor(new Time(this));
         this.getCommand("Warp").setExecutor(new Warp());
         this.getCommand("Setwarp").setExecutor(new Setwarp(this));
@@ -107,12 +99,15 @@ public class OhneeEssentials extends JavaPlugin {
         if (settings().getBoolean("PluginSettings.Warp.json")){
             //JSON
             fileType = 1;
+            jsonWarpsConfig = new Json("warps", getDataFolder().toString());
         }else if (settings().getBoolean("PluginSettings.Warp.toml")){
             //Toml
             fileType = 2;
+            tomlWarpsConfig = new Toml("warps", getDataFolder().toString());
         }else if (settings().getBoolean("PluginSettings.Warp.yaml")) {
             //Yaml
             fileType = 3;
+            ymlWarpsConfig = new Yaml("warps",getDataFolder().toString());
         }
     }
 
