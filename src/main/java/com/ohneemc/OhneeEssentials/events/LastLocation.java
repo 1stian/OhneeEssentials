@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class LastLocation implements Listener {
@@ -20,6 +21,15 @@ public class LastLocation implements Listener {
         Location loc = player.getLocation();
 
         //Storing last location before teleport.
+        ohnee.lLoc().put(player.getUniqueId(), loc);
+    }
+
+    @EventHandler
+    public void lastDeathLoc(PlayerDeathEvent e){
+        Player player = e.getEntity().getPlayer();
+        Location loc = player.getLocation();
+
+        //Storing last death location.
         ohnee.lLoc().put(player.getUniqueId(), loc);
     }
 }
