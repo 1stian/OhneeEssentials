@@ -16,7 +16,7 @@ public class Delwarp implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (command.getName().equalsIgnoreCase("Delwarp") && commandSender instanceof Player) {
             Player player = ((Player) commandSender).getPlayer();
-            String warpName = null;
+            String warpName;
 
             if (strings.length < 1) {
                 return false;
@@ -25,8 +25,11 @@ public class Delwarp implements CommandExecutor {
             }
 
             if (!OhneeEssentials.warpMap.containsKey(warpName)) {
-                player.sendMessage("A warp with the name: " + warpName + " does not exist!");
-                return true;
+                if (player != null) {
+                    player.sendMessage("A warp with the name: " + warpName + " does not exist!");
+                    return true;
+                }
+                return false;
             } else {
                 try {
                     OhneeEssentials.warpMap.remove(warpName);
@@ -47,9 +50,13 @@ public class Delwarp implements CommandExecutor {
                     }
                 }catch (Exception ex){
                     ex.printStackTrace();
-                    player.sendMessage("Couldn't delete warp, contact your server admins.");
+                    if (player != null) {
+                        player.sendMessage("Couldn't delete warp, contact your server admins.");
+                    }
                 }
-                player.sendMessage("Warp: " + warpName + " has been removed!");
+                if (player != null) {
+                    player.sendMessage("Warp: " + warpName + " has been removed!");
+                }
                 return true;
             }
         }
