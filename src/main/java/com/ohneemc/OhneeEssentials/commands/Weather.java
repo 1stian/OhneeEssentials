@@ -33,6 +33,7 @@ public class Weather implements CommandExecutor {
                         player.sendMessage("Weather has been set to clear!");
                         return true;
                     }
+                    return false;
                 case "thunder":
                     if (world != null) {
                         world.setThundering(true);
@@ -40,20 +41,22 @@ public class Weather implements CommandExecutor {
                         player.sendMessage("Is that... Thunder?!");
                         return true;
                     }
+                    return false;
                 case "rain":
                     if (world != null) {
                         if (duration != null){
                             int time = Integer.parseInt(duration.toLowerCase());
                             world.setWeatherDuration(time * 20);
                             player.sendMessage("Weather has been set to rain");
+                            return true;
                         }else{
                             world.setStorm(true);
                             world.setWeatherDuration(6000);
                             player.sendMessage("Weather has been set to rain");
+                            return true;
                         }
-                        return true;
                     }
-                    return true;
+                    return false;
             }
             return false;
         }
