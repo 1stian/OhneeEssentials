@@ -35,6 +35,7 @@ public class MessageHelper {
 
         if (!customMessages.exists()){
             try {
+                //noinspection ResultOfMethodCallIgnored
                 customMessages.createNewFile();
                 Path file = Paths.get(String.valueOf(customMessages));
                 Files.write(file, lines, StandardCharsets.UTF_8);
@@ -55,17 +56,13 @@ public class MessageHelper {
                 System.out.print(line);
             }
 
-            String l1 = listMsg.get(0).split(";")[1];
-            timeLeft = l1;
+            timeLeft = listMsg.get(0).split(";")[1];
 
-            String l2 = listMsg.get(1).split(";")[1];
-            alreadyBeingTeleported = l2;
+            alreadyBeingTeleported = listMsg.get(1).split(";")[1];
 
-            String l3 = listMsg.get(2).split(";")[1];
-            youWillbeTped = l3;
+            youWillbeTped = listMsg.get(2).split(";")[1];
 
-            String l4 = listMsg.get(3).split(";")[1];
-            couldnTfind = l4;
+            couldnTfind = listMsg.get(3).split(";")[1];
 
         } catch (IOException e) {
             e.printStackTrace();
