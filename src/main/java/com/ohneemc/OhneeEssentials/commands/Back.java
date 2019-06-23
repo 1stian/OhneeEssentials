@@ -18,11 +18,14 @@ public class Back implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Back") && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
-            Location lasLoc = (Location) ohnee.lLoc().get(player.getUniqueId());
+            Location lasLoc = (Location) ohnee.lLoc().get(player != null ? player.getUniqueId() : null);
 
-            player.teleport(lasLoc);
-            player.sendMessage("You've been teleported to your previous location!");
-            return true;
+            if (player != null) {
+                player.teleport(lasLoc);
+                player.sendMessage("You've been teleported to your previous location!");
+                return true;
+            }
+            return false;
         }
 
         return false;
