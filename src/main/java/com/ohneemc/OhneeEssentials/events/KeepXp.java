@@ -25,7 +25,6 @@ public class KeepXp implements Listener {
             if (player != null && player.hasPermission("Ohnee.keepxp")){
                 float exp = player.getExp();
                 int lev = player.getLevel();
-                //int lev = player.getTotalExperience();
                 if (e.getEntity().getKiller() == null){
                     e.setDroppedExp(0);
                 }
@@ -44,8 +43,6 @@ public class KeepXp implements Listener {
             plugin.getLogger().info("Setting level: " + level.get(player));
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 player.setLevel(level.get(player));
-                //player.setTotalExperience(level.get(player));
-                //player.setExp(Xp.get(player));
                 level.remove(player);
                 Xp.remove(player);
             }, 20L);
