@@ -1,7 +1,6 @@
 package com.ohneemc.OhneeEssentials.resources;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import com.ohneemc.OhneeEssentials.commands.Ohnee;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -53,8 +52,6 @@ public class WarpConfigHelper {
                 plugin.wMap().put(warp, loc);
             }
         }
-
-        //plugin.getLogger().info("Warps loaded: " + names.toString());
     }
 
     private void loadToml(){
@@ -75,8 +72,6 @@ public class WarpConfigHelper {
                 plugin.wMap().put(warp, loc);
             }
         }
-
-        //plugin.getLogger().info("Warps loaded: " + names.toString());
     }
 
     private void loadYaml(){
@@ -97,15 +92,5 @@ public class WarpConfigHelper {
                 plugin.wMap().put(warp, loc);
             }
         }
-
-        //plugin.getLogger().info("Warps loaded: " + names.toString());
-    }
-
-    public void saveFile() {
-        //plugin.jsonWarps().update();
-    }
-
-    public void saveMySql() {
-
     }
 }
