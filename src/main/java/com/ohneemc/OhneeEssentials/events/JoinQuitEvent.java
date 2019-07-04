@@ -21,6 +21,7 @@ public class JoinQuitEvent implements Listener {
     }
 
     private Json userdata;
+    public Json uData(){return userdata;}
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
@@ -74,7 +75,6 @@ public class JoinQuitEvent implements Listener {
         userdata.set("PlayerInfo.UUID", player.getUniqueId().toString());
         userdata.set("PlayerInfo.Banned", false);
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
-        userdata.set("PlayerStats.Playtime", 0);
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
     }
 
@@ -90,7 +90,6 @@ public class JoinQuitEvent implements Listener {
         Long currentPlaytime = userdata.getLong("PlayerStats.Playtime");
         Long ready = currentPlaytime + summed;
 
-        userdata.set("PlayerStats.Playtime", ready);
         userdata.set("PlayerStats.LastSeen", formatter.format(date));
 
         Ohnee.pTime().remove(player.getUniqueId());
