@@ -8,6 +8,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class KeepXp implements Listener {
     private OhneeEssentials plugin;
@@ -15,8 +16,7 @@ public class KeepXp implements Listener {
         this.plugin = plugin;
     }
 
-    private HashMap<Player, Integer> level = new HashMap<>();
-    private HashMap<Player, Float> Xp = new HashMap<>();
+    private HashMap<UUID, Integer> level = new HashMap<>();
 
     @EventHandler
     public void playerDied(PlayerDeathEvent e){
@@ -28,9 +28,7 @@ public class KeepXp implements Listener {
                 if (e.getEntity().getKiller() == null){
                     e.setDroppedExp(0);
                 }
-                plugin.getLogger().info("Getting level: " + lev);
-                level.put(player, lev);
-                Xp.put(player, exp);
+                level.put(player.getUniqueId(), lev);
             }
         }
     }
@@ -39,12 +37,10 @@ public class KeepXp implements Listener {
     public void playerRespawn(PlayerRespawnEvent e){
         Player player = e.getPlayer();
 
-        if (level.containsKey(player)){
-            plugin.getLogger().info("Setting level: " + level.get(player));
+        if (level.containsKey(player.getUniqueId())){
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                player.setLevel(level.get(player));
-                level.remove(player);
-                Xp.remove(player);
+                player.setLevel(level.get(player.getUniqueId()));
+                level.remove(player.getUniqueId());
             }, 20L);
         }
     }
