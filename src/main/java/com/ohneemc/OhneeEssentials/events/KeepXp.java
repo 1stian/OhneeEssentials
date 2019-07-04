@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 
@@ -27,9 +28,11 @@ public class KeepXp implements Listener {
             if (player.hasPermission("Ohnee.keepxp")){
                 float exp = player.getExp();
                 int lev = player.getLevel();
+                //int lev = player.getTotalExperience();
                 if (e.getEntity().getKiller() == null){
                     e.setDroppedExp(0);
                 }
+                plugin.getLogger().info("Getting level: " + lev);
                 level.put(player, lev);
                 Xp.put(player, exp);
             }
@@ -41,10 +44,14 @@ public class KeepXp implements Listener {
         Player player = e.getPlayer();
 
         if (level.containsKey(player)){
-            player.setLevel(level.get(player));
-            player.setExp(Xp.get(player));
-            level.remove(player);
-            Xp.remove(player);
+            plugin.getLogger().info("Setting level: " + level.get(player));
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                player.setLevel(level.get(player));
+                //player.setTotalExperience(level.get(player));
+                //player.setExp(Xp.get(player));
+                level.remove(player);
+                Xp.remove(player);
+            }, 20L);
         }
     }
 }
