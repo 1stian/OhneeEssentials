@@ -1,14 +1,11 @@
 package com.ohneemc.OhneeEssentials.events;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 
@@ -25,7 +22,7 @@ public class KeepXp implements Listener {
     public void playerDied(PlayerDeathEvent e){
         if (e != null){
             Player player = e.getEntity().getPlayer();
-            if (player.hasPermission("Ohnee.keepxp")){
+            if (player != null && player.hasPermission("Ohnee.keepxp")){
                 float exp = player.getExp();
                 int lev = player.getLevel();
                 //int lev = player.getTotalExperience();
