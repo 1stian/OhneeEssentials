@@ -36,7 +36,7 @@ public class Sethome implements CommandExecutor {
 
             if (args.length < 1){
                 return setHome(player, "home");
-            }else if (args.length == 1){
+            }else if ((args.length == 1) && sender.hasPermission("ohnee.homes.multi")){
                 if (!existHomes.contains(args[0].toLowerCase())){
                     return setHome(player, args[0].toLowerCase());
                 }else{
