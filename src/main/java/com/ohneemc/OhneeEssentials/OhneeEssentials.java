@@ -115,6 +115,8 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Gamemode").setExecutor(new Gamemode(this));
         this.getCommand("Setspawn").setExecutor(new Setspawn(this));
         this.getCommand("Spawn").setExecutor(new Spawn(this));
+        this.getCommand("sethome").setExecutor(new Sethome(this));
+        this.getCommand("home").setExecutor(new Home());
     }
 
     public void onDisable() {
