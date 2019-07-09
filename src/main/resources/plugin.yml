@@ -1,10 +1,10 @@
 name: OhneeEssentials
-version: 1.0
+version: "1.0"
 author: Stian "1stian" Tofte
 website: http://ohneemc.com
 main: com.ohneemc.OhneeEssentials.OhneeEssentials
 depend: [PlaceholderAPI]
-api-version: 1.14
+api-version: "1.14"
 prefix: Ohnee
 commands:
   wild:
@@ -95,6 +95,16 @@ commands:
     usage: /setspawn
     permission: ohnee.setspawn
     permission-message: You do not have access to this command /setspawn.
+  sethome:
+    description: Set your home(s) location.
+    usage: /sethome | /sethome <name>
+    permission: ohnee.sethome
+    permission-message: You do not have access to this command /sethome.
+  home:
+    description: Teleport you to your home.
+    usage: /home | /home <name>
+    permission: ohnee.home
+    permission-message: You do not have access to this command /home.
 permissions:
   ohnee.*:
     default: false
@@ -117,6 +127,8 @@ permissions:
       ohnee.gamemode: true
       ohnee.spawn: true
       ohnee.setspawn: true
+      ohnee.home: true
+      ohnee.sethome: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
@@ -124,6 +136,8 @@ permissions:
       ohnee.wild: true
       ohnee.warp: true
       ohnee.spawn: true
+      ohnee.home: true
+      ohnee.sethome: true
   ohnee.tpa:
     default: false
     description: Access to all the tpa commands.
