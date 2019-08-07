@@ -65,6 +65,7 @@ public class Wild implements CommandExecutor {
                 } else {
                     if (!running){
                         running = true;
+                        commandSender.sendMessage("Looking for a safe location. Hold on.");
                         RunWild(player);
                     }else{
                         assert player != null;
@@ -105,7 +106,7 @@ public class Wild implements CommandExecutor {
                         callback.accept(delayMessage(player));
                         callback.accept(TeleportPlayer(player, ready));
                     } else {
-                        if (retries < 10) {
+                        if (retries < 30) {
                             retries++;
                             RunWild(player);
                         } else {
