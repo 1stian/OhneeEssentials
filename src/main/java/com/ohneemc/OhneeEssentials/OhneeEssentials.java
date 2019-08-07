@@ -99,6 +99,7 @@ public class OhneeEssentials extends JavaPlugin {
 
         //Commands
         this.getCommand("Wild").setExecutor(new Wild(this));
+        /**
         this.getCommand("ohnee").setExecutor(new Ohnee(this));
         this.getCommand("Tp").setExecutor(new Tp(this));
         this.getCommand("Tphere").setExecutor(new Tphere(this));
@@ -117,6 +118,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Spawn").setExecutor(new Spawn(this));
         this.getCommand("sethome").setExecutor(new Sethome(this));
         this.getCommand("home").setExecutor(new Home());
+         **/
     }
 
     public void onDisable() {
