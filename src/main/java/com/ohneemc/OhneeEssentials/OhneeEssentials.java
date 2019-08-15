@@ -92,36 +92,43 @@ public class OhneeEssentials extends JavaPlugin {
 
         warpConfigHelper.warpLoad();
 
-        //Register events class
-        this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
-        this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
-        this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
-
-        //Commands
-        this.getCommand("Wild").setExecutor(new Wild(this));
-        /**
-        this.getCommand("ohnee").setExecutor(new Ohnee(this));
-        this.getCommand("Tp").setExecutor(new Tp(this));
-        this.getCommand("Tphere").setExecutor(new Tphere(this));
-        this.getCommand("Tpa").setExecutor(new Tpa(this));
-        this.getCommand("Tpahere").setExecutor(new Tpahere(this));
-        this.getCommand("Tpaccept").setExecutor(new Tpaccept(this));
-        this.getCommand("Tpdeny").setExecutor(new Tpdeny(this));
-        this.getCommand("Back").setExecutor(new Back(this));
-        this.getCommand("Weather").setExecutor(new Weather());
-        this.getCommand("Time").setExecutor(new Time(this));
-        this.getCommand("Warp").setExecutor(new Warp(this));
-        this.getCommand("Setwarp").setExecutor(new Setwarp(this));
-        this.getCommand("Delwarp").setExecutor(new Delwarp(this));
-        this.getCommand("Gamemode").setExecutor(new Gamemode(this));
-        this.getCommand("Setspawn").setExecutor(new Setspawn(this));
-        this.getCommand("Spawn").setExecutor(new Spawn(this));
-        this.getCommand("sethome").setExecutor(new Sethome(this));
-        this.getCommand("home").setExecutor(new Home());
-         **/
+        registerEvents();
+        registerCommands();
     }
 
     public void onDisable() {
 
+    }
+
+    private void registerCommands(){
+        //Commands
+        this.getCommand("Wild").setExecutor(new Wild(this));
+        /**
+         this.getCommand("ohnee").setExecutor(new Ohnee(this));
+         this.getCommand("Tp").setExecutor(new Tp(this));
+         this.getCommand("Tphere").setExecutor(new Tphere(this));
+         this.getCommand("Tpa").setExecutor(new Tpa(this));
+         this.getCommand("Tpahere").setExecutor(new Tpahere(this));
+         this.getCommand("Tpaccept").setExecutor(new Tpaccept(this));
+         this.getCommand("Tpdeny").setExecutor(new Tpdeny(this));
+         this.getCommand("Back").setExecutor(new Back(this));
+         this.getCommand("Weather").setExecutor(new Weather());
+         this.getCommand("Time").setExecutor(new Time(this));
+         this.getCommand("Warp").setExecutor(new Warp(this));
+         this.getCommand("Setwarp").setExecutor(new Setwarp(this));
+         this.getCommand("Delwarp").setExecutor(new Delwarp(this));
+         this.getCommand("Gamemode").setExecutor(new Gamemode(this));
+         this.getCommand("Setspawn").setExecutor(new Setspawn(this));
+         this.getCommand("Spawn").setExecutor(new Spawn(this));
+         this.getCommand("sethome").setExecutor(new Sethome(this));
+         this.getCommand("home").setExecutor(new Home());
+         **/
+    }
+
+    private void registerEvents(){
+        //Register events class
+        this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
+        this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
+        this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
     }
 }
