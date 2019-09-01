@@ -29,24 +29,25 @@ public class JoinQuitEvent implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        Ohnee.getServer().broadcastMessage(ChatColor.GREEN + "[+]" + ChatColor.GRAY + e.getPlayer().getName());
+        Ohnee.getServer().broadcastMessage(ChatColor.GREEN + "[+] " + ChatColor.GRAY + e.getPlayer().getName());
 
         ScoreboardManager m = Bukkit.getScoreboardManager();
         Scoreboard b = m.getNewScoreboard();
 
-        Objective o = b.registerNewObjective("Online", "");
+        Objective o = b.registerNewObjective("Board", "");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
         o.setDisplayName(ChatColor.DARK_AQUA + "OhneeMC");
 
         Score oPlayer = o.getScore(ChatColor.WHITE + "Online: " + Ohnee.getServer().getOnlinePlayers().size());
-        player.setScoreboard(b);
+        oPlayer.setScore(1);
+        //player.setScoreboard(b);
 
         normalJoin(e.getPlayer());
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        Ohnee.getServer().broadcastMessage(ChatColor.RED + "[-]" + ChatColor.GRAY + e.getPlayer().getName());
+        Ohnee.getServer().broadcastMessage(ChatColor.RED + "[-] " + ChatColor.GRAY + e.getPlayer().getName());
         userLeave(e.getPlayer());
     }
 
