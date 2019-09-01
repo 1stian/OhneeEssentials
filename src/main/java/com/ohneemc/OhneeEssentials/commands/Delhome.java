@@ -2,23 +2,22 @@ package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import de.leonhard.storage.Json;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Home implements CommandExecutor {
+public class Delhome implements CommandExecutor {
     private Json userdata;
 
     private OhneeEssentials ohnee;
-    public Home(OhneeEssentials ohnee){
+    public Delhome(OhneeEssentials ohnee){
         this.ohnee = ohnee;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("Home") && sender instanceof Player){
+        if (command.getName().equalsIgnoreCase("Delhome") && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
             String UUID;
 
@@ -33,11 +32,11 @@ public class Home implements CommandExecutor {
                     "/userdata/homes/");
 
             if (args.length < 1){
-                return teleport(player, "home");
+                return delHome(player, "home");
             }else if (args.length == 1){
                 String name = args[0];
                 if (userdata.contains(name)){
-                    return teleport(player, name.toLowerCase());
+                    return delHome(player, name.toLowerCase());
                 }else{
                     sender.sendMessage("Home does not exist.");
                     return true;
@@ -47,21 +46,14 @@ public class Home implements CommandExecutor {
         return false;
     }
 
-    private boolean teleport(Player player, String homeName){
-        try{
-            double x = userdata.getDouble(homeName + ".x");
-            double y = userdata.getDouble(homeName + ".y");
-            double z = userdata.getDouble(homeName + ".z");
-            float pitch = userdata.getFloat(homeName + ".pitch");
-            float yaw = userdata.getFloat(homeName + ".yaw");
-            String world = userdata.getString(homeName + ".world");
-
-            Location tp = new Location(ohnee.getServer().getWorld(world), x,y,z,yaw,pitch);
-            player.teleport(tp);
+    private boolean delHome(Player player, String homeName){
+        try {
+            userdata.removeKey(homeName);
+            player.sendMessage(homeName + " has been deleted.");
             return true;
         }catch (Exception e){
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 }

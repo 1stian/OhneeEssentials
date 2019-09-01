@@ -105,6 +105,11 @@ commands:
     usage: /home | /home <name>
     permission: ohnee.home
     permission-message: You do not have access to this command /home.
+  delhome:
+    description: Deletes your specified home.
+    usage: /delhome <name>
+    permission: ohnee.delhome
+    permission-message: You do not have access to this command /delhome.
 permissions:
   ohnee.*:
     default: false
@@ -129,6 +134,7 @@ permissions:
       ohnee.setspawn: true
       ohnee.home: true
       ohnee.sethome: true
+      ohnee.delhome: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
@@ -138,6 +144,7 @@ permissions:
       ohnee.spawn: true
       ohnee.home: true
       ohnee.sethome: true
+      ohnee.delhome: true
   ohnee.tpa:
     default: false
     description: Access to all the tpa commands.
