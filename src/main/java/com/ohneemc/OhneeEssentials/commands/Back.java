@@ -20,7 +20,7 @@ public class Back implements CommandExecutor {
             Player player = ((Player) sender).getPlayer();
             Location lasLoc = (Location) ohnee.lLoc().get(player != null ? player.getUniqueId() : null);
 
-            if (player != null) {
+            if (player != null && lasLoc != null) {
                 player.teleport(lasLoc);
                 player.sendMessage("You've been teleported to your previous location!");
                 return true;
