@@ -2,44 +2,55 @@ package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import com.ohneemc.OhneeEssentials.resources.Maps;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class Tpahere implements CommandExecutor {
+    private int TimeToRespond;
+
     private OhneeEssentials ohnee;
     public Tpahere (OhneeEssentials ohnee){
         this.ohnee = ohnee;
-    }
-
-    private Maps maps;
-    public Tpahere(Maps maps){
-        this.maps = maps;
+        this.TimeToRespond = ohnee.settings().getInt("PluginSettings.Teleportation.Tp.TimeToRespond");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpahere") && sender instanceof Player){
-            Player player = ((Player) sender).getPlayer();
+            UUID targetID;
             Player target;
 
             if (args.length < 1){
                 return false;
             }else if (ohnee.getServer().getPlayer(args[0].toLowerCase()) != null){
-                target = ohnee.getServer().getPlayer(args[0]);
-                if (!maps.tp().containsKey(target)){
-                    String toMap = player.getName() + "," + System.currentTimeMillis() + ",here";
-                    maps.tp().put(target, toMap);
-                    player.sendMessage("Teleport here request sent!");
-                    target.sendMessage(player.getName() + " has sent you a teleport here request - /tpaaccept or /tpadeny");
+                targetID = ohnee.getServer().getPlayer(args[0]).getUniqueId();
+                target= ohnee.getServer().getPlayer(targetID);
+                if (!ohnee.tp().containsKey(targetID)){
+                    String toMap = sender.getName() + "," + System.currentTimeMillis() + ",here";
+                    ohnee.tp().put(targetID, toMap);
+                    sender.sendMessage("Teleport here request sent!");
+                    target.sendMessage(sender.getName() + " has sent you a teleport here request - /tpaaccept or /tpadeny");
+
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(ohnee, new Runnable() {
+                        @Override
+                        public void run() {
+                            sender.sendMessage(target.getName() + " didn't respond in time. Request removed.");
+                            target.sendMessage("Time ran out, request removed.");
+                            ohnee.tp().remove(targetID);
+                        }
+                    }, TimeToRespond * 20L);
                     return true;
                 }else{
-                    player.sendMessage(target.getName() + " already has a pending request.");
+                    sender.sendMessage(target.getName() + " already has a pending request.");
                     return true;
                 }
             }else{
-                player.sendMessage("Couldn't find player");
+                sender.sendMessage("Couldn't find player");
                 return true;
             }
         }

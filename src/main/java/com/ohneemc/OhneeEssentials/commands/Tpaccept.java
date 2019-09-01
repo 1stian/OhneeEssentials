@@ -23,30 +23,33 @@ public class Tpaccept implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpaccept") && sender instanceof Player) {
-            Player player = ((Player) sender).getPlayer();
-            String extract = maps.tp().get(player.getName()).toString();
-            String[] split = extract.split(",");
-            if (split.length == 2) {
+            if (ohnee.tp().containsKey(((Player) sender).getUniqueId())){
+                String extract = ohnee.tp().get(((Player) sender).getUniqueId());
+                Player player = ((Player) sender).getPlayer();
+                String[] split = extract.split(",");
+                if (split.length == 2) {
 
-            } else {
+                } else {
 
-            }
+                }
 
-            Player target = ohnee.getServer().getPlayer(split[0]);
-            Long timeReq = Long.valueOf(split[1]);
-            Long timeCur = System.currentTimeMillis();
+                Player target = ohnee.getServer().getPlayer(split[0]);
 
-            player.teleport(target);
-
-            if (split.length == 2) {
-                target.teleport(player);
-            } else {
                 player.teleport(target);
-            }
 
-            maps.tp().remove(player);
-            target.sendMessage(player.getName() + " accepted your request.");
-            return true;
+                if (split.length == 2) {
+                    target.teleport(player);
+                } else {
+                    player.teleport(target);
+                }
+
+                ohnee.tp().remove(player.getUniqueId());
+                target.sendMessage(player.getName() + " accepted your request.");
+                return true;
+            }else{
+                sender.sendMessage("You have no pending requests.");
+                return true;
+            }
         }
         return false;
     }
