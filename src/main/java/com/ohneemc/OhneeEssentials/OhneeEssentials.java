@@ -27,29 +27,61 @@ public class OhneeEssentials extends JavaPlugin {
     private Json worldData = new Json("worlddata", getDataFolder().toString());
     private Integer fileType;
 
-    public Toml settings() {return  settings;}
-    public Json worldData() {return worldData;}
-    public Toml tomlWarps() {return  tomlWarpsConfig;}
-    public Json jsonWarps() {return  jsonWarpsConfig;}
-    public Yaml yamlWarps() {return  ymlWarpsConfig;}
-    public Integer fileUse(){return fileType;}
+    public Toml settings() {
+        return settings;
+    }
+
+    public Json worldData() {
+        return worldData;
+    }
+
+    public Toml tomlWarps() {
+        return tomlWarpsConfig;
+    }
+
+    public Json jsonWarps() {
+        return jsonWarpsConfig;
+    }
+
+    public Yaml yamlWarps() {
+        return ymlWarpsConfig;
+    }
+
+    public Integer fileUse() {
+        return fileType;
+    }
 
     private Plugin pl;
-    public Plugin plugin(){return pl;}
+
+    public Plugin plugin() {
+        return pl;
+    }
 
     //Maps
     private HashMap<Player, Long> coolmap = new HashMap<>();
     private HashMap<String, Location> warpMap = new HashMap<>();
-    public HashMap<Player, Long> cMap() {return coolmap;}
-    public HashMap<String, Location> wMap() {return warpMap;}
+
+    public HashMap<Player, Long> cMap() {
+        return coolmap;
+    }
+
+    public HashMap<String, Location> wMap() {
+        return warpMap;
+    }
 
     //Playtime
-    private HashMap<UUID, Long> playime= new HashMap<>();
-    public HashMap<UUID, Long> pTime(){return  playime;}
+    private HashMap<UUID, Long> playime = new HashMap<>();
+
+    public HashMap<UUID, Long> pTime() {
+        return playime;
+    }
 
     //Last location holder
     private HashMap<UUID, Location> lastLoc = new HashMap<>();
-    public HashMap<UUID, Location> lLoc(){return  lastLoc;}
+
+    public HashMap<UUID, Location> lLoc() {
+        return lastLoc;
+    }
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -76,18 +108,18 @@ public class OhneeEssentials extends JavaPlugin {
         new MessageHelper(this); // <-- This will be redone at some point, so everything will be customizable!
 
         //Setting warp file type.
-        if (settings().getBoolean("PluginSettings.Warp.json")){
+        if (settings().getBoolean("PluginSettings.Warp.json")) {
             //JSON
             fileType = 1;
             jsonWarpsConfig = new Json("warps", getDataFolder().toString());
-        }else if (settings().getBoolean("PluginSettings.Warp.toml")){
+        } else if (settings().getBoolean("PluginSettings.Warp.toml")) {
             //Toml
             fileType = 2;
             tomlWarpsConfig = new Toml("warps", getDataFolder().toString());
-        }else if (settings().getBoolean("PluginSettings.Warp.yaml")) {
+        } else if (settings().getBoolean("PluginSettings.Warp.yaml")) {
             //Yaml
             fileType = 3;
-            ymlWarpsConfig = new Yaml("warps",getDataFolder().toString());
+            ymlWarpsConfig = new Yaml("warps", getDataFolder().toString());
         }
 
         warpConfigHelper.warpLoad();
@@ -100,32 +132,30 @@ public class OhneeEssentials extends JavaPlugin {
 
     }
 
-    private void registerCommands(){
+    private void registerCommands() {
         //Commands
         this.getCommand("Wild").setExecutor(new Wild(this));
-        /**
-         this.getCommand("ohnee").setExecutor(new Ohnee(this));
-         this.getCommand("Tp").setExecutor(new Tp(this));
-         this.getCommand("Tphere").setExecutor(new Tphere(this));
-         this.getCommand("Tpa").setExecutor(new Tpa(this));
-         this.getCommand("Tpahere").setExecutor(new Tpahere(this));
-         this.getCommand("Tpaccept").setExecutor(new Tpaccept(this));
-         this.getCommand("Tpdeny").setExecutor(new Tpdeny(this));
-         this.getCommand("Back").setExecutor(new Back(this));
-         this.getCommand("Weather").setExecutor(new Weather());
-         this.getCommand("Time").setExecutor(new Time(this));
-         this.getCommand("Warp").setExecutor(new Warp(this));
-         this.getCommand("Setwarp").setExecutor(new Setwarp(this));
-         this.getCommand("Delwarp").setExecutor(new Delwarp(this));
-         this.getCommand("Gamemode").setExecutor(new Gamemode(this));
-         this.getCommand("Setspawn").setExecutor(new Setspawn(this));
-         this.getCommand("Spawn").setExecutor(new Spawn(this));
-         this.getCommand("sethome").setExecutor(new Sethome(this));
-         this.getCommand("home").setExecutor(new Home());
-         **/
+        this.getCommand("ohnee").setExecutor(new Ohnee(this));
+        this.getCommand("Tp").setExecutor(new Tp(this));
+        this.getCommand("Tphere").setExecutor(new Tphere(this));
+        this.getCommand("Tpa").setExecutor(new Tpa(this));
+        this.getCommand("Tpahere").setExecutor(new Tpahere(this));
+        this.getCommand("Tpaccept").setExecutor(new Tpaccept(this));
+        this.getCommand("Tpdeny").setExecutor(new Tpdeny(this));
+        this.getCommand("Back").setExecutor(new Back(this));
+        this.getCommand("Weather").setExecutor(new Weather());
+        this.getCommand("Time").setExecutor(new Time(this));
+        this.getCommand("Warp").setExecutor(new Warp(this));
+        this.getCommand("Setwarp").setExecutor(new Setwarp(this));
+        this.getCommand("Delwarp").setExecutor(new Delwarp(this));
+        this.getCommand("Gamemode").setExecutor(new Gamemode(this));
+        this.getCommand("Setspawn").setExecutor(new Setspawn(this));
+        this.getCommand("Spawn").setExecutor(new Spawn(this));
+        this.getCommand("sethome").setExecutor(new Sethome(this));
+        this.getCommand("home").setExecutor(new Home());
     }
 
-    private void registerEvents(){
+    private void registerEvents() {
         //Register events class
         this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
