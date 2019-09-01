@@ -1,7 +1,6 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import com.ohneemc.OhneeEssentials.resources.Maps;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,11 +10,6 @@ public class Tpdeny implements CommandExecutor {
     private OhneeEssentials ohnee;
     public Tpdeny (OhneeEssentials ohnee){
         this.ohnee = ohnee;
-    }
-
-    private Maps maps;
-    public Tpdeny(Maps maps){
-        this.maps = maps;
     }
 
     @Override
