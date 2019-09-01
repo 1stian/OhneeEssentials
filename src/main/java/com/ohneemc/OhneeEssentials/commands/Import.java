@@ -13,4 +13,8 @@ public class Import implements CommandExecutor {
         }
         return false;
     }
+
+    public void runImport(){
+
+    }
 }

@@ -2,6 +2,7 @@ package com.ohneemc.OhneeEssentials.events;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import de.leonhard.storage.Json;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,11 +26,13 @@ public class JoinQuitEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        Ohnee.getServer().broadcastMessage(ChatColor.GREEN + "[+]" + ChatColor.GRAY + e.getPlayer().getName());
         normalJoin(e.getPlayer());
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
+        Ohnee.getServer().broadcastMessage(ChatColor.RED + "[-]" + ChatColor.GRAY + e.getPlayer().getName());
         userLeave(e.getPlayer());
     }
 
