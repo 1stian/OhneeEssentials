@@ -107,7 +107,7 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.WildTP.Radius.minX", -10000);
         settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 10000);
         settings.setDefault("PluginSettings.WildTP.Radius.minZ", -10000);
-        List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER");
+        List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER", "SAND");
         settings.setDefault("PluginSettings.WildTP.SafeBlocks", defaltSafeBlocks);
         settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
         //Custom message file
@@ -158,7 +158,8 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("Setspawn").setExecutor(new Setspawn(this));
         this.getCommand("Spawn").setExecutor(new Spawn(this));
         this.getCommand("sethome").setExecutor(new Sethome(this));
-        this.getCommand("home").setExecutor(new Home());
+        this.getCommand("home").setExecutor(new Home(this));
+        this.getCommand("delhome").setExecutor(new Delhome(this));
     }
 
     private void registerEvents() {

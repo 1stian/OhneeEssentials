@@ -29,10 +29,10 @@ public class Sethome implements CommandExecutor {
                 return false;
             }
 
-            userdata = new Json(UUID, ohnee.getDataFolder().getAbsoluteFile() +
-                    "/userdata/" + UUID + ".json");
+            userdata = new Json(UUID, ohnee.getDataFolder().getAbsolutePath() +
+                    "/userdata/homes/");
 
-            List<String> existHomes = userdata.getStringList("PlayerInfo.homes");
+            Set<String> existHomes = userdata.getKeySet();
 
             if (args.length < 1){
                 return setHome(player, "home");
@@ -65,19 +65,20 @@ public class Sethome implements CommandExecutor {
             z = player.getLocation().getZ();
             pitch = player.getLocation().getPitch();
             yaw = player.getLocation().getYaw();
-            world = player.getWorld().toString();
+            world = player.getWorld().getName();
         }else{
             return false;
         }
 
         try{
-            userdata.set("PlayerInfo.homes.", homeName);
-            userdata.set("PlayerInfo.homes." + homeName + ".x", x);
-            userdata.set("PlayerInfo.homes." + homeName + ".y", y);
-            userdata.set("PlayerInfo.homes." + homeName + ".z", z);
-            userdata.set("PlayerInfo.homes." + homeName + ".pitch", pitch);
-            userdata.set("PlayerInfo.homes." + homeName + ".yaw", yaw);
-            userdata.set("PlayerInfo.homes." + homeName + ".world", world);
+            userdata.set(homeName + ".x", x);
+            userdata.set(homeName + ".y", y);
+            userdata.set(homeName + ".z", z);
+            userdata.set(homeName + ".pitch", pitch);
+            userdata.set(homeName + ".yaw", yaw);
+            userdata.set(homeName + ".world", world);
+
+            player.sendMessage("Home " + homeName + " has been set!");
             return true;
         }catch (Exception e){
             e.printStackTrace();
