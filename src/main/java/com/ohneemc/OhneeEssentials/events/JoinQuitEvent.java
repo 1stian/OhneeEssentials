@@ -94,6 +94,7 @@ public class JoinQuitEvent implements Listener {
         userdata.set("PlayerInfo.Banned", false);
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
+        userdata.set("PlayerDefined.homes", "");
     }
 
     private void userLeave(Player player){
