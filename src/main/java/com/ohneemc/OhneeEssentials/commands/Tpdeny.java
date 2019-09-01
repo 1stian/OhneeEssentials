@@ -21,17 +21,22 @@ public class Tpdeny implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpdeny") && sender instanceof Player){
-            Player player = ((Player) sender).getPlayer();
-            String extract = maps.tp().get(player != null ? player.getName() : null).toString();
-            String[] split = extract.split(",");
+            if (ohnee.tp().containsKey(((Player) sender).getUniqueId())){
+                Player player = ((Player) sender).getPlayer();
+                String extract = ohnee.tp().get(player != null ? player.getName() : null).toString();
+                String[] split = extract.split(",");
 
-            Player target = ohnee.getServer().getPlayer(split[0]);
+                Player target = ohnee.getServer().getPlayer(split[0]);
 
-            maps.tp().remove(player);
-            if (target != null) {
-                target.sendMessage((player != null ? player.getName() : null) + " denied your request.");
+                ohnee.tp().remove(player.getUniqueId());
+                if (target != null) {
+                    target.sendMessage(player.getName() + " denied your request.");
+                }
+                return true;
+            }else{
+                sender.sendMessage("You have no pending requests.");
+                return true;
             }
-            return true;
         }
         return false;
     }
