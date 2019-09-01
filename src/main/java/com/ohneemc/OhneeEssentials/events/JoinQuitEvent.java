@@ -2,12 +2,14 @@ package com.ohneemc.OhneeEssentials.events;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import de.leonhard.storage.Json;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scoreboard.*;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,7 +28,19 @@ public class JoinQuitEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        Player player = e.getPlayer();
         Ohnee.getServer().broadcastMessage(ChatColor.GREEN + "[+]" + ChatColor.GRAY + e.getPlayer().getName());
+
+        ScoreboardManager m = Bukkit.getScoreboardManager();
+        Scoreboard b = m.getNewScoreboard();
+
+        Objective o = b.registerNewObjective("Online", "");
+        o.setDisplaySlot(DisplaySlot.SIDEBAR);
+        o.setDisplayName(ChatColor.DARK_AQUA + "OhneeMC");
+
+        Score oPlayer = o.getScore(ChatColor.WHITE + "Online: " + Ohnee.getServer().getOnlinePlayers().size());
+        player.setScoreboard(b);
+
         normalJoin(e.getPlayer());
     }
 
