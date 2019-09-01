@@ -2,6 +2,7 @@ package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import de.leonhard.storage.Json;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,7 +41,7 @@ public class Sethome implements CommandExecutor {
                 if (!existHomes.contains(args[0].toLowerCase())){
                     return setHome(player, args[0].toLowerCase());
                 }else{
-                    sender.sendMessage("Home with that name already exist. Please delete it first.");
+                    sender.sendMessage(ChatColor.GREEN + "Home with that name already exist. Please delete it first.");
                     return true;
                 }
             }else{
@@ -78,7 +79,7 @@ public class Sethome implements CommandExecutor {
             userdata.set(homeName + ".yaw", yaw);
             userdata.set(homeName + ".world", world);
 
-            player.sendMessage("Home " + homeName + " has been set!");
+            player.sendMessage(ChatColor.GREEN + "Home " + ChatColor.GOLD + homeName + ChatColor.GREEN + " has been set!");
             return true;
         }catch (Exception e){
             e.printStackTrace();

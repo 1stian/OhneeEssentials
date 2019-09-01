@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,7 +27,7 @@ public class Delwarp implements CommandExecutor {
 
             if (!plugin.wMap().containsKey(warpName)) {
                 if (player != null) {
-                    player.sendMessage("A warp with the name: " + warpName + " does not exist!");
+                    player.sendMessage(ChatColor.GREEN + "A warp with the name: " + warpName + " does not exist!");
                     return true;
                 }
                 return false;
@@ -51,11 +52,11 @@ public class Delwarp implements CommandExecutor {
                 }catch (Exception ex){
                     ex.printStackTrace();
                     if (player != null) {
-                        player.sendMessage("Couldn't delete warp, contact your server admins.");
+                        player.sendMessage(ChatColor.GREEN + "Couldn't delete warp, contact your server admins.");
                     }
                 }
                 if (player != null) {
-                    player.sendMessage("Warp: " + warpName + " has been removed!");
+                    player.sendMessage(ChatColor.GREEN + "Warp: " + warpName + " has been removed!");
                 }
                 return true;
             }

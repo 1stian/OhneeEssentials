@@ -2,6 +2,7 @@ package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import de.leonhard.storage.Json;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +25,7 @@ public class Delhome implements CommandExecutor {
             if (player != null){
                 UUID = player.getUniqueId().toString();
             }else{
-                sender.sendMessage("An error occurred, please report this to your server administrator. Code: H1");
+                sender.sendMessage("An error occurred, please report this to your server administrator. Code: H2");
                 return false;
             }
 
@@ -38,7 +39,7 @@ public class Delhome implements CommandExecutor {
                 if (userdata.contains(name)){
                     return delHome(player, name.toLowerCase());
                 }else{
-                    sender.sendMessage("Home does not exist.");
+                    sender.sendMessage(ChatColor.GREEN + "Home does not exist.");
                     return true;
                 }
             }
@@ -49,7 +50,7 @@ public class Delhome implements CommandExecutor {
     private boolean delHome(Player player, String homeName){
         try {
             userdata.removeKey(homeName);
-            player.sendMessage(homeName + " has been deleted.");
+            player.sendMessage(ChatColor.GOLD + homeName + ChatColor.GREEN + " has been deleted.");
             return true;
         }catch (Exception e){
             e.printStackTrace();

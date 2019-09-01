@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,11 +25,11 @@ public class Tpdeny implements CommandExecutor {
 
                 ohnee.tp().remove(player.getUniqueId());
                 if (target != null) {
-                    target.sendMessage(player.getName() + " denied your request.");
+                    target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " denied your request.");
                 }
                 return true;
             }else{
-                sender.sendMessage("You have no pending requests.");
+                sender.sendMessage(ChatColor.GREEN + "You have no pending requests.");
                 return true;
             }
         }

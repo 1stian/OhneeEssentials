@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -30,7 +31,7 @@ public class Spawn implements CommandExecutor {
                 Location spawnLoc = new Location(world, x, y,z, yaw, pitch);
 
                 player.teleport(spawnLoc);
-                player.sendMessage("You've been teleported to spawn!");
+                player.sendMessage(ChatColor.GREEN + "You've been teleported to spawn!");
                 return true;
             }
             return false;

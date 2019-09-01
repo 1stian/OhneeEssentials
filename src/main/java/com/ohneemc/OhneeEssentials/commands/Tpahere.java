@@ -2,6 +2,7 @@ package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,24 +33,24 @@ public class Tpahere implements CommandExecutor {
                 if (!ohnee.tp().containsKey(targetID)){
                     String toMap = sender.getName() + "," + System.currentTimeMillis() + ",here";
                     ohnee.tp().put(targetID, toMap);
-                    sender.sendMessage("Teleport here request sent!");
-                    target.sendMessage(sender.getName() + " has sent you a teleport here request - /tpaaccept or /tpadeny");
+                    sender.sendMessage(ChatColor.GREEN + "Teleport here request sent!");
+                    target.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.GREEN + " has sent you a teleport here request - /tpaaccept or /tpadeny");
 
                     Bukkit.getScheduler().scheduleSyncDelayedTask(ohnee, new Runnable() {
                         @Override
                         public void run() {
-                            sender.sendMessage(target.getName() + " didn't respond in time. Request removed.");
-                            target.sendMessage("Time ran out, request removed.");
+                            sender.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.GREEN + " didn't respond in time. Request removed.");
+                            target.sendMessage(ChatColor.GREEN + "Time ran out, request removed.");
                             ohnee.tp().remove(targetID);
                         }
                     }, TimeToRespond * 20L);
                     return true;
                 }else{
-                    sender.sendMessage(target.getName() + " already has a pending request.");
+                    sender.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.GREEN + " already has a pending request.");
                     return true;
                 }
             }else{
-                sender.sendMessage("Couldn't find player");
+                sender.sendMessage(ChatColor.GREEN + "Couldn't find player");
                 return true;
             }
         }

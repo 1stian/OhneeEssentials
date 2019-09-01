@@ -1,5 +1,6 @@
 package com.ohneemc.OhneeEssentials.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,7 +31,7 @@ public class Weather implements CommandExecutor {
                         world.setThundering(false);
                         world.setStorm(false);
                         world.setWeatherDuration(0);
-                        player.sendMessage("Weather has been set to clear!");
+                        player.sendMessage(ChatColor.GREEN + "Weather has been set to clear!");
                         return true;
                     }
                     return false;
@@ -38,7 +39,7 @@ public class Weather implements CommandExecutor {
                     if (world != null) {
                         world.setThundering(true);
                         world.setWeatherDuration(6000);
-                        player.sendMessage("Is that... Thunder?!");
+                        player.sendMessage(ChatColor.GREEN + "Is that... Thunder?!");
                         return true;
                     }
                     return false;
@@ -47,12 +48,12 @@ public class Weather implements CommandExecutor {
                         if (duration != null){
                             int time = Integer.parseInt(duration.toLowerCase());
                             world.setWeatherDuration(time * 20);
-                            player.sendMessage("Weather has been set to rain");
+                            player.sendMessage(ChatColor.GREEN + "Weather has been set to rain");
                             return true;
                         }else{
                             world.setStorm(true);
                             world.setWeatherDuration(6000);
-                            player.sendMessage("Weather has been set to rain");
+                            player.sendMessage(ChatColor.GREEN + "Weather has been set to rain");
                             return true;
                         }
                     }

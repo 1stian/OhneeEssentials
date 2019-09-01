@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -36,7 +37,7 @@ public class Setspawn implements CommandExecutor {
                 Location newSpawnLoc = new Location(world, x, y,z, yaw, pitch);
                 //Sets it in the world data - plugin will not use that data, just for other ones knowing where it is.
                 world.setSpawnLocation(newSpawnLoc);
-                player.sendMessage("World spawn location has been set!");
+                player.sendMessage(ChatColor.GREEN + "World spawn location has been set!");
                 return true;
             }
             return false;
