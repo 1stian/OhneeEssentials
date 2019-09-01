@@ -39,8 +39,8 @@ public class Wild implements CommandExecutor {
 
     public Wild(OhneeEssentials plugin) {
         this.plugin = plugin;
-        this.countdown = plugin.settings().getInt("PluginSettings.Teleport.countdown");
-        this.cooldown = plugin.settings().getInt("PluginSettings.Teleport.cooldown");
+        this.countdown = plugin.settings().getInt("PluginSettings.WildTP.countdown");
+        this.cooldown = plugin.settings().getInt("PluginSettings.WildTP.cooldown");
         this.maxX = plugin.settings().getInt("PluginSettings.WildTP.Radius.maxX");
         this.minX = plugin.settings().getInt("PluginSettings.WildTP.Radius.minX");
         this.maxZ = plugin.settings().getInt("PluginSettings.WildTP.Radius.maxZ");

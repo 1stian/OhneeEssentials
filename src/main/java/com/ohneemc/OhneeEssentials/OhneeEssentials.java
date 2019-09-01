@@ -96,8 +96,8 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.Warp.yaml", false);
         settings.setDefault("PluginSettings.Warp.json", true);
         //settings.setDefault("PluginSettings.Warp.mysql", false);
-        settings.setDefault("PluginSettings.Teleport.cooldown", 60);
-        settings.setDefault("PluginSettings.Teleport.countdown", 3);
+        settings.setDefault("PluginSettings.WildTP.cooldown", 60);
+        settings.setDefault("PluginSettings.WildTP.countdown", 3);
         settings.setDefault("PluginSettings.WildTP.Radius.maxX", 10000);
         settings.setDefault("PluginSettings.WildTP.Radius.minX", -10000);
         settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 10000);
