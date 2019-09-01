@@ -2,6 +2,7 @@ package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -61,11 +62,11 @@ public class Wild implements CommandExecutor {
                 if (plugin.cMap().containsKey(player) && (plugin.cMap().get(player) / 1000 + cooldown) >= (System.currentTimeMillis() / 1000)) {
                     assert player != null;
                     Long timeLeft = System.currentTimeMillis() - plugin.cMap().get(player);
-                    player.sendMessage(MessageHelper.timeLeft + (TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cooldown) + " seconds");
+                    player.sendMessage(ChatColor.GREEN + MessageHelper.timeLeft + (TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cooldown) + " seconds");
                 } else {
                     if (!running){
                         running = true;
-                        commandSender.sendMessage("Looking for a safe location. Hold on.");
+                        commandSender.sendMessage(ChatColor.GREEN + "Looking for a safe location. Hold on.");
                         RunWild(player);
                     }else{
                         assert player != null;
@@ -118,7 +119,7 @@ public class Wild implements CommandExecutor {
 
                 private Object TeleportPlayer(final Player player, final Location ready) {
                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        player.sendMessage("Teleporting");
+                        player.sendMessage(ChatColor.GREEN + "Teleporting");
                         plugin.cMap().put(player, (System.currentTimeMillis()));
                         player.teleport(ready.add(0, 2, 0));
                         running = false;
@@ -133,7 +134,7 @@ public class Wild implements CommandExecutor {
                 }
 
                 private Object delayMessage(Player player) {
-                    player.sendMessage(MessageHelper.youWillbeTped + countdown + " seconds");
+                    player.sendMessage(ChatColor.GREEN + MessageHelper.youWillbeTped + countdown + " seconds");
                     return true;
                 }
             });

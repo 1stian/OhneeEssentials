@@ -2,6 +2,7 @@ package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import de.leonhard.storage.Json;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,7 +40,7 @@ public class Home implements CommandExecutor {
                 if (userdata.contains(name)){
                     return teleport(player, name.toLowerCase());
                 }else{
-                    sender.sendMessage("Home does not exist.");
+                    sender.sendMessage(ChatColor.GREEN + "Home does not exist.");
                     return true;
                 }
             }

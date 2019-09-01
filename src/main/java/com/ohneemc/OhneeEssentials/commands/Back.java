@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +23,7 @@ public class Back implements CommandExecutor {
 
             if (player != null && lasLoc != null) {
                 player.teleport(lasLoc);
-                player.sendMessage("You've been teleported to your previous location!");
+                player.sendMessage(ChatColor.GREEN + "You've been teleported to your previous location!");
                 return true;
             }
             return false;

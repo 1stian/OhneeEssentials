@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -27,7 +28,7 @@ public class Warp implements CommandExecutor {
                 String n2 = n1.replaceAll("]", "");
                 String name = n2.replaceAll("\\[", "");
                 if (player != null) {
-                    player.sendMessage("Warps: " + name);
+                    player.sendMessage(ChatColor.GREEN + "Warps: " + name);
                     return true;
                 }
                 return false;
@@ -37,7 +38,7 @@ public class Warp implements CommandExecutor {
 
             if (!ohnee.wMap().containsKey(warpName)) {
                 if (player != null) {
-                    player.sendMessage("A warp with the name: " + warpName + " does not exist!");
+                    player.sendMessage(ChatColor.GREEN + "A warp with the name: " + warpName + " does not exist!");
                     return true;
                 }
                 return false;
@@ -45,7 +46,7 @@ public class Warp implements CommandExecutor {
                 Location loc = ohnee.wMap().get(warpName);
                 if (player != null) {
                     player.teleport(loc);
-                    player.sendMessage("You've been teleported to: " + warpName);
+                    player.sendMessage(ChatColor.GREEN + "You've been teleported to: " + warpName);
                     return true;
                 }
                 return false;

@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,7 +31,7 @@ public class Setwarp implements CommandExecutor {
 
             if (plugin.wMap().containsKey(warpName)) {
                 if (player != null) {
-                    player.sendMessage("A warp with the name: " + warpName + " already exists!");
+                    player.sendMessage(ChatColor.GREEN + "A warp with the name: " + warpName + " already exists!");
                     return true;
                 }
                 return false;
@@ -88,13 +89,13 @@ public class Setwarp implements CommandExecutor {
                     //MySql/MariaDB
 
                     if (player != null) {
-                        player.sendMessage("Warp: " + warpName + " has been set!");
+                        player.sendMessage(ChatColor.GREEN + "Warp: " + ChatColor.GOLD + warpName + ChatColor.GREEN + " has been set!");
                     }
                     return true;
                 }catch (Exception ex){
                     ex.printStackTrace();
                     if (player != null) {
-                        player.sendMessage("Couldn't set warp, contact your server admins.");
+                        player.sendMessage(ChatColor.GREEN + "Couldn't set warp, contact your server admins.");
                     }
                 }
             }
