@@ -60,6 +60,11 @@ public class OhneeEssentials extends JavaPlugin {
     //Maps
     private HashMap<Player, Long> coolmap = new HashMap<>();
     private HashMap<String, Location> warpMap = new HashMap<>();
+    private HashMap<UUID, String> tpah = new HashMap<>();
+
+    public HashMap<UUID, String> tp() {
+        return tpah;
+    }
 
     public HashMap<Player, Long> cMap() {
         return coolmap;
@@ -104,6 +109,7 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.WildTP.Radius.minZ", -10000);
         List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER");
         settings.setDefault("PluginSettings.WildTP.SafeBlocks", defaltSafeBlocks);
+        settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
         //Custom message file
         new MessageHelper(this); // <-- This will be redone at some point, so everything will be customizable!
 
