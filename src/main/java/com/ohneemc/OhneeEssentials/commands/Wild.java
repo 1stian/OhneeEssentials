@@ -46,7 +46,7 @@ public class Wild implements CommandExecutor {
         this.minX = plugin.settings().getInt("PluginSettings.WildTP.Radius.minX");
         this.maxZ = plugin.settings().getInt("PluginSettings.WildTP.Radius.maxZ");
         this.minZ = plugin.settings().getInt("PluginSettings.WildTP.Radius.minZ");
-        this.safeBlocks = plugin.settings().getStringList("PluginSettings.WildTP.SafeBlocks");
+        this.safeBlocks = plugin.safeBlocks;
     }
 
     private final Consumer<Object> callback = o -> {
@@ -61,7 +61,7 @@ public class Wild implements CommandExecutor {
 
                 if (plugin.cMap().containsKey(player) && (plugin.cMap().get(player) / 1000 + cooldown) >= (System.currentTimeMillis() / 1000)) {
                     assert player != null;
-                    Long timeLeft = System.currentTimeMillis() - plugin.cMap().get(player);
+                    long timeLeft = System.currentTimeMillis() - plugin.cMap().get(player);
                     player.sendMessage(ChatColor.GREEN + MessageHelper.timeLeft + (TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cooldown) + " seconds");
                 } else {
                     if (!running){
