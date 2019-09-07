@@ -88,6 +88,8 @@ public class OhneeEssentials extends JavaPlugin {
         return lastLoc;
     }
 
+    public List<String> safeBlocks;
+
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
@@ -107,7 +109,7 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.WildTP.Radius.minX", -10000);
         settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 10000);
         settings.setDefault("PluginSettings.WildTP.Radius.minZ", -10000);
-        List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER", "SAND");
+        List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER", "SAND", "ICE", "CLAY", "TERRACOTTA");
         settings.setDefault("PluginSettings.WildTP.SafeBlocks", defaltSafeBlocks);
         settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
         //Custom message file
@@ -129,6 +131,7 @@ public class OhneeEssentials extends JavaPlugin {
         }
 
         warpConfigHelper.warpLoad();
+        safeBlocks = settings.getStringList("PluginSettings.WildTP.SafeBlocks");
 
         registerEvents();
         registerCommands();
