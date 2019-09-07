@@ -9,6 +9,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+import java.util.Set;
+
 public class Home implements CommandExecutor {
     private Json userdata;
 
@@ -33,14 +36,24 @@ public class Home implements CommandExecutor {
             userdata = new Json(UUID, ohnee.getDataFolder().getAbsolutePath() +
                     "/userdata/homes/");
 
-            if (args.length < 1){
-                return teleport(player, "home");
-            }else if (args.length == 1){
+            Set<String> homes = userdata.getKeySet();
+
+            if (args.length == 1){
                 String name = args[0];
                 if (userdata.contains(name)){
                     return teleport(player, name.toLowerCase());
                 }else{
                     sender.sendMessage(ChatColor.GREEN + "Home does not exist.");
+                    return true;
+                }
+            }else if (homes.size() > 1){
+                sender.sendMessage(ChatColor.GREEN + "Homes: " + homes.toString());
+                return true;
+            }else{
+                if (userdata.contains("home")){
+                    return teleport(player, "home");
+                }else{
+                    sender.sendMessage(ChatColor.GREEN + "You've not set any home yet. use /sethome");
                     return true;
                 }
             }
