@@ -28,7 +28,7 @@ public class JoinQuitEvent implements Listener {
     }
 
     private Json userdata;
-    private Json userHome;
+
     public Json uData(){return userdata;}
 
     @EventHandler
@@ -131,7 +131,7 @@ public class JoinQuitEvent implements Listener {
             Yaml essentialsdata = new Yaml(UUID, Ohnee.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
 
             for (String h : uData.getHomes()){
-                userHome = new Json(UUID, Ohnee.getDataFolder().getAbsolutePath() + "/userdata/homes/");
+                Json userHome = new Json(UUID, Ohnee.getDataFolder().getAbsolutePath() + "/userdata/homes/");
                 String homeName = h;
                 userHome.set(homeName + ".x", essentialsdata.getDouble("homes." + homeName + ".x"));
                 userHome.set(homeName + ".y", essentialsdata.getDouble("homes." + homeName + ".y"));
