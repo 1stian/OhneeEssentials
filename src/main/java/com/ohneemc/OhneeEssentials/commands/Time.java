@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,14 +30,14 @@ public class Time implements CommandExecutor {
                 case "day":
                     if (world != null) {
                         world.setTime(8000);
-                        player.sendMessage("Time set to day!");
+                        player.sendMessage(ChatColor.GREEN+"Time set to day!");
                         return true;
                     }
                     return false;
                 case "night":
                     if (world != null) {
                         world.setTime(20000);
-                        player.sendMessage("Time set to night!");
+                        player.sendMessage(ChatColor.GREEN+"Time set to night!");
                         return true;
                     }
                     return false;

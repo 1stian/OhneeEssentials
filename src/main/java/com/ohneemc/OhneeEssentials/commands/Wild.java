@@ -70,7 +70,7 @@ public class Wild implements CommandExecutor {
                         RunWild(player);
                     }else{
                         assert player != null;
-                        player.sendMessage(MessageHelper.alreadyBeingTeleported);
+                        player.sendMessage(ChatColor.GREEN+MessageHelper.alreadyBeingTeleported);
                     }
                 }
                 return true;
@@ -129,7 +129,7 @@ public class Wild implements CommandExecutor {
 
                 private Object NotFound(Player player) {
                     running = false;
-                    player.sendMessage(MessageHelper.couldnTfind);
+                    player.sendMessage(ChatColor.GREEN+MessageHelper.couldnTfind);
                     return true;
                 }
 

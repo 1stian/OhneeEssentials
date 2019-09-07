@@ -1,5 +1,6 @@
 package com.ohneemc.OhneeEssentials.resources;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -11,7 +12,7 @@ public class TpHelper {
             Player two = plugin.getServer().getPlayer(p2);
             if (one != null && two != null){
                 one.teleport(two.getLocation());
-                one.sendMessage("You've been teleported to: " + two.getName());
+                one.sendMessage(ChatColor.GREEN + "You've been teleported to: " + ChatColor.GOLD + two.getName());
                 return true;
             }
             return false;
