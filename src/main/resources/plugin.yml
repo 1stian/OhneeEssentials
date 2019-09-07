@@ -3,7 +3,7 @@ version: "1.0"
 author: Stian "1stian" Tofte
 website: https://ohneemc.com
 main: com.ohneemc.OhneeEssentials.OhneeEssentials
-depend: [PlaceholderAPI]
+depend: [PlaceholderAPI, Vault, Essentials]
 api-version: "1.14"
 prefix: Ohnee
 commands:
@@ -103,6 +103,7 @@ commands:
   home:
     description: Teleport you to your home.
     usage: /home | /home <name>
+    aliases: [homes]
     permission: ohnee.home
     permission-message: You do not have access to this command /home.
   delhome:
