@@ -9,10 +9,12 @@ import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Toml;
 import de.leonhard.storage.Yaml;
+import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -26,6 +28,11 @@ public class OhneeEssentials extends JavaPlugin {
     private Toml settings = new Toml("settings", getDataFolder().toString());
     private Json worldData = new Json("worlddata", getDataFolder().toString());
     private Integer fileType;
+    private Permission vPerm;
+
+    public Permission vPerm(){
+        return vPerm;
+    }
 
     public Toml settings() {
         return settings;
@@ -96,6 +103,8 @@ public class OhneeEssentials extends JavaPlugin {
         pl = this;
         //Enabling metrics
         Metrics metrics = new Metrics(this);
+        //vPerm = (Permission) getServer().getPluginManager().getPlugin("Vault");
+        setupPermissions();
 
 
         //Setting defaults!
@@ -112,6 +121,8 @@ public class OhneeEssentials extends JavaPlugin {
         List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER", "SAND", "ICE", "CLAY", "TERRACOTTA");
         settings.setDefault("PluginSettings.WildTP.SafeBlocks", defaltSafeBlocks);
         settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
+        List<String> defaultGroups = Arrays.asList("admin:10", "mod:10", "vip:5", "regular:3", "default:1");
+        settings.setDefault("PluginSettings.Homes.LimitPrGroup", defaultGroups);
         //Custom message file
         new MessageHelper(this); // <-- This will be redone at some point, so everything will be customizable!
 
@@ -170,5 +181,11 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
         this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
+    }
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        vPerm = rsp.getProvider();
+        return vPerm != null;
     }
 }
