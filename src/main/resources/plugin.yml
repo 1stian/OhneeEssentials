@@ -41,11 +41,13 @@ commands:
   tpaccept:
     description: Accepts a teleport request.
     usage: Missing arguments - /tpaccept
+    aliases: [tpyes]
     permission: ohnee.tpaccept
     permission-message: You do not have access to this command /tpaccept.
   tpdeny:
     description: Denies a teleport request.
     usage: Missing arguments - /tpdeny
+    aliases: [tpno]
     permission: ohnee.tpdeny
     permission-message: You do not have access to this command /tpdeny.
   back:
