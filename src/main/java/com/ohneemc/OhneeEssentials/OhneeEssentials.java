@@ -12,6 +12,7 @@ import de.leonhard.storage.Yaml;
 import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -20,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.*;
 
 public class OhneeEssentials extends JavaPlugin {
+    public boolean settingsLoaded = false;
 
     private WarpConfigHelper warpConfigHelper = new WarpConfigHelper(this);
     private Toml tomlWarpsConfig;
@@ -65,7 +67,7 @@ public class OhneeEssentials extends JavaPlugin {
     }
 
     //Maps
-    private HashMap<Player, Long> coolmap = new HashMap<>();
+    private HashMap<UUID, Long> coolmap = new HashMap<>();
     private HashMap<String, Location> warpMap = new HashMap<>();
     private HashMap<UUID, String> tpah = new HashMap<>();
 
@@ -73,7 +75,7 @@ public class OhneeEssentials extends JavaPlugin {
         return tpah;
     }
 
-    public HashMap<Player, Long> cMap() {
+    public HashMap<UUID, Long> cMap() {
         return coolmap;
     }
 
@@ -95,17 +97,25 @@ public class OhneeEssentials extends JavaPlugin {
         return lastLoc;
     }
 
+
+    //Wild
     public List<String> safeBlocks;
+    public List<Material> materials = new ArrayList<>();
+    public int maxX;
+    public int minX;
+    public int maxZ;
+    public int minZ;
+    public int countdown;
+    public int cooldown;
 
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
         pl = this;
+        settingsLoaded = loadSettings();
         //Enabling metrics
         Metrics metrics = new Metrics(this);
-        //vPerm = (Permission) getServer().getPluginManager().getPlugin("Vault");
         setupPermissions();
-
 
         //Setting defaults!
         settings.setDefault("PluginSettings.Warp.toml", false);
@@ -142,7 +152,6 @@ public class OhneeEssentials extends JavaPlugin {
         }
 
         warpConfigHelper.warpLoad();
-        safeBlocks = settings.getStringList("PluginSettings.WildTP.SafeBlocks");
 
         registerEvents();
         registerCommands();
@@ -187,5 +196,27 @@ public class OhneeEssentials extends JavaPlugin {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         vPerm = rsp.getProvider();
         return vPerm != null;
+    }
+
+    private boolean loadSettings(){
+        try {
+            safeBlocks = settings.getStringList("PluginSettings.WildTP.SafeBlocks");
+            countdown = settings().getInt("PluginSettings.WildTP.countdown");
+            cooldown = settings().getInt("PluginSettings.WildTP.cooldown");
+            maxX = settings().getInt("PluginSettings.WildTP.Radius.maxX");
+            minX = settings().getInt("PluginSettings.WildTP.Radius.minX");
+            maxZ = settings().getInt("PluginSettings.WildTP.Radius.maxZ");
+            minZ = settings().getInt("PluginSettings.WildTP.Radius.minZ");
+
+            //Filling list material list from safeBlocks
+            for (String material : safeBlocks) {
+                materials.add(Material.getMaterial(material.toUpperCase()));
+            }
+
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }
