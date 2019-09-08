@@ -82,7 +82,7 @@ public class Wild implements CommandExecutor {
                     world = player.getWorld();
                 }
                 Location tp = createTp(player, world);
-                if (tp == null || tp.add(0,2,0).getBlock().getType() != Material.AIR) {
+                if (tp == null || tp.add(0,1,0).getBlock().getType() != Material.AIR) {
                     runWild(player, world.getName());
                     return;
                 }
