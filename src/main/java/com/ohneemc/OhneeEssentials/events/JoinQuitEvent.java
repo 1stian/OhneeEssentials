@@ -106,18 +106,9 @@ public class JoinQuitEvent implements Listener {
 
     private void userLeave(Player player){
         userdata.update();
-
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
-
-        Long joinedTime = Ohnee.pTime().get(player.getUniqueId());
-        Long timeLeave = System.currentTimeMillis();
-        Long summed = timeLeave - joinedTime;
-        Long currentPlaytime = userdata.getLong("PlayerStats.Playtime");
-        Long ready = currentPlaytime + summed;
-
         userdata.set("PlayerStats.LastSeen", formatter.format(date));
-
         Ohnee.pTime().remove(player.getUniqueId());
     }
 
