@@ -6,12 +6,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Consumer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,121 +24,91 @@ public class Wild implements CommandExecutor {
     private int minX;
     private int maxZ;
     private int minZ;
-
     private int countdown;
     private int cooldown;
 
     private List<String> safeBlocks;
-
     private boolean running = false;
-
     private List<Material> materials = new ArrayList<>();
-
-    private int retries = 0;
+    boolean hitNogo = false;
 
     public Wild(OhneeEssentials plugin) {
         this.plugin = plugin;
-        this.countdown = plugin.settings().getInt("PluginSettings.WildTP.countdown");
-        this.cooldown = plugin.settings().getInt("PluginSettings.WildTP.cooldown");
-        this.maxX = plugin.settings().getInt("PluginSettings.WildTP.Radius.maxX");
-        this.minX = plugin.settings().getInt("PluginSettings.WildTP.Radius.minX");
-        this.maxZ = plugin.settings().getInt("PluginSettings.WildTP.Radius.maxZ");
-        this.minZ = plugin.settings().getInt("PluginSettings.WildTP.Radius.minZ");
+        this.countdown = plugin.countdown;
+        this.cooldown = plugin.cooldown;
+        this.maxX = plugin.maxX;
+        this.minX = plugin.minX;
+        this.maxZ = plugin.maxZ;
+        this.minZ = plugin.minZ;
         this.safeBlocks = plugin.safeBlocks;
+        this.materials = plugin.materials;
     }
 
-    private final Consumer<Object> callback = o -> {
-
-    };
-
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        //Wild command
-        if (command.getName().equalsIgnoreCase("Wild")) {
-            if (((Player) commandSender).getPlayer() != null) {
-                Player player = ((Player) commandSender).getPlayer();
-
-                if (plugin.cMap().containsKey(player) && (plugin.cMap().get(player) / 1000 + cooldown) >= (System.currentTimeMillis() / 1000)) {
-                    assert player != null;
-                    long timeLeft = System.currentTimeMillis() - plugin.cMap().get(player);
-                    player.sendMessage(ChatColor.GREEN + MessageHelper.timeLeft + (TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cooldown) + " seconds");
-                } else {
-                    if (!running){
-                        running = true;
-                        commandSender.sendMessage(ChatColor.GREEN + "Looking for a safe location. Hold on.");
-                        RunWild(player);
-                    }else{
-                        assert player != null;
-                        player.sendMessage(ChatColor.GREEN+MessageHelper.alreadyBeingTeleported);
-                    }
-                }
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+        if (command.getName().equalsIgnoreCase("Wild") && sender instanceof Player) {
+            Player player = ((Player) sender).getPlayer();
+            if (player != null && plugin.cMap().containsKey(player.getUniqueId()) && (plugin.cMap().get(player.getUniqueId()) / 1000 + cooldown) >= (System.currentTimeMillis() / 1000)) {
+                long timeLeft = System.currentTimeMillis() - plugin.cMap().get(player.getUniqueId());
+                sender.sendMessage(ChatColor.GREEN + MessageHelper.timeLeft + (TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cooldown) + " seconds");
                 return true;
             } else {
-                plugin.getLogger().warning("Player null... While using command /Wild");
-                return false;
+                if (!running) {
+                    running = true;
+                    sender.sendMessage(ChatColor.GREEN + "Looking for a safe location. Hold on.");
+                    String world = null;
+                    if (strings.length == 1) {
+                        world = strings[1];
+                    }
+
+                    return runWild(player, world);
+                } else {
+                    player.sendMessage(ChatColor.GREEN + "You're already being teleported!");
+                    return true;
+                }
             }
         }
+
         return false;
     }
 
-    private void RunWild(final Player player) {
-        try {
-            final World world = player.getWorld();
+    private boolean runWild(Player player, String args) {
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+            @Override
+            public void run() {
+                World world;
+                if (args != null) {
+                    world = plugin.getServer().getWorld(args);
+                } else {
+                    world = player.getWorld();
+                }
+                Location tp = createTp(player, world);
+                if (tp == null || tp.add(0,2,0).getBlock().getType() != Material.AIR) {
+                    runWild(player, world.getName());
+                    return;
+                }
 
-            //Random location
-            final int rX = getX();
-            final int rZ = getZ();
-
-            //Filling list
-            for (String material : safeBlocks) {
-                materials.add(Material.getMaterial(material.toUpperCase()));
-            }
-
-            final Location[] tp = new Location[1];
-
-            plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
-                public void run() {
-                    tp[0] = getHighestBlock(world, rX, rZ);
-                    Block blockY = player.getWorld().getHighestBlockAt(tp[0]);
-                    final Location ready = new Location(world, rX, blockY.getY(), rZ).subtract(0, 1, 0);
-
-                    if (SafeBlock(ready)) {
-                        callback.accept(delayMessage(player));
-                        callback.accept(TeleportPlayer(player, ready));
-                    } else {
-                        if (retries < 30) {
-                            retries++;
-                            RunWild(player);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (hitNogo) {
+                            runWild(player, world.getName());
                         } else {
-                            callback.accept(NotFound(player));
-                            retries = 0;
+                            plugin.cMap().put(player.getUniqueId(), System.currentTimeMillis());
+                            player.sendMessage(ChatColor.GREEN + "Found a location, teleporting!");
+                            player.teleport(tp);
+                            running = false;
                         }
                     }
-                }
+                }, 20L);
+            }
+        });
+        return true;
+    }
 
-                private Object TeleportPlayer(final Player player, final Location ready) {
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        player.sendMessage(ChatColor.GREEN + "Teleporting");
-                        plugin.cMap().put(player, (System.currentTimeMillis()));
-                        player.teleport(ready.add(0, 2, 0));
-                        running = false;
-                    }, countdown * 20L);
-                    return true;
-                }
-
-                private Object NotFound(Player player) {
-                    running = false;
-                    player.sendMessage(ChatColor.GREEN+MessageHelper.couldnTfind);
-                    return true;
-                }
-
-                private Object delayMessage(Player player) {
-                    player.sendMessage(ChatColor.GREEN + MessageHelper.youWillbeTped + countdown + " seconds");
-                    return true;
-                }
-            });
-        } catch (NullPointerException ex) {
-            plugin.getLogger().warning(ex.toString());
-        }
+    private Location createTp(Player player, World world) {
+        int rX = getX();
+        int rZ = getZ();
+        return getHighestBlock(world, rX, rZ);
     }
 
     private Integer getX() {
@@ -152,15 +120,27 @@ public class Wild implements CommandExecutor {
     }
 
     private Location getHighestBlock(World world, int x, int z) {
+        plugin.getServer().getScheduler().runTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                plugin.getServer().getWorld(world.getUID()).loadChunk(x, z, true);
+            }
+        });
+        hitNogo = false;
+
         int i = 255;
+        Location check = new Location(world, x, i, z);
         while (i > 0) {
-            if (materials.contains(new Location(world, x, i, z).getBlock().getType())) {
+            if (!materials.contains(new Location(world, x, i, z).getBlock().getType())) {
                 return new Location(world, x, i, z).add(0, 0, 0);
             } else {
+                if (materials.contains(check.getBlock().getType()) && check.getBlock().getType() != Material.AIR) {
+                    hitNogo = true;
+                }
                 i--;
             }
         }
-        return new Location(world, x, 1, z);
+        return null;
     }
 
     private boolean SafeBlock(Location tp) {
