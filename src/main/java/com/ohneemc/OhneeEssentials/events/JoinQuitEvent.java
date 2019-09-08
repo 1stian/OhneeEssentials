@@ -63,7 +63,7 @@ public class JoinQuitEvent implements Listener {
         Ohnee.pTime().put(Objects.requireNonNull(e.getPlayer()).getUniqueId(), System.currentTimeMillis());
 
         if (!Ohnee.cMap().containsKey(e.getPlayer())){
-            Ohnee.cMap().put(e.getPlayer(), System.currentTimeMillis() / 1000);
+            Ohnee.cMap().put(e.getPlayer().getUniqueId(), System.currentTimeMillis() / 1000);
         }
 
         System.out.print("DataFolder: " + Ohnee.getDataFolder().getAbsoluteFile());
