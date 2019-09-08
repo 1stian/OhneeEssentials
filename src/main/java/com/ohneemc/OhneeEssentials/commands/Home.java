@@ -47,7 +47,10 @@ public class Home implements CommandExecutor {
                     return true;
                 }
             }else if (homes.size() > 1){
-                sender.sendMessage(ChatColor.GREEN + "Homes: " + homes.toString());
+                String s1 = homes.toString();
+                String s2 = s1.replaceAll("]", "");
+                String name = s2.replaceAll("\\[", "");
+                sender.sendMessage(ChatColor.GREEN + "Homes: " + name);
                 return true;
             }else{
                 if (userdata.contains("home")){
