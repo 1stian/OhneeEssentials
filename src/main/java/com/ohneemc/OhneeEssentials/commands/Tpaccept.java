@@ -13,6 +13,9 @@ public class Tpaccept implements CommandExecutor {
         this.ohnee = ohnee;
     }
 
+    private Tpa tpa;
+    public Tpaccept(Tpa tpa){this.tpa = tpa;}
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpaccept") && sender instanceof Player) {
@@ -20,14 +23,8 @@ public class Tpaccept implements CommandExecutor {
                 String extract = ohnee.tp().get(((Player) sender).getUniqueId());
                 Player player = ((Player) sender).getPlayer();
                 String[] split = extract.split(",");
-                if (split.length == 2) {
-
-                } else {
-
-                }
 
                 Player target = ohnee.getServer().getPlayer(split[0]);
-
                 player.teleport(target);
 
                 if (split.length == 2) {
@@ -37,6 +34,7 @@ public class Tpaccept implements CommandExecutor {
                 }
 
                 ohnee.tp().remove(player.getUniqueId());
+                ohnee.getServer().getScheduler().cancelTask(tpa.resp);
                 target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");
                 return true;
             }else{

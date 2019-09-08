@@ -13,6 +13,9 @@ public class Tpdeny implements CommandExecutor {
         this.ohnee = ohnee;
     }
 
+    private Tpa tpa;
+    public Tpdeny(Tpa tpa){this.tpa = tpa;}
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpdeny") && sender instanceof Player){
@@ -24,7 +27,9 @@ public class Tpdeny implements CommandExecutor {
                 Player target = ohnee.getServer().getPlayer(split[0]);
 
                 ohnee.tp().remove(player.getUniqueId());
+
                 if (target != null) {
+                    ohnee.getServer().getScheduler().cancelTask(tpa.resp);
                     target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " denied your request.");
                 }
                 return true;

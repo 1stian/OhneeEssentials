@@ -20,6 +20,8 @@ public class Tpa  implements CommandExecutor {
         this.TimeToRespond = ohnee.settings().getInt("PluginSettings.Teleportation.Tp.TimeToRespond");
     }
 
+    public int resp;
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpa") && sender instanceof Player){
@@ -37,7 +39,7 @@ public class Tpa  implements CommandExecutor {
                     sender.sendMessage(ChatColor.GREEN + "Teleport request sent!");
                     target.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.GREEN + " has sent you a teleport request - /tpaccept or /tpadeny");
 
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(ohnee, new Runnable() {
+                    resp = Bukkit.getScheduler().scheduleSyncDelayedTask(ohnee, new Runnable() {
                         @Override
                         public void run() {
                             sender.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.GREEN + " didn't respond in time. Request removed.");
