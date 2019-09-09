@@ -1,7 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import com.ohneemc.OhneeEssentials.resources.MessageHelper;
+import com.ohneemc.OhneeEssentials.resources.StringCreater;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,16 +14,13 @@ public class Me implements CommandExecutor {
         this.plugin = plugin;
     }
 
-    private MessageHelper msg;
-    public Me(MessageHelper msg){
-        this.msg = msg;
-    }
+    StringCreater sc = new StringCreater();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Me") && sender instanceof Player){
-            if (args.length > 1){
-                plugin.getServer().broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + sender.getName() + " " + msg.messageCreater(args));
+            if (args.length > 0){
+                plugin.getServer().broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + sender.getName() + " " + sc.messageCreater(args));
                 return true;
             }else{
                 sender.sendMessage(ChatColor.GREEN + "You must type a message! /me <message>");

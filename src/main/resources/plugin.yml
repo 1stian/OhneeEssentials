@@ -118,6 +118,11 @@ commands:
     usage: /import
     permission: ohnee.import
     permission-message: You do not have access to this command /import.
+  me:
+    description: Describes an action in the context of the player.
+    usage: /me <message>
+    permission: ohnee.me
+    permission-message: You do not have acces to this command /me.
 permissions:
   ohnee.*:
     default: false
@@ -144,6 +149,7 @@ permissions:
       ohnee.sethome: true
       ohnee.delhome: true
       ohnee.import: true
+      ohnee.me: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
@@ -154,6 +160,7 @@ permissions:
       ohnee.home: true
       ohnee.sethome: true
       ohnee.delhome: true
+      ohnee.me: true
   ohnee.tpa:
     default: false
     description: Access to all the tpa commands.
