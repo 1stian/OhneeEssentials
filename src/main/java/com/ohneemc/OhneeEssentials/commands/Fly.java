@@ -15,7 +15,7 @@ public class Fly implements CommandExecutor {
         this.plugin = plugin;
     }
 
-    UserData uData = new UserData();
+    private UserData uData = new UserData();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
