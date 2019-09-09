@@ -6,7 +6,7 @@
 
     <groupId>com.ohneemc</groupId>
     <artifactId>OhneeEssentials</artifactId>
-    <version>1.0-SNAPSHOT-${BUILD_NUMBER}</version>
+    <version>1.0-${BUILD_NUMBER}</version>
 
 
     <repositories>
@@ -82,6 +82,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory> <!-- (your resources folder location) -->
+                <filtering>true</filtering> <!-- this is the important part, it's what replaces, filters, all placeholders in the resources folder (such as ${project.version} in plugin.yml) -->
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

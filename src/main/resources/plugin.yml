@@ -1,5 +1,5 @@
 name: OhneeEssentials
-version: "1.0"
+version: ${project.version}
 author: Stian "1stian" Tofte
 website: https://ohneemc.com
 main: com.ohneemc.OhneeEssentials.OhneeEssentials
