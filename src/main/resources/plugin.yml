@@ -113,6 +113,11 @@ commands:
     usage: /delhome <name>
     permission: ohnee.delhome
     permission-message: You do not have access to this command /delhome.
+  import:
+    description: Imports homes from essentials to this plugin.
+    usage: /import
+    permission: ohnee.import
+    permission-message: You do not have access to this command /import.
 permissions:
   ohnee.*:
     default: false
@@ -138,6 +143,7 @@ permissions:
       ohnee.home: true
       ohnee.sethome: true
       ohnee.delhome: true
+      ohnee.import: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
