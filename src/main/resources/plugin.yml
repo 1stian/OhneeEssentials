@@ -161,6 +161,7 @@ permissions:
       ohnee.import: true
       ohnee.me: true
       ohnee.fly: true
+      ohnee.fly.safe: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
