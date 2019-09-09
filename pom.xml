@@ -6,7 +6,7 @@
 
     <groupId>com.ohneemc</groupId>
     <artifactId>OhneeEssentials</artifactId>
-    <version>1.0-${BUILD_NUMBER}</version>
+    <version>1.0.${BUILD_NUMBER}</version>
 
 
     <repositories>
