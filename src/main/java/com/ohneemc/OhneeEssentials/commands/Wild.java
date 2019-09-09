@@ -27,10 +27,9 @@ public class Wild implements CommandExecutor {
     private int countdown;
     private int cooldown;
 
-    private List<String> safeBlocks;
     private boolean running = false;
     private List<Material> materials = new ArrayList<>();
-    boolean hitNogo = false;
+    private boolean hitNogo = false;
 
     public Wild(OhneeEssentials plugin) {
         this.plugin = plugin;
@@ -40,7 +39,6 @@ public class Wild implements CommandExecutor {
         this.minX = plugin.minX;
         this.maxZ = plugin.maxZ;
         this.minZ = plugin.minZ;
-        this.safeBlocks = plugin.safeBlocks;
         this.materials = plugin.materials;
     }
 
