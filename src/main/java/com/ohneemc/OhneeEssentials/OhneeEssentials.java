@@ -13,7 +13,6 @@ import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -99,7 +98,8 @@ public class OhneeEssentials extends JavaPlugin {
 
 
     //Wild
-    public List<String> safeBlocks;
+    public boolean wildLoaded = false;
+    public List<String> UnsafeBlocks;
     public List<Material> materials = new ArrayList<>();
     public int maxX;
     public int minX;
@@ -128,8 +128,8 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.WildTP.Radius.minX", -10000);
         settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 10000);
         settings.setDefault("PluginSettings.WildTP.Radius.minZ", -10000);
-        List<String> defaltSafeBlocks = Arrays.asList("GRASS", "STONE", "SNOW", "SNOW_LAYER", "SAND", "ICE", "CLAY", "TERRACOTTA");
-        settings.setDefault("PluginSettings.WildTP.SafeBlocks", defaltSafeBlocks);
+        List<String> defaltUnsafeBlocks = Arrays.asList("WATER", "LAVA", "AIR");
+        settings.setDefault("PluginSettings.WildTP.UnsafeBlocks", defaltUnsafeBlocks);
         settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
         List<String> defaultGroups = Arrays.asList("admin:10", "mod:10", "vip:5", "regular:3", "default:1");
         settings.setDefault("PluginSettings.Homes.LimitPrGroup", defaultGroups);
@@ -183,6 +183,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("sethome").setExecutor(new Sethome(this));
         this.getCommand("home").setExecutor(new Home(this));
         this.getCommand("delhome").setExecutor(new Delhome(this));
+        this.getCommand("import").setExecutor(new Import(this));
     }
 
     private void registerEvents() {
@@ -200,7 +201,7 @@ public class OhneeEssentials extends JavaPlugin {
 
     private boolean loadSettings(){
         try {
-            safeBlocks = settings.getStringList("PluginSettings.WildTP.SafeBlocks");
+            UnsafeBlocks = settings.getStringList("PluginSettings.WildTP.UnsafeBlocks");
             countdown = settings().getInt("PluginSettings.WildTP.countdown");
             cooldown = settings().getInt("PluginSettings.WildTP.cooldown");
             maxX = settings().getInt("PluginSettings.WildTP.Radius.maxX");
@@ -209,10 +210,11 @@ public class OhneeEssentials extends JavaPlugin {
             minZ = settings().getInt("PluginSettings.WildTP.Radius.minZ");
 
             //Filling list material list from safeBlocks
-            for (String material : safeBlocks) {
+            for (String material : UnsafeBlocks) {
                 materials.add(Material.getMaterial(material.toUpperCase()));
             }
 
+            wildLoaded = true;
             return true;
         }catch (Exception e){
             e.printStackTrace();
