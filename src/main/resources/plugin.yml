@@ -123,6 +123,11 @@ commands:
     usage: /me <message>
     permission: ohnee.me
     permission-message: You do not have acces to this command /me.
+  invsee:
+    description: Opens a players inventory.
+    usage: /invsee <player>
+    permission: ohnee.me
+    permission-message: You do not have acces to this command /invsee.
 permissions:
   ohnee.*:
     default: false
