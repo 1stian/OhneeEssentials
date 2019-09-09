@@ -98,6 +98,7 @@ public class JoinQuitEvent implements Listener {
         userdata.set("PlayerInfo.UUID", player.getUniqueId().toString());
         userdata.set("PlayerInfo.Banned", false);
         userdata.set("PlayerInfo.Muted", false);
+        userdata.set("PlayerInfo.Fly", false);
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
 

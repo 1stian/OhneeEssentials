@@ -128,6 +128,11 @@ commands:
     usage: /invsee <player>
     permission: ohnee.me
     permission-message: You do not have acces to this command /invsee.
+  fly:
+    description: Toggles fly.
+    usage: /fly | /fly <player>
+    permission: ohnee.fly
+    permission-message: You do not have acces to this command /fly.
 permissions:
   ohnee.*:
     default: false
@@ -155,6 +160,7 @@ permissions:
       ohnee.delhome: true
       ohnee.import: true
       ohnee.me: true
+      ohnee.fly: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
