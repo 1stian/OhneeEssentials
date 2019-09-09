@@ -2,6 +2,7 @@ package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,12 +33,12 @@ public class Ohnee implements CommandExecutor {
                             File customMessages = new File(plugin.getDataFolder(), "messages.txt");
                             plugin.getConfig();
                             msg.loadMessages(String.valueOf(customMessages));
-                            if (player != null) player.sendMessage("Config has been reloaded!");
+                            if (player != null) player.sendMessage(ChatColor.GREEN +"Config has been reloaded!");
                             break;
 
                         case "version":
                             String ver = plugin.getDescription().getVersion();
-                            if (player != null) player.sendMessage("OhneeEssentials version: " + ver);
+                            if (player != null) player.sendMessage(ChatColor.GREEN +"OhneeEssentials version: " + ChatColor.GOLD + ver);
                             break;
                     }
 
