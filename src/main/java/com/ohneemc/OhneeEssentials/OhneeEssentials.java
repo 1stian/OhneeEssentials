@@ -183,7 +183,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("sethome").setExecutor(new Sethome(this));
         this.getCommand("home").setExecutor(new Home(this));
         this.getCommand("delhome").setExecutor(new Delhome(this));
-        this.getCommand("import").setExecutor(new Import(this));
+        //this.getCommand("import").setExecutor(new Import(this));
     }
 
     private void registerEvents() {
