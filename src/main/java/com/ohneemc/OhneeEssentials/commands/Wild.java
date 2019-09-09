@@ -24,7 +24,6 @@ public class Wild implements CommandExecutor {
     private int minX;
     private int maxZ;
     private int minZ;
-    private int countdown;
     private int cooldown;
 
     private boolean running = false;
@@ -33,7 +32,6 @@ public class Wild implements CommandExecutor {
 
     public Wild(OhneeEssentials plugin) {
         this.plugin = plugin;
-        this.countdown = plugin.countdown;
         this.cooldown = plugin.cooldown;
         this.maxX = plugin.maxX;
         this.minX = plugin.minX;
@@ -55,12 +53,12 @@ public class Wild implements CommandExecutor {
                     sender.sendMessage(ChatColor.GREEN + "Looking for a safe location. Hold on.");
                     String world = null;
                     if (strings.length == 1) {
-                        world = strings[1];
+                        world = strings[0];
                     }
 
                     return runWild(player, world);
                 } else {
-                    player.sendMessage(ChatColor.GREEN + "You're already being teleported!");
+                    sender.sendMessage(ChatColor.GREEN + "You're already being teleported!");
                     return true;
                 }
             }
@@ -76,12 +74,16 @@ public class Wild implements CommandExecutor {
                 World world;
                 if (args != null) {
                     world = plugin.getServer().getWorld(args);
+                    if (world == null){
+                        world = player.getWorld();
+                    }
                 } else {
                     world = player.getWorld();
                 }
+                String wName = world.getName();
                 Location tp = createTp(player, world);
                 if (tp == null || tp.add(0,1,0).getBlock().getType() != Material.AIR) {
-                    runWild(player, world.getName());
+                    runWild(player, wName);
                     return;
                 }
 
@@ -89,7 +91,7 @@ public class Wild implements CommandExecutor {
                     @Override
                     public void run() {
                         if (hitNogo) {
-                            runWild(player, world.getName());
+                            runWild(player, wName);
                         } else {
                             plugin.cMap().put(player.getUniqueId(), System.currentTimeMillis());
                             player.sendMessage(ChatColor.GREEN + "Found a location, teleporting!");
@@ -141,9 +143,11 @@ public class Wild implements CommandExecutor {
         return null;
     }
 
+    /**
     private boolean SafeBlock(Location tp) {
         Material block = tp.getBlock().getType();
         //plugin.getLogger().info(block.toString());
         return (materials.contains(block));
     }
+     **/
 }
