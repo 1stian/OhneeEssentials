@@ -29,7 +29,7 @@ public class Time implements CommandExecutor {
             switch (type){
                 case "day":
                     if (world != null) {
-                        world.setTime(8000);
+                        world.setTime(2000);
                         player.sendMessage(ChatColor.GREEN+"Time set to day!");
                         return true;
                     }
