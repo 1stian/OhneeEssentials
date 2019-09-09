@@ -18,4 +18,15 @@ public class UserData {
             return true;
         }
     }
+
+    public boolean getFly(Player player, String path){
+        Json uData = new Json(player.getUniqueId() + ".yml", path);
+        boolean getFly = uData.getBoolean("PlayerInfo.Fly");
+
+        if (getFly){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
