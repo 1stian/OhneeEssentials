@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Tpaccept implements CommandExecutor {
-    private OhneeEssentials ohnee;
-    public Tpaccept(OhneeEssentials ohnee) {
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Tpaccept(OhneeEssentials plugin) {
+        this.plugin = plugin;
     }
 
     private Tpa tpa;
@@ -19,12 +19,12 @@ public class Tpaccept implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpaccept") && sender instanceof Player) {
-            if (ohnee.tp().containsKey(((Player) sender).getUniqueId())){
-                String extract = ohnee.tp().get(((Player) sender).getUniqueId());
+            if (plugin.tp().containsKey(((Player) sender).getUniqueId())){
+                String extract = plugin.tp().get(((Player) sender).getUniqueId());
                 Player player = ((Player) sender).getPlayer();
                 String[] split = extract.split(",");
 
-                Player target = ohnee.getServer().getPlayer(split[0]);
+                Player target = plugin.getServer().getPlayer(split[0]);
                 player.teleport(target);
 
                 if (split.length == 2) {
@@ -33,8 +33,8 @@ public class Tpaccept implements CommandExecutor {
                     player.teleport(target);
                 }
 
-                ohnee.tp().remove(player.getUniqueId());
-                ohnee.getServer().getScheduler().cancelTask(tpa.resp);
+                plugin.tp().remove(player.getUniqueId());
+                plugin.getServer().getScheduler().cancelTask(tpa.resp);
                 target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");
                 return true;
             }else{

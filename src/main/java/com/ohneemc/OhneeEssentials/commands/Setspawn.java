@@ -10,9 +10,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Setspawn implements CommandExecutor {
-    private OhneeEssentials ohnee;
-    public Setspawn(OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Setspawn(OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     @Override
@@ -28,11 +28,11 @@ public class Setspawn implements CommandExecutor {
                 float yaw = player.getLocation().getYaw();
                 float pitch = player.getLocation().getPitch();
 
-                ohnee.worldData().set(world.getName() + "Spawn.X", x);
-                ohnee.worldData().set(world.getName() + "Spawn.Y", y);
-                ohnee.worldData().set(world.getName() + "Spawn.Z", z);
-                ohnee.worldData().set(world.getName() + "Spawn.Yaw", yaw);
-                ohnee.worldData().set(world.getName() + "Spawn.Pitch", pitch);
+                plugin.worldData().set(world.getName() + "Spawn.X", x);
+                plugin.worldData().set(world.getName() + "Spawn.Y", y);
+                plugin.worldData().set(world.getName() + "Spawn.Z", z);
+                plugin.worldData().set(world.getName() + "Spawn.Yaw", yaw);
+                plugin.worldData().set(world.getName() + "Spawn.Pitch", pitch);
 
                 Location newSpawnLoc = new Location(world, x, y,z, yaw, pitch);
                 //Sets it in the world data - plugin will not use that data, just for other ones knowing where it is.

@@ -10,16 +10,16 @@ import org.bukkit.entity.Player;
 
 public class Back implements CommandExecutor {
 
-    private OhneeEssentials ohnee;
-    public Back(OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Back(OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Back") && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
-            Location lasLoc = (Location) ohnee.lLoc().get(player != null ? player.getUniqueId() : null);
+            Location lasLoc = (Location) plugin.lLoc().get(player != null ? player.getUniqueId() : null);
 
             if (player != null && lasLoc != null) {
                 player.teleport(lasLoc);

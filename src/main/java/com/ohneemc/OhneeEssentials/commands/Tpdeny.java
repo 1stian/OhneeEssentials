@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Tpdeny implements CommandExecutor {
-    private OhneeEssentials ohnee;
-    public Tpdeny (OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Tpdeny (OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     private Tpa tpa;
@@ -19,17 +19,17 @@ public class Tpdeny implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpdeny") && sender instanceof Player){
-            if (ohnee.tp().containsKey(((Player) sender).getUniqueId())){
+            if (plugin.tp().containsKey(((Player) sender).getUniqueId())){
                 Player player = ((Player) sender).getPlayer();
-                String extract = ohnee.tp().get(player != null ? player.getName() : null).toString();
+                String extract = plugin.tp().get(player != null ? player.getName() : null).toString();
                 String[] split = extract.split(",");
 
-                Player target = ohnee.getServer().getPlayer(split[0]);
+                Player target = plugin.getServer().getPlayer(split[0]);
 
-                ohnee.tp().remove(player.getUniqueId());
+                plugin.tp().remove(player.getUniqueId());
 
                 if (target != null) {
-                    ohnee.getServer().getScheduler().cancelTask(tpa.resp);
+                    plugin.getServer().getScheduler().cancelTask(tpa.resp);
                     target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " denied your request.");
                 }
                 return true;

@@ -9,15 +9,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
 import java.util.Set;
 
 public class Home implements CommandExecutor {
     private Json userdata;
 
-    private OhneeEssentials ohnee;
-    public Home(OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Home(OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class Home implements CommandExecutor {
                 return false;
             }
 
-            userdata = new Json(UUID, ohnee.getDataFolder().getAbsolutePath() +
+            userdata = new Json(UUID, plugin.getDataFolder().getAbsolutePath() +
                     "/userdata/homes/");
 
             Set<String> homes = userdata.getKeySet();
@@ -73,7 +72,7 @@ public class Home implements CommandExecutor {
             float yaw = userdata.getFloat(homeName + ".yaw");
             String world = userdata.getString(homeName + ".world");
 
-            Location tp = new Location(ohnee.getServer().getWorld(world), x,y,z,yaw,pitch);
+            Location tp = new Location(plugin.getServer().getWorld(world), x,y,z,yaw,pitch);
             player.teleport(tp);
             return true;
         }catch (Exception e){

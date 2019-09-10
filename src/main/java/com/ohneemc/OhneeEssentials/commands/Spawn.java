@@ -10,9 +10,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Spawn implements CommandExecutor {
-    private OhneeEssentials ohnee;
-    public Spawn(OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Spawn(OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     @Override
@@ -22,11 +22,11 @@ public class Spawn implements CommandExecutor {
             if (player != null) {
                 World world = player.getWorld();
 
-                double x = ohnee.worldData().getDouble(world.getName() + "Spawn.X");
-                double y = ohnee.worldData().getDouble(world.getName() + "Spawn.Y");
-                double z = ohnee.worldData().getDouble(world.getName() + "Spawn.Z");
-                float yaw = ohnee.worldData().getFloat(world.getName() + "Spawn.Yaw");
-                float pitch = ohnee.worldData().getFloat(world.getName() + "Spawn.Pitch");
+                double x = plugin.worldData().getDouble(world.getName() + "Spawn.X");
+                double y = plugin.worldData().getDouble(world.getName() + "Spawn.Y");
+                double z = plugin.worldData().getDouble(world.getName() + "Spawn.Z");
+                float yaw = plugin.worldData().getFloat(world.getName() + "Spawn.Yaw");
+                float pitch = plugin.worldData().getFloat(world.getName() + "Spawn.Pitch");
 
                 Location spawnLoc = new Location(world, x, y,z, yaw, pitch);
 

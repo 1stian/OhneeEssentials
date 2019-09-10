@@ -1,7 +1,6 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import com.ohneemc.OhneeEssentials.events.JoinQuitEvent;
 import de.leonhard.storage.Json;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,9 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Playtime implements CommandExecutor {
-    private OhneeEssentials ohnee;
-    public Playtime(OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Playtime(OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     private Json userdata;
@@ -27,7 +26,7 @@ public class Playtime implements CommandExecutor {
                 if (args.length < 1){
                     player.sendMessage("Your playtime: " + getPlaytime(player));
                 }else if (args.length == 1){
-                    player.sendMessage(args[0] + "'s playtime: " + getPlaytime(ohnee.getServer().getPlayer(args[0])));
+                    player.sendMessage(args[0] + "'s playtime: " + getPlaytime(plugin.getServer().getPlayer(args[0])));
                 }
             }else{
 
@@ -39,8 +38,8 @@ public class Playtime implements CommandExecutor {
     private String getPlaytime(Player player){
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         Date currentTime = new Date(System.currentTimeMillis());
-        if (ohnee.getServer().getPlayer(player.getUniqueId()).isOnline()){
-            userdata = new Json(player.getUniqueId().toString(), ohnee.getDataFolder().getAbsoluteFile() +
+        if (plugin.getServer().getPlayer(player.getUniqueId()).isOnline()){
+            userdata = new Json(player.getUniqueId().toString(), plugin.getDataFolder().getAbsoluteFile() +
                     "/userdata/" + player.getPlayer().getUniqueId().toString() + ".json");
 
             String first = userdata.get("PlayerStats.FirstSeen").toString();
@@ -67,7 +66,7 @@ public class Playtime implements CommandExecutor {
                 e.printStackTrace();
             }
         }else{
-            userdata = new Json(player.getServer().getOfflinePlayer(player.getUniqueId()).toString(), ohnee.getDataFolder().getAbsoluteFile() +
+            userdata = new Json(player.getServer().getOfflinePlayer(player.getUniqueId()).toString(), plugin.getDataFolder().getAbsoluteFile() +
                     "/userdata/" + player.getServer().getOfflinePlayer(player.getUniqueId()).toString() + ".json");
         }
         return "0";

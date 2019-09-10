@@ -9,9 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Gamemode implements CommandExecutor {
-    private OhneeEssentials ohnee;
-    public Gamemode (OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Gamemode (OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class Gamemode implements CommandExecutor {
             Player player = ((Player) sender).getPlayer();
 
             if (args.length == 2){
-                Player target = ohnee.getServer().getPlayer(args[1]);
+                Player target = plugin.getServer().getPlayer(args[1]);
 
                 if (args[0].equals("2") || args[0].toLowerCase().equals("spectator")){
                     if (target != null) {

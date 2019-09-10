@@ -13,11 +13,11 @@ import java.util.UUID;
 public class Tpa  implements CommandExecutor {
     private int TimeToRespond;
 
-    private OhneeEssentials ohnee;
-    public Tpa (OhneeEssentials ohnee)
+    private OhneeEssentials plugin;
+    public Tpa (OhneeEssentials plugin)
     {
-        this.ohnee = ohnee;
-        this.TimeToRespond = ohnee.settings().getInt("PluginSettings.Teleportation.Tp.TimeToRespond");
+        this.plugin = plugin;
+        this.TimeToRespond = plugin.settings().getInt("PluginSettings.Teleportation.Tp.TimeToRespond");
     }
 
     public int resp;
@@ -30,21 +30,21 @@ public class Tpa  implements CommandExecutor {
 
             if (args.length < 1){
                 return false;
-            }else if (ohnee.getServer().getPlayer(args[0].toLowerCase()) != null){
-                targetID = ohnee.getServer().getPlayer(args[0]).getUniqueId();
-                target= ohnee.getServer().getPlayer(targetID);
-                if (!ohnee.tp().containsKey(targetID)){
+            }else if (plugin.getServer().getPlayer(args[0].toLowerCase()) != null){
+                targetID = plugin.getServer().getPlayer(args[0]).getUniqueId();
+                target= plugin.getServer().getPlayer(targetID);
+                if (!plugin.tp().containsKey(targetID)){
                     String toMap = sender.getName() + "," + System.currentTimeMillis();
-                    ohnee.tp().put(targetID, toMap);
+                    plugin.tp().put(targetID, toMap);
                     sender.sendMessage(ChatColor.GREEN + "Teleport request sent!");
                     target.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.GREEN + " has sent you a teleport request - /tpaccept or /tpadeny");
 
-                    resp = Bukkit.getScheduler().scheduleSyncDelayedTask(ohnee, new Runnable() {
+                    resp = Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                         @Override
                         public void run() {
                             sender.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.GREEN + " didn't respond in time. Request removed.");
                             target.sendMessage(ChatColor.GREEN + "Time ran out, request removed.");
-                            ohnee.tp().remove(targetID);
+                            plugin.tp().remove(targetID);
                         }
                     }, TimeToRespond * 20L);
                     return true;

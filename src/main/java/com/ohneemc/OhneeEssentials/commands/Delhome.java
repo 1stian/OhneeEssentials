@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 public class Delhome implements CommandExecutor {
     private Json userdata;
 
-    private OhneeEssentials ohnee;
-    public Delhome(OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Delhome(OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class Delhome implements CommandExecutor {
                 return false;
             }
 
-            userdata = new Json(UUID, ohnee.getDataFolder().getAbsolutePath() +
+            userdata = new Json(UUID, plugin.getDataFolder().getAbsolutePath() +
                     "/userdata/homes/");
 
             if (args.length < 1){

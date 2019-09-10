@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 public class Sethome implements CommandExecutor {
-    private OhneeEssentials ohnee;
-    public Sethome(OhneeEssentials ohnee){
-        this.ohnee = ohnee;
+    private OhneeEssentials plugin;
+    public Sethome(OhneeEssentials plugin){
+        this.plugin = plugin;
     }
 
     private Json userdata;
@@ -31,7 +31,7 @@ public class Sethome implements CommandExecutor {
                 return false;
             }
 
-            userdata = new Json(UUID, ohnee.getDataFolder().getAbsolutePath() +
+            userdata = new Json(UUID, plugin.getDataFolder().getAbsolutePath() +
                     "/userdata/homes/");
 
             Set<String> existHomes = userdata.getKeySet();
@@ -95,8 +95,8 @@ public class Sethome implements CommandExecutor {
     }
 
     private int checkLimit(Player player){
-        String pGroup = ohnee.vPerm().getPrimaryGroup(player);
-        List<String> groups = ohnee.settings().getStringList("PluginSettings.Homes.LimitPrGroup");
+        String pGroup = plugin.vPerm().getPrimaryGroup(player);
+        List<String> groups = plugin.settings().getStringList("PluginSettings.Homes.LimitPrGroup");
 
         HashMap<String, Integer> groupMap = new HashMap<>();
 
