@@ -1,7 +1,7 @@
 package com.ohneemc.OhneeEssentials;
 
 import com.ohneemc.OhneeEssentials.commands.*;
-import com.ohneemc.OhneeEssentials.events.JoinQuitEvent;
+import com.ohneemc.OhneeEssentials.events.JoinQuit;
 import com.ohneemc.OhneeEssentials.events.KeepXp;
 import com.ohneemc.OhneeEssentials.events.LastLocation;
 import com.ohneemc.OhneeEssentials.events.PreLogin;
@@ -193,7 +193,7 @@ public class OhneeEssentials extends JavaPlugin {
 
     private void registerEvents() {
         //Register events class
-        this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
+        this.getServer().getPluginManager().registerEvents(new JoinQuit(this), this);
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
         this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
         this.getServer().getPluginManager().registerEvents(new PreLogin(this), this);
