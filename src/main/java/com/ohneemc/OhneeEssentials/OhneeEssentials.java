@@ -4,19 +4,27 @@ import com.ohneemc.OhneeEssentials.commands.*;
 import com.ohneemc.OhneeEssentials.events.JoinQuitEvent;
 import com.ohneemc.OhneeEssentials.events.KeepXp;
 import com.ohneemc.OhneeEssentials.events.LastLocation;
+import com.ohneemc.OhneeEssentials.events.PreLogin;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Toml;
 import de.leonhard.storage.Yaml;
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
 
 import java.util.*;
 
@@ -31,72 +39,63 @@ public class OhneeEssentials extends JavaPlugin {
     private Json worldData = new Json("worlddata", getDataFolder().toString());
     private Integer fileType;
     private Permission vPerm;
+    private Economy eco;
 
     public Permission vPerm(){
         return vPerm;
     }
-
+    public Economy eco(){return eco;}
     public Toml settings() {
         return settings;
     }
-
     public Json worldData() {
         return worldData;
     }
-
     public Toml tomlWarps() {
         return tomlWarpsConfig;
     }
-
     public Json jsonWarps() {
         return jsonWarpsConfig;
     }
-
     public Yaml yamlWarps() {
         return ymlWarpsConfig;
     }
-
     public Integer fileUse() {
         return fileType;
-    }
-
-    private Plugin pl;
-
-    public Plugin plugin() {
-        return pl;
     }
 
     //Maps
     private HashMap<UUID, Long> coolmap = new HashMap<>();
     private HashMap<String, Location> warpMap = new HashMap<>();
     private HashMap<UUID, String> tpah = new HashMap<>();
-
+    private HashMap<UUID, Boolean> sb = new HashMap<>();
     public HashMap<UUID, String> tp() {
         return tpah;
     }
-
     public HashMap<UUID, Long> cMap() {
         return coolmap;
     }
-
     public HashMap<String, Location> wMap() {
         return warpMap;
     }
+    public HashMap<UUID, Boolean> getSb(){return sb;}
+    public HashMap<UUID, Boolean> setSb(){return sb;}
 
     //Playtime
     private HashMap<UUID, Long> playime = new HashMap<>();
-
     public HashMap<UUID, Long> pTime() {
         return playime;
     }
 
     //Last location holder
     private HashMap<UUID, Location> lastLoc = new HashMap<>();
-
     public HashMap<UUID, Location> lLoc() {
         return lastLoc;
     }
 
+    //Scoreboard
+    public org.bukkit.scoreboard.Scoreboard s;
+    public Objective o;
 
     //Wild
     public boolean wildLoaded = false;
@@ -112,11 +111,14 @@ public class OhneeEssentials extends JavaPlugin {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
-        pl = this;
         settingsLoaded = loadSettings();
         //Enabling metrics
         Metrics metrics = new Metrics(this);
         setupPermissions();
+        setupEconomy();
+
+        s = Bukkit.getScoreboardManager().getNewScoreboard();
+        o = s.registerNewObjective("sidebar", "dummy");
 
         //Setting defaults!
         settings.setDefault("PluginSettings.Warp.toml", false);
@@ -187,6 +189,8 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("me").setExecutor(new Me(this));
         this.getCommand("invsee").setExecutor(new Invsee(this));
         this.getCommand("fly").setExecutor(new Fly(this));
+        this.getCommand("uuid").setExecutor(new Uuid(this));
+        this.getCommand("scoreboard").setExecutor(new Scoreboard(this));
     }
 
     private void registerEvents() {
@@ -194,12 +198,25 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new JoinQuitEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
         this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
+        this.getServer().getPluginManager().registerEvents(new PreLogin(this), this);
     }
 
     private boolean setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         vPerm = rsp.getProvider();
         return vPerm != null;
+    }
+
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        eco = rsp.getProvider();
+        return eco != null;
     }
 
     private boolean loadSettings(){
@@ -225,5 +242,38 @@ public class OhneeEssentials extends JavaPlugin {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void PlayerScoreboard(Player p){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (getSb().get(p.getUniqueId())){
+                    s = Bukkit.getScoreboardManager().getNewScoreboard();
+                    p.setScoreboard(s);
+                    o = s.registerNewObjective("sidebar", "dummy");
+                    if (p == null || !p.isOnline()) {
+                        cancel();
+                        return;
+                    }
+                    o.setDisplayName("§a§lOhnee§6§lMC");
+                    o.setDisplaySlot(DisplaySlot.SIDEBAR);
+                    o.getScore("§6§lName:").setScore(13);
+                    o.getScore(p.getName()).setScore(12);
+                    o.getScore(" ").setScore(11);
+                    o.getScore("§6§lRank:").setScore(10);
+                    o.getScore(vPerm.getPrimaryGroup(p.getPlayer())).setScore(9);
+                    o.getScore("  ").setScore(8);
+                    o.getScore("§6§lOnline:").setScore(7);
+                    o.getScore(Bukkit.getOnlinePlayers().size() + " ").setScore(6);
+                    o.getScore("   ").setScore(5);
+                    o.getScore("§6§lMoney:").setScore(4);
+                    o.getScore(String.valueOf( (int)eco.getBalance(p.getPlayer())) + ChatColor.GREEN + "$").setScore(3);
+                    o.getScore("   ").setScore(2);
+                    o.getScore("§6§lIP:").setScore(1);
+                    o.getScore("play.ohneemc.com").setScore(0);
+                }
+            }
+        }.runTaskTimer(this, 10, 100);
     }
 }
