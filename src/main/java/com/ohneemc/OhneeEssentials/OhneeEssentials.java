@@ -10,7 +10,6 @@ import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Toml;
 import de.leonhard.storage.Yaml;
-import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
@@ -19,7 +18,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -249,7 +247,6 @@ public class OhneeEssentials extends JavaPlugin {
             @Override
             public void run() {
                 if (getSb().get(p.getUniqueId())){
-                    s = Bukkit.getScoreboardManager().getNewScoreboard();
                     p.setScoreboard(s);
                     o = s.registerNewObjective("sidebar", "dummy");
                     if (p == null || !p.isOnline()) {
