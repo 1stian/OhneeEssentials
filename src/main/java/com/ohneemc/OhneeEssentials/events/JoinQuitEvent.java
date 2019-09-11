@@ -5,6 +5,8 @@ import com.earth2me.essentials.UserData;
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Yaml;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -34,27 +36,13 @@ public class JoinQuitEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        Player player = e.getPlayer();
-        //e.setJoinMessage(ChatColor.GREEN + "[+] " + ChatColor.GRAY + e.getPlayer().getName());
         plugin.getServer().broadcastMessage(ChatColor.GREEN + "[+] " + ChatColor.GRAY + e.getPlayer().getName());
-
-        ScoreboardManager m = Bukkit.getScoreboardManager();
-        Scoreboard b = m.getNewScoreboard();
-
-        Objective o = b.registerNewObjective("Board", "");
-        o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        o.setDisplayName(ChatColor.DARK_AQUA + "OhneeMC");
-
-        Score oPlayer = o.getScore(ChatColor.WHITE + "Online: " + plugin.getServer().getOnlinePlayers().size());
-        oPlayer.setScore(1);
-        //player.setScoreboard(b);
-
+        plugin.PlayerScoreboard(e.getPlayer());
         normalJoin(e.getPlayer());
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        //e.setQuitMessage(ChatColor.RED + "[-] " + ChatColor.GRAY + e.getPlayer().getName());
         plugin.getServer().broadcastMessage(ChatColor.RED + "[-] " + ChatColor.GRAY + e.getPlayer().getName());
         userLeave(e.getPlayer());
     }
