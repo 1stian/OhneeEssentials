@@ -173,6 +173,7 @@ permissions:
       ohnee.fly: true
       ohnee.fly.safe: true
       ohnee.uuid: true
+      ohnee.scoreboard: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
@@ -184,6 +185,7 @@ permissions:
       ohnee.sethome: true
       ohnee.delhome: true
       ohnee.me: true
+      ohnee.scoreboard: true
   ohnee.tpa:
     default: false
     description: Access to all the tpa commands.
