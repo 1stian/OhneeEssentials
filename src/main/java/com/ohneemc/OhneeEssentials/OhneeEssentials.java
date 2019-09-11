@@ -13,6 +13,7 @@ import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -202,6 +203,8 @@ public class OhneeEssentials extends JavaPlugin {
     }
 
     private boolean loadSettings(){
+
+        //Wild settings
         try {
             UnsafeBlocks = settings.getStringList("PluginSettings.WildTP.UnsafeBlocks");
             countdown = settings().getInt("PluginSettings.WildTP.countdown");
