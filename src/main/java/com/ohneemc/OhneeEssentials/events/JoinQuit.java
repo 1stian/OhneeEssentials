@@ -21,11 +21,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class JoinQuitEvent implements Listener {
+public class JoinQuit implements Listener {
 
     private OhneeEssentials plugin;
     private UserData uData;
-    public JoinQuitEvent(OhneeEssentials plugin) {
+    public JoinQuit(OhneeEssentials plugin) {
         this.plugin = plugin;
     }
 
