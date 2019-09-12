@@ -113,6 +113,9 @@ public class OhneeEssentials extends JavaPlugin {
         setupPermissions();
         setupEconomy();
 
+        s = Bukkit.getScoreboardManager().getNewScoreboard();
+        o = s.registerNewObjective("ohneesidebar", "dummy");
+
         //Setting defaults!
         settings.setDefault("PluginSettings.Warp.toml", false);
         settings.setDefault("PluginSettings.Warp.yaml", false);
@@ -246,7 +249,7 @@ public class OhneeEssentials extends JavaPlugin {
             public void run() {
                 if (getSb().get(p.getUniqueId())){
                     p.setScoreboard(s);
-                    o = s.registerNewObjective("OhneeMCsidebar", "dummy");
+                    o = s.registerNewObjective("ohneesidebar", "dummy");
                     if (p == null || !p.isOnline()) {
                         cancel();
                         return;
