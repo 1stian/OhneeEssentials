@@ -1,10 +1,8 @@
 package com.ohneemc.OhneeEssentials;
 
 import com.ohneemc.OhneeEssentials.commands.*;
-import com.ohneemc.OhneeEssentials.events.JoinQuit;
-import com.ohneemc.OhneeEssentials.events.KeepXp;
-import com.ohneemc.OhneeEssentials.events.LastLocation;
-import com.ohneemc.OhneeEssentials.events.PreLogin;
+import com.ohneemc.OhneeEssentials.events.*;
+import com.ohneemc.OhneeEssentials.resources.InvCreator;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
 import de.leonhard.storage.Json;
@@ -124,10 +122,10 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.Warp.json", true);
         settings.setDefault("PluginSettings.WildTP.cooldown", 60);
         settings.setDefault("PluginSettings.WildTP.countdown", 3);
-        settings.setDefault("PluginSettings.WildTP.Radius.maxX", 10000);
-        settings.setDefault("PluginSettings.WildTP.Radius.minX", -10000);
-        settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 10000);
-        settings.setDefault("PluginSettings.WildTP.Radius.minZ", -10000);
+        settings.setDefault("PluginSettings.WildTP.Radius.maxX", 5000);
+        settings.setDefault("PluginSettings.WildTP.Radius.minX", -5000);
+        settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 5000);
+        settings.setDefault("PluginSettings.WildTP.Radius.minZ", -5000);
         List<String> defaltUnsafeBlocks = Arrays.asList("WATER", "LAVA", "AIR");
         settings.setDefault("PluginSettings.WildTP.UnsafeBlocks", defaltUnsafeBlocks);
         settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
@@ -155,6 +153,8 @@ public class OhneeEssentials extends JavaPlugin {
 
         registerEvents();
         registerCommands();
+
+
     }
 
     public void onDisable() {
@@ -197,6 +197,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
         this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
         this.getServer().getPluginManager().registerEvents(new PreLogin(this), this);
+        new InvListener(this);
     }
 
     private boolean setupPermissions() {
@@ -248,16 +249,18 @@ public class OhneeEssentials extends JavaPlugin {
             public void run() {
                 if (getSb().get(p.getUniqueId())){
                     p.setScoreboard(s);
-                    o = s.registerNewObjective("sidebar", "dummy");
+                    o = s.registerNewObjective("OhneeMCsidebar", "dummy");
                     if (p == null || !p.isOnline()) {
                         cancel();
                         return;
                     }
                     o.setDisplayName("§a§lOhnee§6§lMC");
                     o.setDisplaySlot(DisplaySlot.SIDEBAR);
+                    /**
                     o.getScore("§6§lName:").setScore(13);
                     o.getScore(p.getName()).setScore(12);
                     o.getScore(" ").setScore(11);
+                     **/
                     o.getScore("§6§lRank:").setScore(10);
                     o.getScore(vPerm.getPrimaryGroup(p.getPlayer())).setScore(9);
                     o.getScore("  ").setScore(8);
