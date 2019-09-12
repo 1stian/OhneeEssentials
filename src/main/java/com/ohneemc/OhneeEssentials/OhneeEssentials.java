@@ -256,11 +256,6 @@ public class OhneeEssentials extends JavaPlugin {
                     }
                     o.setDisplayName("§a§lOhnee§6§lMC");
                     o.setDisplaySlot(DisplaySlot.SIDEBAR);
-                    /**
-                    o.getScore("§6§lName:").setScore(13);
-                    o.getScore(p.getName()).setScore(12);
-                    o.getScore(" ").setScore(11);
-                     **/
                     o.getScore("§6§lRank:").setScore(10);
                     o.getScore(vPerm.getPrimaryGroup(p.getPlayer())).setScore(9);
                     o.getScore("  ").setScore(8);
