@@ -16,6 +16,9 @@ public class Tpdeny implements CommandExecutor {
     private Tpa tpa;
     public Tpdeny(Tpa tpa){this.tpa = tpa;}
 
+    private Tpahere Tpahere;
+    public Tpdeny(Tpahere Tpahere){this.Tpahere = Tpahere;}
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpdeny") && sender instanceof Player){
@@ -25,6 +28,12 @@ public class Tpdeny implements CommandExecutor {
                 String[] split = extract.split(",");
 
                 Player target = plugin.getServer().getPlayer(split[0]);
+
+                if (split.length == 2) {
+                    plugin.getServer().getScheduler().cancelTask(Tpahere.resp);
+                } else {
+                    plugin.getServer().getScheduler().cancelTask(tpa.resp);
+                }
 
                 plugin.tp().remove(player.getUniqueId());
 

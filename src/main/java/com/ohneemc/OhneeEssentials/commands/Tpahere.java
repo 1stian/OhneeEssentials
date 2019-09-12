@@ -19,6 +19,8 @@ public class Tpahere implements CommandExecutor {
         this.TimeToRespond = plugin.settings().getInt("PluginSettings.Teleportation.Tp.TimeToRespond");
     }
 
+    public int resp;
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpahere") && sender instanceof Player){
@@ -36,7 +38,7 @@ public class Tpahere implements CommandExecutor {
                     sender.sendMessage(ChatColor.GREEN + "Teleport here request sent!");
                     target.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.GREEN + " has sent you a teleport here request - /tpaaccept or /tpadeny");
 
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                    resp = Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                         @Override
                         public void run() {
                             sender.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.GREEN + " didn't respond in time. Request removed.");

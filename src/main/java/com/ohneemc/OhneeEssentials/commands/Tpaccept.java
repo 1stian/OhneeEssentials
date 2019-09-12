@@ -16,6 +16,9 @@ public class Tpaccept implements CommandExecutor {
     private Tpa tpa;
     public Tpaccept(Tpa tpa){this.tpa = tpa;}
 
+    private Tpahere Tpahere;
+    public Tpaccept(Tpahere Tpahere){this.Tpahere = Tpahere;}
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpaccept") && sender instanceof Player) {
@@ -29,12 +32,12 @@ public class Tpaccept implements CommandExecutor {
 
                 if (split.length == 2) {
                     target.teleport(player);
+                    plugin.getServer().getScheduler().cancelTask(Tpahere.resp);
                 } else {
                     player.teleport(target);
+                    plugin.getServer().getScheduler().cancelTask(tpa.resp);
                 }
-
                 plugin.tp().remove(player.getUniqueId());
-                plugin.getServer().getScheduler().cancelTask(tpa.resp);
                 target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");
                 return true;
             }else{
