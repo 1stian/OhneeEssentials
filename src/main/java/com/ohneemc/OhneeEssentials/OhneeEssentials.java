@@ -249,7 +249,7 @@ public class OhneeEssentials extends JavaPlugin {
             public void run() {
                 if (getSb().get(p.getUniqueId())){
                     p.setScoreboard(s);
-                    o = s.registerNewObjective("ohneesidebar", "dummy");
+                    //o = s.registerNewObjective("ohneesidebar", "dummy");
                     if (p == null || !p.isOnline()) {
                         cancel();
                         return;
