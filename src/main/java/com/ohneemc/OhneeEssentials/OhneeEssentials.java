@@ -96,6 +96,8 @@ public class OhneeEssentials extends JavaPlugin {
     //Wild
     public boolean wildLoaded = false;
     public List<String> UnsafeBlocks;
+    public String wildWorld1;
+    public String wildWorld2;
     public List<Material> materials = new ArrayList<>();
     public int maxX;
     public int minX;
@@ -128,6 +130,8 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.WildTP.Radius.minZ", -5000);
         List<String> defaltUnsafeBlocks = Arrays.asList("WATER", "LAVA", "AIR");
         settings.setDefault("PluginSettings.WildTP.UnsafeBlocks", defaltUnsafeBlocks);
+        settings.setDefault("PluginSettings.WildTP.Worlds.world1", "world");
+        settings.setDefault("PluginSettings.WildTP.Worlds.world2", "world_nether");
         settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
         List<String> defaultGroups = Arrays.asList("admin:10", "mod:10", "vip:5", "regular:3", "default:1");
         settings.setDefault("PluginSettings.Homes.LimitPrGroup", defaultGroups);
@@ -197,7 +201,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
         this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
         this.getServer().getPluginManager().registerEvents(new PreLogin(this), this);
-        new Wild(this);
+        this.getServer().getPluginManager().registerEvents(new Wild(this), this);
     }
 
     private boolean setupPermissions() {
@@ -218,11 +222,13 @@ public class OhneeEssentials extends JavaPlugin {
         return eco != null;
     }
 
-    private boolean loadSettings(){
+    public boolean loadSettings(){
 
         //Wild settings
         try {
             UnsafeBlocks = settings.getStringList("PluginSettings.WildTP.UnsafeBlocks");
+            wildWorld1 = settings.getString("PluginSettings.WildTP.Worlds.world1");
+            wildWorld2 = settings.getString("PluginSettings.WildTP.Worlds.world2");
             countdown = settings().getInt("PluginSettings.WildTP.countdown");
             cooldown = settings().getInt("PluginSettings.WildTP.cooldown");
             maxX = settings().getInt("PluginSettings.WildTP.Radius.maxX");
