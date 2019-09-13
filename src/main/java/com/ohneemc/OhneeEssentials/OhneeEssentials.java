@@ -259,13 +259,13 @@ public class OhneeEssentials extends JavaPlugin {
                     o.setDisplaySlot(DisplaySlot.SIDEBAR);
                     o.getScore("§6§lRank:").setScore(10);
                     o.getScore(vPerm.getPrimaryGroup(p.getPlayer())).setScore(9);
-                    o.getScore("  ").setScore(8);
+                    o.getScore("   ").setScore(8);
                     o.getScore("§6§lOnline:").setScore(7);
                     o.getScore(Bukkit.getOnlinePlayers().size() + " ").setScore(6);
-                    o.getScore("  ").setScore(5);
+                    o.getScore("   ").setScore(5);
                     o.getScore("§6§lMoney:").setScore(4);
                     o.getScore(String.valueOf( (int)eco.getBalance(p.getPlayer())) + ChatColor.GREEN + "$").setScore(3);
-                    o.getScore("   ").setScore(2);
+                    o.getScore("  ").setScore(2);
                     o.getScore("§6§lIP:").setScore(1);
                     o.getScore("play.ohneemc.com").setScore(0);
                 }
