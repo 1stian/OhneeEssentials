@@ -249,7 +249,7 @@ public class OhneeEssentials extends JavaPlugin {
             public void run() {
                 if (getSb().get(p.getUniqueId())){
                     p.setScoreboard(s);
-                    //o = s.registerNewObjective("ohneesidebar", "dummy");
+                    o = s.registerNewObjective("ohneesidebar", "dummy");
                     if (p == null || !p.isOnline()) {
                         cancel();
                         return;
@@ -261,7 +261,7 @@ public class OhneeEssentials extends JavaPlugin {
                     o.getScore("  ").setScore(8);
                     o.getScore("§6§lOnline:").setScore(7);
                     o.getScore(Bukkit.getOnlinePlayers().size() + " ").setScore(6);
-                    o.getScore("   ").setScore(5);
+                    o.getScore("  ").setScore(5);
                     o.getScore("§6§lMoney:").setScore(4);
                     o.getScore(String.valueOf( (int)eco.getBalance(p.getPlayer())) + ChatColor.GREEN + "$").setScore(3);
                     o.getScore("   ").setScore(2);
