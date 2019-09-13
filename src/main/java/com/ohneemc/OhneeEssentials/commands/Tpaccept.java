@@ -1,6 +1,7 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,10 +32,10 @@ public class Tpaccept implements CommandExecutor {
 
                 if (split.length == 2) {
                     player.teleport(target);
-                    plugin.getServer().getScheduler().cancelTask(tpa.resp);
+                    Bukkit.getScheduler().cancelTask(tpa.resp);
                 } else {
                     target.teleport(player);
-                    plugin.getServer().getScheduler().cancelTask(Tpahere.resp);
+                    Bukkit.getScheduler().cancelTask(Tpahere.resp);
                 }
                 plugin.tp().remove(player.getUniqueId());
                 target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");
