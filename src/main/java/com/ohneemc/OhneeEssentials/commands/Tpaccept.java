@@ -11,7 +11,7 @@ public class Tpaccept implements CommandExecutor {
     private OhneeEssentials plugin;
     private Tpa tpa;
     private Tpahere tpahere;
-    public Tpaccept(OhneeEssentials plugin, Tpa tpa, Tpahere tpahere) {
+    public Tpaccept(OhneeEssentials plugin) {
         this.plugin = plugin;
         this.tpa = tpa;
         this.tpahere = tpahere;
@@ -29,7 +29,7 @@ public class Tpaccept implements CommandExecutor {
 
                 if (split.length == 2) {
                     player.teleport(target);
-                    tpa.cancelTask();
+                    Tpa.cancelTask();
                 } else {
                     target.teleport(player);
                     tpahere.cancelTask();

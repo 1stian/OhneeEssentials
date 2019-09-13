@@ -20,7 +20,7 @@ public class Tpa  implements CommandExecutor {
         this.TimeToRespond = plugin.settings().getInt("PluginSettings.Teleportation.Tp.TimeToRespond");
     }
 
-    public int resp;
+    static int resp;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -61,7 +61,7 @@ public class Tpa  implements CommandExecutor {
         return false;
     }
 
-    public void cancelTask(){
+    static void cancelTask(){
         Bukkit.getScheduler().cancelTask(resp);
     }
 }
