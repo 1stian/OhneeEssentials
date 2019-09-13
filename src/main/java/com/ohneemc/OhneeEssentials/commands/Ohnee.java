@@ -30,10 +30,11 @@ public class Ohnee implements CommandExecutor {
                     System.out.print(strings[0]);
                     switch (strings[0]){
                         case "reload":
-                            File customMessages = new File(plugin.getDataFolder(), "messages.txt");
-                            plugin.getConfig();
-                            msg.loadMessages(String.valueOf(customMessages));
-                            if (player != null) player.sendMessage(ChatColor.GREEN +"Config has been reloaded!");
+                            if (plugin.loadSettings()){
+                                commandSender.sendMessage(ChatColor.GREEN + "Settings reloaded!");
+                            }else{
+                                commandSender.sendMessage(ChatColor.RED + "Something went wrong reloading the settings...");
+                            }
                             break;
 
                         case "version":
