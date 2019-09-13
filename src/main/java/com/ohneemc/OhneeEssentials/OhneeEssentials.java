@@ -197,7 +197,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new KeepXp(this), this);
         this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
         this.getServer().getPluginManager().registerEvents(new PreLogin(this), this);
-        new InvListener(this);
+        new Wild(this);
     }
 
     private boolean setupPermissions() {
@@ -258,10 +258,10 @@ public class OhneeEssentials extends JavaPlugin {
                     o.setDisplayName("§a§lOhnee§6§lMC");
                     o.setDisplaySlot(DisplaySlot.SIDEBAR);
                     o.getScore("§6§lRank:").setScore(10);
-                    String rank = vPerm.getPrimaryGroup(p.getPlayer()).toString();
+                    String rank = vPerm.getPrimaryGroup(p.getPlayer());
                     String rankToScore = rank.substring(0, 1).toUpperCase() + rank.substring(1);
                     o.getScore(rankToScore).setScore(9);
-                    o.getScore("   ").setScore(8);
+                    o.getScore("  ").setScore(8);
                     o.getScore("§6§lOnline:").setScore(7);
                     o.getScore(Bukkit.getOnlinePlayers().size() + " ").setScore(6);
                     o.getScore("   ").setScore(5);
