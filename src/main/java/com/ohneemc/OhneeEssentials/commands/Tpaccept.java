@@ -32,10 +32,10 @@ public class Tpaccept implements CommandExecutor {
 
                 if (split.length == 2) {
                     player.teleport(target);
-                    Bukkit.getScheduler().cancelTask(tpa.resp);
+                    tpa.cancelTask();
                 } else {
                     target.teleport(player);
-                    Bukkit.getScheduler().cancelTask(Tpahere.resp);
+                    Tpahere.cancelTask();
                 }
                 plugin.tp().remove(player.getUniqueId());
                 target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");

@@ -60,4 +60,8 @@ public class Tpa  implements CommandExecutor {
 
         return false;
     }
+
+    public void cancelTask(){
+        Bukkit.getScheduler().cancelTask(resp);
+    }
 }
