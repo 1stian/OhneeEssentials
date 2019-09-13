@@ -1,23 +1,29 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import com.ohneemc.OhneeEssentials.events.CustomInventory;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Wild implements CommandExecutor {
+public class Wild implements CommandExecutor, Listener {
 
     private OhneeEssentials plugin;
+
 
     //Settings
     private int maxX;
@@ -49,6 +55,12 @@ public class Wild implements CommandExecutor {
                 return true;
             } else {
                 if (!running) {
+
+                    CustomInventory i = new CustomInventory();
+                    i.newWildInventory(player);
+                    return true;
+                    //Old under here! Comment out when I am done!
+                    /**
                     running = true;
                     sender.sendMessage(ChatColor.GREEN + "Looking for a safe location. Hold on.");
                     String world = null;
@@ -57,6 +69,7 @@ public class Wild implements CommandExecutor {
                     }
 
                     return runWild(player, world);
+                     **/
                 } else {
                     sender.sendMessage(ChatColor.GREEN + "You're already being teleported!");
                     return true;
@@ -65,6 +78,39 @@ public class Wild implements CommandExecutor {
         }
 
         return false;
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent e){
+        Player player = (Player) e.getWhoClicked();
+        ClickType click = e.getClick();
+        Inventory open = e.getClickedInventory();
+        InventoryView title = e.getView();
+        String invTitle = title.getTitle();
+        ItemStack item = e.getCurrentItem();
+
+        if (open == null){
+            return;
+        }
+        if (invTitle.equalsIgnoreCase(ChatColor.GREEN + "WildTP")){
+            if (item.equals(null) || !item.hasItemMeta()){
+                return;
+            }
+            if (item.getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Teleport to a random location in the overworld.")){
+                player.closeInventory();
+                e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good place for you, hold on.");
+                runWild((Player) e.getWhoClicked(), plugin.wildWorld1);
+                return;
+            }
+
+            if (item.getItemMeta().getDisplayName().equals(ChatColor.RED + "Teleport to a random location in the nether.")){
+                player.closeInventory();
+                e.getWhoClicked().sendMessage(ChatColor.GREEN + "Not enabled yet!");
+                //runWild((Player) e.getWhoClicked(), plugin.wildWorld2);
+                return;
+            }
+            e.setCancelled(true);
+        }
     }
 
     private boolean runWild(Player player, String args) {
@@ -120,12 +166,14 @@ public class Wild implements CommandExecutor {
     }
 
     private Location getHighestBlock(World world, int x, int z) {
+        /**
         plugin.getServer().getScheduler().runTask(plugin, new Runnable() {
             @Override
             public void run() {
                 plugin.getServer().getWorld(world.getUID()).loadChunk(x, z, true);
             }
         });
+         **/
         hitNogo = false;
 
         int i = 255;
