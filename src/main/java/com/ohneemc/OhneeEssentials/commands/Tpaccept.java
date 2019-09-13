@@ -28,7 +28,6 @@ public class Tpaccept implements CommandExecutor {
                 String[] split = extract.split(",");
 
                 Player target = plugin.getServer().getPlayer(split[0]);
-                player.teleport(target);
 
                 if (split.length == 2) {
                     player.teleport(target);
