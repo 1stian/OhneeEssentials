@@ -31,11 +31,11 @@ public class Tpaccept implements CommandExecutor {
                 player.teleport(target);
 
                 if (split.length == 2) {
-                    target.teleport(player);
-                    plugin.getServer().getScheduler().cancelTask(Tpahere.resp);
-                } else {
                     player.teleport(target);
                     plugin.getServer().getScheduler().cancelTask(tpa.resp);
+                } else {
+                    target.teleport(player);
+                    plugin.getServer().getScheduler().cancelTask(Tpahere.resp);
                 }
                 plugin.tp().remove(player.getUniqueId());
                 target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");
