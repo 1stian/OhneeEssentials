@@ -1,7 +1,6 @@
 package com.ohneemc.OhneeEssentials.commands;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,15 +9,13 @@ import org.bukkit.entity.Player;
 
 public class Tpaccept implements CommandExecutor {
     private OhneeEssentials plugin;
-    public Tpaccept(OhneeEssentials plugin) {
-        this.plugin = plugin;
-    }
-
     private Tpa tpa;
-    public Tpaccept(Tpa tpa){this.tpa = tpa;}
-
-    private Tpahere Tpahere;
-    public Tpaccept(Tpahere Tpahere){this.Tpahere = Tpahere;}
+    private Tpahere tpahere;
+    public Tpaccept(OhneeEssentials plugin, Tpa tpa, Tpahere tpahere) {
+        this.plugin = plugin;
+        this.tpa = tpa;
+        this.tpahere = tpahere;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -35,7 +32,7 @@ public class Tpaccept implements CommandExecutor {
                     tpa.cancelTask();
                 } else {
                     target.teleport(player);
-                    Tpahere.cancelTask();
+                    tpahere.cancelTask();
                 }
                 plugin.tp().remove(player.getUniqueId());
                 target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");
