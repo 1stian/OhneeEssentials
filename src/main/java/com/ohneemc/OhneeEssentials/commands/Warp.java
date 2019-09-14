@@ -45,7 +45,7 @@ public class Warp implements CommandExecutor {
             } else {
                 Location loc = plugin.wMap().get(warpName);
                 if (player != null) {
-                    player.teleport(loc);
+                    player.teleport(loc.add(0,0.2, 0));
                     player.sendMessage(ChatColor.GREEN + "You've been teleported to: " + warpName);
                     return true;
                 }
