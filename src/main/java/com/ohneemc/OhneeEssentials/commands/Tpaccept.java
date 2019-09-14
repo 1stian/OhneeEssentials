@@ -28,10 +28,10 @@ public class Tpaccept implements CommandExecutor {
                 Player target = plugin.getServer().getPlayer(split[0]);
 
                 if (split.length == 2) {
-                    player.teleport(target);
+                    target.teleport(player);
                     Tpa.cancelTask();
                 } else {
-                    target.teleport(player);
+                    player.teleport(target);
                     tpahere.cancelTask();
                 }
                 plugin.tp().remove(player.getUniqueId());
