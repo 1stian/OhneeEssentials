@@ -24,7 +24,7 @@ public class Tpdeny implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("Tpdeny") && sender instanceof Player){
             if (plugin.tp().containsKey(((Player) sender).getUniqueId())){
                 Player player = ((Player) sender).getPlayer();
-                String extract = plugin.tp().get(player != null ? player.getName() : null).toString();
+                String extract = plugin.tp().get(((Player) sender).getUniqueId());
                 String[] split = extract.split(",");
 
                 Player target = plugin.getServer().getPlayer(split[0]);
