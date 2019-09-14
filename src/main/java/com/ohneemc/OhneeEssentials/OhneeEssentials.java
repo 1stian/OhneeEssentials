@@ -108,7 +108,6 @@ public class OhneeEssentials extends JavaPlugin {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
-        settingsLoaded = loadSettings();
         //Enabling metrics
         Metrics metrics = new Metrics(this);
         setupPermissions();
@@ -155,6 +154,7 @@ public class OhneeEssentials extends JavaPlugin {
             ymlWarpsConfig = new Yaml("warps", getDataFolder().toString());
         }
 
+        settingsLoaded = loadSettings();
         warpConfigHelper.warpLoad();
 
         registerEvents();
