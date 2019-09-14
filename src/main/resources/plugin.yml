@@ -140,6 +140,7 @@ commands:
     permission-message: You do not have acces to this command /uuid.
   scoreboard:
     description: Toggles the server scoreboard.
+    aliases: [sidebar]
     usage: /scoreboard
     permission: ohnee.scoreboard
     permission-message: You do not have acces to this command /scoreboard.
