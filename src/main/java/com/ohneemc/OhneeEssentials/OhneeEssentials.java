@@ -98,10 +98,14 @@ public class OhneeEssentials extends JavaPlugin {
     public String wildWorld1;
     public String wildWorld2;
     public List<Material> materials = new ArrayList<>();
-    public int maxX;
-    public int minX;
-    public int maxZ;
-    public int minZ;
+    public int w1MaxX;
+    public int w1MinX;
+    public int w1MaxZ;
+    public int w1Minz;
+    public int w2MaxX;
+    public int w2MinX;
+    public int w2MaxZ;
+    public int w2Minz;
     public int countdown;
     public int cooldown;
 
@@ -123,10 +127,14 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.Warp.json", true);
         settings.setDefault("PluginSettings.WildTP.cooldown", 60);
         settings.setDefault("PluginSettings.WildTP.countdown", 3);
-        settings.setDefault("PluginSettings.WildTP.Radius.maxX", 5000);
-        settings.setDefault("PluginSettings.WildTP.Radius.minX", -5000);
-        settings.setDefault("PluginSettings.WildTP.Radius.maxZ", 5000);
-        settings.setDefault("PluginSettings.WildTP.Radius.minZ", -5000);
+        settings.setDefault("PluginSettings.WildTP.World1.Radius.w1MaxX", 5000);
+        settings.setDefault("PluginSettings.WildTP.World1.Radius.w1MinX", -5000);
+        settings.setDefault("PluginSettings.WildTP.World1.Radius.w1MaxZ", 5000);
+        settings.setDefault("PluginSettings.WildTP.World1.Radius.w1Minz", -5000);
+        settings.setDefault("PluginSettings.WildTP.World2.Radius.w1MaxX", 4200);
+        settings.setDefault("PluginSettings.WildTP.World2.Radius.w1MinX", -4200);
+        settings.setDefault("PluginSettings.WildTP.World2.Radius.w1MaxZ", 4200);
+        settings.setDefault("PluginSettings.WildTP.World2.Radius.w1Minz", -4200);
         List<String> defaltUnsafeBlocks = Arrays.asList("WATER", "LAVA", "AIR");
         settings.setDefault("PluginSettings.WildTP.UnsafeBlocks", defaltUnsafeBlocks);
         settings.setDefault("PluginSettings.WildTP.Worlds.world1", "world");
@@ -230,10 +238,14 @@ public class OhneeEssentials extends JavaPlugin {
             wildWorld2 = settings.getString("PluginSettings.WildTP.Worlds.world2");
             countdown = settings().getInt("PluginSettings.WildTP.countdown");
             cooldown = settings().getInt("PluginSettings.WildTP.cooldown");
-            maxX = settings().getInt("PluginSettings.WildTP.Radius.maxX");
-            minX = settings().getInt("PluginSettings.WildTP.Radius.minX");
-            maxZ = settings().getInt("PluginSettings.WildTP.Radius.maxZ");
-            minZ = settings().getInt("PluginSettings.WildTP.Radius.minZ");
+            w1MaxX = settings().getInt("PluginSettings.WildTP.World1.Radius.w1MaxX");
+            w1MinX = settings().getInt("PluginSettings.WildTP.World1.Radius.w1MinX");
+            w1MaxZ = settings().getInt("PluginSettings.WildTP.World1.Radius.w1MaxZ");
+            w1Minz = settings().getInt("PluginSettings.WildTP.World1.Radius.w1Minz");
+            w2MaxX = settings().getInt("PluginSettings.WildTP.World2.Radius.w1MaxX");
+            w2MinX = settings().getInt("PluginSettings.WildTP.World2.Radius.w1MinX");
+            w2MaxZ = settings().getInt("PluginSettings.WildTP.World2.Radius.w1MaxZ");
+            w2Minz = settings().getInt("PluginSettings.WildTP.World2.Radius.w1Minz");
 
             //Filling list material list from safeBlocks
             for (String material : UnsafeBlocks) {
