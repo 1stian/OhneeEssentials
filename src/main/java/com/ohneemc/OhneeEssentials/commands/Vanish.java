@@ -26,12 +26,14 @@ public class Vanish implements CommandExecutor {
                 }
                 vanished = true;
                 sender.sendMessage(ChatColor.GREEN + "You've now " + ChatColor.GOLD + "vanished " + ChatColor.GREEN + "from all players.");
+                return true;
             }else if (player != null){
                 for (Player online :Bukkit.getOnlinePlayers()){
                     online.showPlayer(plugin, player);
                 }
                 vanished = false;
                 sender.sendMessage(ChatColor.GREEN + "You are no longer " + ChatColor.GOLD + "vanished " + ChatColor.GREEN + "from all players.");
+                return true;
             }
         }
         return false;
