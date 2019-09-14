@@ -9,12 +9,8 @@ import org.bukkit.entity.Player;
 
 public class Tpaccept implements CommandExecutor {
     private OhneeEssentials plugin;
-    private Tpa tpa;
-    private Tpahere tpahere;
     public Tpaccept(OhneeEssentials plugin) {
         this.plugin = plugin;
-        this.tpa = tpa;
-        this.tpahere = tpahere;
     }
 
     @Override
@@ -27,15 +23,18 @@ public class Tpaccept implements CommandExecutor {
 
                 Player target = plugin.getServer().getPlayer(split[0]);
 
-                if (split.length == 2) {
-                    target.teleport(player);
-                    Tpa.cancelTask();
-                } else {
-                    player.teleport(target);
-                    tpahere.cancelTask();
+                if (target != null && player != null){
+                    if (split.length == 2) {
+                        target.teleport(player);
+                        Tpa.cancelTask();
+                    } else {
+                        player.teleport(target);
+                        Tpahere.cancelTask();
+                    }
+
+                    plugin.tp().remove(player.getUniqueId());
+                    target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");
                 }
-                plugin.tp().remove(player.getUniqueId());
-                target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " accepted your request.");
                 return true;
             }else{
                 sender.sendMessage(ChatColor.GREEN + "You have no pending requests.");

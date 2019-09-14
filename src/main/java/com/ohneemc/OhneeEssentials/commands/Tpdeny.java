@@ -13,12 +13,6 @@ public class Tpdeny implements CommandExecutor {
         this.plugin = plugin;
     }
 
-    private Tpa tpa;
-    public Tpdeny(Tpa tpa){this.tpa = tpa;}
-
-    private Tpahere Tpahere;
-    public Tpdeny(Tpahere Tpahere){this.Tpahere = Tpahere;}
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Tpdeny") && sender instanceof Player){
@@ -30,15 +24,12 @@ public class Tpdeny implements CommandExecutor {
                 Player target = plugin.getServer().getPlayer(split[0]);
 
                 if (split.length == 2) {
-                    plugin.getServer().getScheduler().cancelTask(Tpahere.resp);
+                    Tpa.cancelTask();
                 } else {
-                    plugin.getServer().getScheduler().cancelTask(tpa.resp);
+                    Tpahere.cancelTask();
                 }
-
-                plugin.tp().remove(player.getUniqueId());
-
-                if (target != null) {
-                    plugin.getServer().getScheduler().cancelTask(tpa.resp);
+                if (target != null && player != null) {
+                    plugin.tp().remove(player.getUniqueId());
                     target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN + " denied your request.");
                 }
                 return true;
