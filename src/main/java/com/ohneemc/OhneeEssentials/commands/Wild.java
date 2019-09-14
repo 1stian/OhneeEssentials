@@ -104,9 +104,9 @@ public class Wild implements CommandExecutor, Listener {
 
             if (item.getItemMeta().getDisplayName().equals(ChatColor.RED + "Teleport to a random location in the nether.")) {
                 player.closeInventory();
-                //e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good place for you, hold on.");
-                e.getWhoClicked().sendMessage(ChatColor.GREEN + "Disabled.. Will be enabled shortly.");
-                //runWild((Player) e.getWhoClicked(), plugin.wildWorld2);
+                e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good place for you, hold on.");
+                //e.getWhoClicked().sendMessage(ChatColor.GREEN + "Disabled.. Will be enabled shortly.");
+                runWild((Player) e.getWhoClicked(), plugin.wildWorld2);
                 return;
             }
             e.setCancelled(true);
@@ -148,12 +148,12 @@ public class Wild implements CommandExecutor, Listener {
         if (world.getName().equalsIgnoreCase(plugin.wildWorld1)) {
             int rX = w1GetX();
             int rZ = w1GetZ();
-            return getHighestBlock(world, rX, rZ);
+            return getHighestBlock(world, 255,rX, rZ);
         }
         if (world.getName().equalsIgnoreCase(plugin.wildWorld2)) {
             int rX = w2GetX();
             int rZ = w2GetZ();
-            return getHighestBlock(world, rX, rZ);
+            return getHighestBlock(world, 100,rX, rZ);
         }
         return null;
     }
@@ -174,10 +174,9 @@ public class Wild implements CommandExecutor, Listener {
         return (int) (Math.random() * ((w2MaxZ - w2MinZ) + 1)) + w2MinZ;
     }
 
-    private Location getHighestBlock(World world, int x, int z) {
+    private Location getHighestBlock(World world, int height, int x, int z) {
         hitNogo = false;
-
-        int i = 255;
+        int i = height;
         Location check = new Location(world, x, i, z);
         while (i > 0) {
             if (!materials.contains(new Location(world, x, i, z).getBlock().getType())) {
