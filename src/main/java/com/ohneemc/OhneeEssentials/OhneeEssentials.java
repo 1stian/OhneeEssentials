@@ -10,10 +10,7 @@ import de.leonhard.storage.Yaml;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,7 +21,7 @@ import org.bukkit.scoreboard.Objective;
 import java.util.*;
 
 public class OhneeEssentials extends JavaPlugin {
-    public boolean settingsLoaded = false;
+    private boolean settingsLoaded = false;
 
     private WarpConfigHelper warpConfigHelper = new WarpConfigHelper(this);
     private Toml tomlWarpsConfig;
@@ -92,9 +89,6 @@ public class OhneeEssentials extends JavaPlugin {
     public org.bukkit.scoreboard.Scoreboard s;
     public Objective o;
 
-    //Wild
-    public boolean wildLoaded = false;
-    public List<String> UnsafeBlocks;
     public String wildWorld1;
     public String wildWorld2;
     public List<Material> materials = new ArrayList<>();
@@ -106,8 +100,10 @@ public class OhneeEssentials extends JavaPlugin {
     public int w2MinX;
     public int w2MaxZ;
     public int w2Minz;
-    public int countdown;
     public int cooldown;
+
+    //Spawn
+    public HashMap<World, Location> worldSpawns = new HashMap<>();
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -126,7 +122,6 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.Warp.yaml", false);
         settings.setDefault("PluginSettings.Warp.json", true);
         settings.setDefault("PluginSettings.WildTP.cooldown", 60);
-        settings.setDefault("PluginSettings.WildTP.countdown", 3);
         settings.setDefault("PluginSettings.WildTP.World1.Radius.w1MaxX", 5000);
         settings.setDefault("PluginSettings.WildTP.World1.Radius.w1MinX", -5000);
         settings.setDefault("PluginSettings.WildTP.World1.Radius.w1MaxZ", 5000);
@@ -230,13 +225,12 @@ public class OhneeEssentials extends JavaPlugin {
     }
 
     public boolean loadSettings(){
-
-        //Wild settings
         try {
-            UnsafeBlocks = settings.getStringList("PluginSettings.WildTP.UnsafeBlocks");
+            //Wild settings
+            //Wild
+            List<String> unsafeBlocks = settings.getStringList("PluginSettings.WildTP.UnsafeBlocks");
             wildWorld1 = settings.getString("PluginSettings.WildTP.Worlds.world1");
             wildWorld2 = settings.getString("PluginSettings.WildTP.Worlds.world2");
-            countdown = settings().getInt("PluginSettings.WildTP.countdown");
             cooldown = settings().getInt("PluginSettings.WildTP.cooldown");
             w1MaxX = settings().getInt("PluginSettings.WildTP.World1.Radius.w1MaxX");
             w1MinX = settings().getInt("PluginSettings.WildTP.World1.Radius.w1MinX");
@@ -248,11 +242,24 @@ public class OhneeEssentials extends JavaPlugin {
             w2Minz = settings().getInt("PluginSettings.WildTP.World2.Radius.w1Minz");
 
             //Filling list material list from safeBlocks
-            for (String material : UnsafeBlocks) {
+            for (String material : unsafeBlocks) {
                 materials.add(Material.getMaterial(material.toUpperCase()));
             }
 
-            wildLoaded = true;
+            //Spawn
+            for (String spawn : worldData.getKeySet()){
+                double x = worldData.getDouble(spawn + ".X");
+                double y = worldData.getDouble(spawn + ".Y");
+                double z = worldData.getDouble(spawn + ".Z");
+                float yaw = worldData.getFloat(spawn + ".Yaw");
+                float pitch = worldData.getFloat(spawn + ".Pitch");
+                String world = worldData.getString(spawn + "name");
+
+                World currWorld = getServer().getWorld(world);
+                Location spawnLoc = new Location(currWorld, x,y,z,yaw,pitch);
+                worldSpawns.put(currWorld, spawnLoc);
+            }
+
             return true;
         }catch (Exception e){
             e.printStackTrace();
