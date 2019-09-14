@@ -36,6 +36,7 @@ public class Setspawn implements CommandExecutor {
                 plugin.worldData().set(world.getName() + ".Pitch", pitch);
 
                 Location newSpawnLoc = new Location(world, x, y,z, yaw, pitch);
+                plugin.worldSpawns.put(world, newSpawnLoc);
                 //Sets it in the world data - plugin will not use that data, just for other ones knowing where it is.
                 world.setSpawnLocation(newSpawnLoc);
                 player.sendMessage(ChatColor.GREEN + "World spawn location has been set!");
