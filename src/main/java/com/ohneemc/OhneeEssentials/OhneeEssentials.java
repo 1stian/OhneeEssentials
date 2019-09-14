@@ -114,7 +114,7 @@ public class OhneeEssentials extends JavaPlugin {
         setupEconomy();
 
         s = Bukkit.getScoreboardManager().getNewScoreboard();
-        o = s.registerNewObjective("sidebar", "dummy");
+        o = s.registerNewObjective("sidebar", "dummy", ChatColor.DARK_GREEN + "WildTP - Chose world below.");
 
         //Setting defaults!
         settings.setDefault("PluginSettings.Warp.toml", false);
@@ -167,6 +167,7 @@ public class OhneeEssentials extends JavaPlugin {
 
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void registerCommands() {
         //Commands
         this.getCommand("Wild").setExecutor(new Wild(this));
@@ -207,22 +208,23 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new Wild(this), this);
     }
 
-    private boolean setupPermissions() {
+    private void setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        if (rsp == null) {
+            return;
+        }
         vPerm = rsp.getProvider();
-        return vPerm != null;
     }
 
-    private boolean setupEconomy() {
+    private void setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
+            return;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
-            return false;
+            return;
         }
         eco = rsp.getProvider();
-        return eco != null;
     }
 
     public boolean loadSettings(){
@@ -268,6 +270,7 @@ public class OhneeEssentials extends JavaPlugin {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void PlayerScoreboard(Player p){
         new BukkitRunnable() {
             @Override
@@ -275,7 +278,7 @@ public class OhneeEssentials extends JavaPlugin {
                 if (getSb().get(p.getUniqueId())){
                     s = Bukkit.getScoreboardManager().getNewScoreboard();
                     p.setScoreboard(s);
-                    o = s.registerNewObjective("ohneesidebar", "dummy");
+                    o = s.registerNewObjective("ohneesidebar", "dummy", ChatColor.DARK_GREEN + "WildTP - Chose world below.");
                     if (p == null || !p.isOnline()) {
                         cancel();
                         return;
