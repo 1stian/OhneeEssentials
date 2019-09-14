@@ -104,8 +104,9 @@ public class Wild implements CommandExecutor, Listener {
 
             if (item.getItemMeta().getDisplayName().equals(ChatColor.RED + "Teleport to a random location in the nether.")) {
                 player.closeInventory();
-                e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good place for you, hold on.");
-                runWild((Player) e.getWhoClicked(), plugin.wildWorld2);
+                //e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good place for you, hold on.");
+                e.getWhoClicked().sendMessage(ChatColor.GREEN + "Disabled.. Will be enabled shortly.");
+                //runWild((Player) e.getWhoClicked(), plugin.wildWorld2);
                 return;
             }
             e.setCancelled(true);
@@ -126,18 +127,18 @@ public class Wild implements CommandExecutor, Listener {
             String wName = world.getName();
             Location tp = createTpW(world);
 
+            if (tp == null || tp.add(0, 2, 0).getBlock().getType() != Material.AIR) {
+                runWild(player, wName);
+                return;
+            }
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 if (hitNogo) {
                     runWild(player, wName);
                 } else {
                     player.sendMessage(ChatColor.GREEN + "Found a location, teleporting!");
-                    if (!(tp == null)){
-                        player.teleport(tp);
-                        plugin.cMap().put(player.getUniqueId(), System.currentTimeMillis());
-                        running = false;
-                    }else{
-                        player.sendMessage(ChatColor.RED + "Couldn't create location... Please report this.");
-                    }
+                    player.teleport(tp);
+                    plugin.cMap().put(player.getUniqueId(), System.currentTimeMillis());
+                    running = false;
                 }
             }, 20L);
         });
