@@ -114,7 +114,7 @@ public class OhneeEssentials extends JavaPlugin {
         setupEconomy();
 
         s = Bukkit.getScoreboardManager().getNewScoreboard();
-        o = s.registerNewObjective("sidebar", "dummy", ChatColor.DARK_GREEN + "WildTP - Chose world below.");
+        o = s.registerNewObjective("sidebar", "dummy", ChatColor.DARK_GREEN + "OhneeMC Sidebar");
 
         //Setting defaults!
         settings.setDefault("PluginSettings.Warp.toml", false);
@@ -278,7 +278,7 @@ public class OhneeEssentials extends JavaPlugin {
                 if (getSb().get(p.getUniqueId())){
                     s = Bukkit.getScoreboardManager().getNewScoreboard();
                     p.setScoreboard(s);
-                    o = s.registerNewObjective("ohneesidebar", "dummy", ChatColor.DARK_GREEN + "WildTP - Chose world below.");
+                    o = s.registerNewObjective("ohneesidebar", "dummy", ChatColor.DARK_GREEN + "OhneeMC Sidebar");
                     if (p == null || !p.isOnline()) {
                         cancel();
                         return;
