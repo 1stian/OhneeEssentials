@@ -148,6 +148,11 @@ commands:
     usage: /scoreboard
     permission: ohnee.scoreboard
     permission-message: You do not have acces to this command /scoreboard.
+  vanish:
+    description: Toggles vanish.
+    usage: /vanish
+    permission: ohnee.vanish
+    permission-message: You do not have acces to this command /vanish.
 permissions:
   ohnee.*:
     default: false
@@ -179,6 +184,7 @@ permissions:
       ohnee.fly.safe: true
       ohnee.uuid: true
       ohnee.scoreboard: true
+      ohnee.vanish: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
