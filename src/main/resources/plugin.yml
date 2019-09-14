@@ -73,11 +73,13 @@ commands:
     permission-message: You do not have access to this command /warp.
   setwarp:
     description: Sets a warp location.
+    aliases: [swarp]
     usage: Missing arguments - /setwarp <name>
     permission: ohnee.warp
     permission-message: You do not have access to this command /setwarp.
   delwarp:
     description: Deletes a warp location.
+    aliases: [dwarp]
     usage: Missing arguments - /delwarp <name>
     permission: ohnee.delwarp
     permission-message: You do not have access to this command /delwarp.
@@ -99,18 +101,20 @@ commands:
     permission-message: You do not have access to this command /setspawn.
   sethome:
     description: Set your home(s) location.
+    aliases: [shome]
     usage: /sethome | /sethome <name>
     permission: ohnee.sethome
     permission-message: You do not have access to this command /sethome.
   home:
     description: Teleport you to your home.
     usage: /home | /home <name>
-    aliases: [homes]
+    aliases: [homes, h]
     permission: ohnee.home
     permission-message: You do not have access to this command /home.
   delhome:
     description: Deletes your specified home.
     usage: /delhome <name>
+    aliases: [dhome]
     permission: ohnee.delhome
     permission-message: You do not have access to this command /delhome.
   import:
