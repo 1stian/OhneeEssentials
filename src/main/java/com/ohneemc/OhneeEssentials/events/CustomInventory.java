@@ -14,7 +14,7 @@ public class CustomInventory implements Listener {
     private Plugin plugin = OhneeEssentials.getPlugin(OhneeEssentials.class);
 
     public void newWildInventory(Player player){
-        Inventory i = plugin.getServer().createInventory(null, 27, ChatColor.GREEN + "WildTP");
+        Inventory i = plugin.getServer().createInventory(null, 27, ChatColor.DARK_GREEN + "WildTP - Chose world below.");
         ItemStack empty = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
         ItemMeta emptyMeta = empty.getItemMeta();
         emptyMeta.setDisplayName(" ");

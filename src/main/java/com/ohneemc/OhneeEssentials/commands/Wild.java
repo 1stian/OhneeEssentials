@@ -92,7 +92,7 @@ public class Wild implements CommandExecutor, Listener {
         if (open == null){
             return;
         }
-        if (invTitle.equalsIgnoreCase(ChatColor.GREEN + "WildTP")){
+        if (invTitle.equalsIgnoreCase(ChatColor.DARK_GREEN + "WildTP - Chose world below.")){
             if (item.equals(null) || !item.hasItemMeta()){
                 return;
             }

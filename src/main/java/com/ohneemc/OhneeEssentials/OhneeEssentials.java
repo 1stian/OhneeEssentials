@@ -2,7 +2,6 @@ package com.ohneemc.OhneeEssentials;
 
 import com.ohneemc.OhneeEssentials.commands.*;
 import com.ohneemc.OhneeEssentials.events.*;
-import com.ohneemc.OhneeEssentials.resources.InvCreator;
 import com.ohneemc.OhneeEssentials.resources.MessageHelper;
 import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
 import de.leonhard.storage.Json;
