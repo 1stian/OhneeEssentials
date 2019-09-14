@@ -28,11 +28,12 @@ public class Spawn implements CommandExecutor {
                 double z = plugin.worldData().getDouble(world.getName() + ".Spawn.Z");
                 float yaw = plugin.worldData().getFloat(world.getName() + ".Spawn.Yaw");
                 float pitch = plugin.worldData().getFloat(world.getName() + ".Spawn.Pitch");
-
-                Location spawnLoc = new Location(world, x, y,z, yaw, pitch);
                  **/
 
-                player.teleport(world.getSpawnLocation());
+                //Location spawnLoc = new Location(world, x, y,z, yaw, pitch);
+                Location spawnLoc = plugin.worldSpawns.get(world);
+
+                player.teleport(spawnLoc.add(0,0.2,0));
                 player.sendMessage(ChatColor.GREEN + "You've been teleported to spawn!");
                 return true;
             }
