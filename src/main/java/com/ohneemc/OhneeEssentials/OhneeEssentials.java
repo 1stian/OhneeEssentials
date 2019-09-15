@@ -289,9 +289,10 @@ public class OhneeEssentials extends JavaPlugin {
                     String rank = vPerm.getPrimaryGroup(p.getPlayer());
                     String rankToScore = rank.substring(0, 1).toUpperCase() + rank.substring(1);
                     o.getScore(rankToScore).setScore(9);
-                    o.getScore("  ").setScore(8);
+                    o.getScore("    ").setScore(8);
                     o.getScore("§6§lOnline:").setScore(7);
-                    o.getScore(Bukkit.getOnlinePlayers().size() + " ").setScore(6);
+                    String pOnline = String.valueOf(Bukkit.getOnlinePlayers().size());
+                    o.getScore(pOnline).setScore(6);
                     o.getScore("   ").setScore(5);
                     o.getScore("§6§lMoney:").setScore(4);
                     o.getScore(String.valueOf( (int)eco.getBalance(p.getPlayer())) + ChatColor.GREEN + "$").setScore(3);
