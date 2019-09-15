@@ -14,7 +14,7 @@ public class CustomInventory implements Listener {
     private Plugin plugin = OhneeEssentials.getPlugin(OhneeEssentials.class);
 
     public void newFirstJoinInventory(Player player){
-        Inventory i = plugin.getServer().createInventory(null, 27, ChatColor.DARK_GREEN + "Chose your destiny!");
+        Inventory i = plugin.getServer().createInventory(null, 27, ChatColor.DARK_GREEN + "Choose your destiny!");
         ItemStack empty = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
         ItemMeta emptyMeta = empty.getItemMeta();
         if (emptyMeta != null) {
@@ -66,7 +66,7 @@ public class CustomInventory implements Listener {
     }
 
     public void newWildInventory(Player player){
-        Inventory i = plugin.getServer().createInventory(null, 27, ChatColor.DARK_GREEN + "WildTP - Chose world below.");
+        Inventory i = plugin.getServer().createInventory(null, 27, ChatColor.DARK_GREEN + "WildTP - Choose world below.");
         ItemStack empty = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
         ItemMeta emptyMeta = empty.getItemMeta();
         if (emptyMeta != null) {
