@@ -81,8 +81,9 @@ public class CustomInventory implements Listener {
             oMeta.setDisplayName(ChatColor.YELLOW + "Overworld.");
         }
         overworld.setItemMeta(oMeta);
+
         ItemStack nether = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta nMeta = overworld.getItemMeta();
+        ItemMeta nMeta = nether.getItemMeta();
         if (nMeta != null) {
             nMeta.setDisplayName(ChatColor.RED + "Nether.");
         }
