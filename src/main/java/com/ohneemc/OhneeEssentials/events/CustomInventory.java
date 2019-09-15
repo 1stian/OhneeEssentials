@@ -22,18 +22,19 @@ public class CustomInventory implements Listener {
         }
         empty.setItemMeta(emptyMeta);
 
-        ItemStack overworld = new ItemStack(Material.DIAMOND_SWORD, 1);
-        ItemMeta oMeta = overworld.getItemMeta();
+        ItemStack survival = new ItemStack(Material.DIAMOND_SWORD, 1);
+        ItemMeta oMeta = survival.getItemMeta();
         if (oMeta != null) {
             oMeta.setDisplayName(ChatColor.YELLOW + "Survival");
         }
-        overworld.setItemMeta(oMeta);
-        ItemStack nether = new ItemStack(Material.DARK_OAK_PLANKS, 1);
-        ItemMeta nMeta = overworld.getItemMeta();
+        survival.setItemMeta(oMeta);
+
+        ItemStack creative = new ItemStack(Material.DARK_OAK_PLANKS, 1);
+        ItemMeta nMeta = creative.getItemMeta();
         if (nMeta != null) {
             nMeta.setDisplayName(ChatColor.RED + "Creative");
         }
-        nether.setItemMeta(nMeta);
+        creative.setItemMeta(nMeta);
 
         i.setItem(0,empty);
         i.setItem(1,empty);
@@ -47,9 +48,9 @@ public class CustomInventory implements Listener {
         i.setItem(9,empty);
         i.setItem(10,empty);
         i.setItem(11,empty);
-        i.setItem(12, overworld);
+        i.setItem(12, survival);
         i.setItem(13,empty);
-        i.setItem(14, nether);
+        i.setItem(14, creative);
         i.setItem(15,empty);
         i.setItem(16,empty);
         i.setItem(17,empty);
