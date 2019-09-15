@@ -95,14 +95,14 @@ public class Wild implements CommandExecutor, Listener {
                 return;
             }
 
-            if (item.getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Teleport to a random location in the overworld.")) {
+            if (item.getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Overworld.")) {
                 player.closeInventory();
                 e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good place for you, hold on.");
                 runWild((Player) e.getWhoClicked(), plugin.wildWorld1);
                 return;
             }
 
-            if (item.getItemMeta().getDisplayName().equals(ChatColor.RED + "Teleport to a random location in the nether.")) {
+            if (item.getItemMeta().getDisplayName().equals(ChatColor.RED + "Nether.")) {
                 player.closeInventory();
                 e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good place for you, hold on.");
                 //e.getWhoClicked().sendMessage(ChatColor.GREEN + "Disabled.. Will be enabled shortly.");
