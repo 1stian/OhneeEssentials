@@ -3,6 +3,7 @@ package com.ohneemc.OhneeEssentials.events;
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.UserData;
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import com.ohneemc.OhneeEssentials.resources.CreateCustomItem;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Yaml;
 import net.milkbowl.vault.economy.Economy;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.*;
 
 import java.io.File;
@@ -22,7 +24,6 @@ import java.util.Date;
 import java.util.Objects;
 
 public class JoinQuit implements Listener {
-
     private OhneeEssentials plugin;
     private UserData uData;
     public JoinQuit(OhneeEssentials plugin) {
@@ -94,6 +95,8 @@ public class JoinQuit implements Listener {
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
 
+        CreateCustomItem item = new CreateCustomItem();
+        item.giveFirstJoinItems(player);
         essentialsImport(player);
     }
 
