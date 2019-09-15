@@ -6,17 +6,12 @@ import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import com.ohneemc.OhneeEssentials.resources.CreateCustomItem;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Yaml;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scoreboard.*;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -52,7 +47,7 @@ public class JoinQuit implements Listener {
     private void normalJoin(Player e){
         plugin.pTime().put(Objects.requireNonNull(e.getPlayer()).getUniqueId(), System.currentTimeMillis());
 
-        if (!plugin.cMap().containsKey(e.getPlayer())){
+        if (!plugin.cMap().containsKey(e.getPlayer().getUniqueId())){
             plugin.cMap().put(e.getPlayer().getUniqueId(), System.currentTimeMillis() / 1000);
         }
 
@@ -114,17 +109,22 @@ public class JoinQuit implements Listener {
 
         File p = new File(plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/"+UUID+".yml");
         if (p.exists()){
-            UserData uData = ess.getUser(player);
+            UserData uData = null;
+            if (ess != null) {
+                uData = ess.getUser(player);
+            }
             Yaml essentialsdata = new Yaml(UUID, plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
 
-            for (String h : uData.getHomes()){
-                Json userHome = new Json(UUID, plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
-                userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
-                userHome.set(h + ".y", essentialsdata.getDouble("homes." + h + ".y"));
-                userHome.set(h + ".z", essentialsdata.getDouble("homes." + h + ".z"));
-                userHome.set(h + ".pitch", essentialsdata.getFloat("homes." + h + ".pitch"));
-                userHome.set(h + ".yaw", essentialsdata.getFloat("homes." + h + ".yaw"));
-                userHome.set(h + ".world", essentialsdata.getString("homes." + h + ".world"));
+            if (uData != null) {
+                for (String h : uData.getHomes()){
+                    Json userHome = new Json(UUID, plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
+                    userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
+                    userHome.set(h + ".y", essentialsdata.getDouble("homes." + h + ".y"));
+                    userHome.set(h + ".z", essentialsdata.getDouble("homes." + h + ".z"));
+                    userHome.set(h + ".pitch", essentialsdata.getFloat("homes." + h + ".pitch"));
+                    userHome.set(h + ".yaw", essentialsdata.getFloat("homes." + h + ".yaw"));
+                    userHome.set(h + ".world", essentialsdata.getString("homes." + h + ".world"));
+                }
             }
             plugin.getServer().getLogger().info("Successfully imported homes from essentials, for player: " + player.getName()+"("+ UUID + ")");
         }
