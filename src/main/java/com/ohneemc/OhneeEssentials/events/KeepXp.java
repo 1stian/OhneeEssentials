@@ -23,7 +23,6 @@ public class KeepXp implements Listener {
         if (e != null){
             Player player = e.getEntity().getPlayer();
             if (player != null && player.hasPermission("Ohnee.keepxp")){
-                float exp = player.getExp();
                 int lev = player.getLevel();
                 if (e.getEntity().getKiller() == null){
                     e.setDroppedExp(0);
