@@ -17,16 +17,22 @@ public class CustomInventory implements Listener {
         Inventory i = plugin.getServer().createInventory(null, 27, ChatColor.DARK_GREEN + "WildTP - Chose world below.");
         ItemStack empty = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
         ItemMeta emptyMeta = empty.getItemMeta();
-        emptyMeta.setDisplayName(" ");
+        if (emptyMeta != null) {
+            emptyMeta.setDisplayName(" ");
+        }
         empty.setItemMeta(emptyMeta);
 
         ItemStack overworld = new ItemStack(Material.SUNFLOWER, 1);
         ItemMeta oMeta = overworld.getItemMeta();
-        oMeta.setDisplayName(ChatColor.YELLOW + "Teleport to a random location in the overworld.");
+        if (oMeta != null) {
+            oMeta.setDisplayName(ChatColor.YELLOW + "Overworld.");
+        }
         overworld.setItemMeta(oMeta);
         ItemStack nether = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta nMeta = overworld.getItemMeta();
-        nMeta.setDisplayName(ChatColor.RED + "Teleport to a random location in the nether.");
+        if (nMeta != null) {
+            nMeta.setDisplayName(ChatColor.RED + "Nether.");
+        }
         nether.setItemMeta(nMeta);
 
         i.setItem(0,empty);
