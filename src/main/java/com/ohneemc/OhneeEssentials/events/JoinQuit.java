@@ -116,13 +116,12 @@ public class JoinQuit implements Listener {
 
             for (String h : uData.getHomes()){
                 Json userHome = new Json(UUID, plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
-                String homeName = h;
-                userHome.set(homeName + ".x", essentialsdata.getDouble("homes." + homeName + ".x"));
-                userHome.set(homeName + ".y", essentialsdata.getDouble("homes." + homeName + ".y"));
-                userHome.set(homeName + ".z", essentialsdata.getDouble("homes." + homeName + ".z"));
-                userHome.set(homeName + ".pitch", essentialsdata.getFloat("homes." + homeName + ".pitch"));
-                userHome.set(homeName + ".yaw", essentialsdata.getFloat("homes." + homeName + ".yaw"));
-                userHome.set(homeName + ".world", essentialsdata.getString("homes." + homeName + ".world"));
+                userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
+                userHome.set(h + ".y", essentialsdata.getDouble("homes." + h + ".y"));
+                userHome.set(h + ".z", essentialsdata.getDouble("homes." + h + ".z"));
+                userHome.set(h + ".pitch", essentialsdata.getFloat("homes." + h + ".pitch"));
+                userHome.set(h + ".yaw", essentialsdata.getFloat("homes." + h + ".yaw"));
+                userHome.set(h + ".world", essentialsdata.getString("homes." + h + ".world"));
             }
             plugin.getServer().getLogger().info("Successfully imported homes from essentials, for player: " + player.getName()+"("+ UUID + ")");
         }
