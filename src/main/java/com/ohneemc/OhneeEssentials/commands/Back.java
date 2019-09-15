@@ -19,7 +19,7 @@ public class Back implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Back") && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
-            Location lasLoc = (Location) plugin.lLoc().get(player != null ? player.getUniqueId() : null);
+            Location lasLoc = plugin.lLoc().get(player != null ? player.getUniqueId() : null);
 
             if (player != null && lasLoc != null) {
                 player.teleport(lasLoc);
