@@ -27,9 +27,11 @@ public class LastLocation implements Listener {
     @EventHandler
     public void lastDeathLoc(PlayerDeathEvent e){
         Player player = e.getEntity().getPlayer();
-        Location loc = player.getLocation();
-
-        //Storing last death location.
-        ohnee.lLoc().put(player.getUniqueId(), loc);
+        Location loc;
+        if (player != null) {
+            loc = player.getLocation();
+            //Storing last death location.
+            ohnee.lLoc().put(player.getUniqueId(), loc);
+        }
     }
 }
