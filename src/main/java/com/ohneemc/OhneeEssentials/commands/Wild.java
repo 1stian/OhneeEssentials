@@ -104,7 +104,7 @@ public class Wild implements CommandExecutor, Listener {
 
             if (item.getItemMeta().getDisplayName().equals(ChatColor.RED + "Nether.")) {
                 player.closeInventory();
-                e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good place for you, hold on.");
+                e.getWhoClicked().sendMessage(ChatColor.GREEN + "Finding a good dark place for you, hold on.");
                 //e.getWhoClicked().sendMessage(ChatColor.GREEN + "Disabled.. Will be enabled shortly.");
                 runWild((Player) e.getWhoClicked(), plugin.wildWorld2);
                 return;
