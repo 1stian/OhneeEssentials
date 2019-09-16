@@ -154,7 +154,12 @@ public class OhneeEssentials extends JavaPlugin {
             ymlWarpsConfig = new Yaml("warps", getDataFolder().toString());
         }
 
-        settingsLoaded = loadSettings();
+        if (!loadSettings()){
+            Bukkit.getLogger().warning("[Ohnee] Something went wrong while loading the settings.");
+            Bukkit.getLogger().warning("[Ohnee] Disabling my self... Bye bye...");
+            getPluginLoader().disablePlugin(this);
+        }
+
         warpConfigHelper.warpLoad();
 
         registerEvents();
