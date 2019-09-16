@@ -153,6 +153,11 @@ commands:
     usage: /vanish
     permission: ohnee.vanish
     permission-message: You do not have acces to this command /vanish.
+  guide:
+    description: Sens a link to the server guides.
+    usage: /guide
+    permission: ohnee.guide
+    permission-message: You do not have acces to this command /guide.
 permissions:
   ohnee.*:
     default: false
@@ -185,6 +190,8 @@ permissions:
       ohnee.uuid: true
       ohnee.scoreboard: true
       ohnee.vanish: true
+      ohnee.guide: true
+      ohnee.guide.other: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
@@ -197,6 +204,7 @@ permissions:
       ohnee.delhome: true
       ohnee.me: true
       ohnee.scoreboard: true
+      ohnee.guide: true
   ohnee.tpa:
     default: false
     description: Access to all the tpa commands.

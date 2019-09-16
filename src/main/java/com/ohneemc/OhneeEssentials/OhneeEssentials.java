@@ -197,6 +197,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("uuid").setExecutor(new Uuid(this));
         this.getCommand("scoreboard").setExecutor(new Scoreboard(this));
         this.getCommand("vanish").setExecutor(new Vanish(this));
+        this.getCommand("guide").setExecutor(new Guide());
     }
 
     private void registerEvents() {
