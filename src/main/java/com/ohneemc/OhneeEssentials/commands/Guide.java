@@ -12,7 +12,7 @@ public class Guide implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Guide") && sender instanceof Player){
             if (args.length > 1){
-                if (sender.hasPermission("Ohnee.guide.other")){
+                if (sender.hasPermission("ohnee.guide.other")){
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
                         sender.sendMessage(ChatColor.GREEN + "Guide has been sent to: " + ChatColor.GOLD + args[0]);
