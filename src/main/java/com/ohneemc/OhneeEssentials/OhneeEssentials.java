@@ -207,6 +207,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new LastLocation(this), this);
         this.getServer().getPluginManager().registerEvents(new PreLogin(this), this);
         this.getServer().getPluginManager().registerEvents(new Wild(this), this);
+        this.getServer().getPluginManager().registerEvents(new Invsee(this), this);
     }
 
     private void setupPermissions() {

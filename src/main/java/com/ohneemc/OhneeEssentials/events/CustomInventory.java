@@ -17,7 +17,7 @@ public class CustomInventory implements Listener {
 
     public void inventorySee(Player player, Player target){
         PlayerInventory pi = target.getInventory();
-        Inventory inv = Bukkit.createInventory(null, 45, ChatColor.DARK_GREEN + "Player: " + target.getName());
+        Inventory inv = Bukkit.createInventory(null, 45, ChatColor.DARK_GREEN + "Invsee");
         ItemStack[] iStack = pi.getContents();
         inv.setContents(iStack);
         player.openInventory(inv);

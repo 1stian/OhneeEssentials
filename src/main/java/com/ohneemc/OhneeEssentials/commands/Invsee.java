@@ -10,12 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 
-import java.util.HashMap;
-import java.util.UUID;
 
 public class Invsee implements CommandExecutor, Listener {
     private OhneeEssentials plugin;
@@ -23,20 +20,17 @@ public class Invsee implements CommandExecutor, Listener {
         this.plugin = plugin;
     }
 
-    private HashMap<UUID, String> openInv = new HashMap<>();
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("Invsee") && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
-            Player target;
+            Player pTarget;
 
             if (args.length == 1){
-                target = plugin.getServer().getPlayer(args[0]);
-                if (player != null && target != null) {
+                pTarget = plugin.getServer().getPlayer(args[0]);
+                if (player != null && pTarget != null) {
                     CustomInventory inv = new CustomInventory();
-                    openInv.put(player.getUniqueId(), target.getName());
-                    inv.inventorySee(player, target);
+                    inv.inventorySee(player, pTarget);
                     sender.sendMessage(ChatColor.GREEN + "Opened " + ChatColor.GOLD + args[0] + ChatColor.GREEN + " inventory.");
                     return true;
                 }else{
@@ -53,32 +47,15 @@ public class Invsee implements CommandExecutor, Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
-        Player player = (Player) e.getWhoClicked();
-        //ClickType click = e.getClick();
         Inventory open = e.getClickedInventory();
         InventoryView title = e.getView();
         String invTitle = title.getTitle();
 
-        String target = openInv.get(player.getUniqueId());
-
         if (open == null) {
             return;
         }
-        if (invTitle.equalsIgnoreCase(ChatColor.DARK_GREEN + "Player: " + target)) {
+        if (invTitle.equalsIgnoreCase(ChatColor.DARK_GREEN + "Invsee")) {
             e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onInvClose(InventoryCloseEvent event){
-        Player player = (Player) event.getPlayer();
-        Inventory close = event.getInventory();
-        InventoryView title = event.getView();
-        String invTitle = title.getTitle();
-        String target = openInv.get(player.getUniqueId());
-
-        if (invTitle.equalsIgnoreCase(ChatColor.DARK_GREEN + "Player: " + target)) {
-            openInv.remove(player.getUniqueId());
         }
     }
 }
