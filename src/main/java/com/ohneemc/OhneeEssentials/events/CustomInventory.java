@@ -1,17 +1,27 @@
 package com.ohneemc.OhneeEssentials.events;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 public class CustomInventory implements Listener {
     private Plugin plugin = OhneeEssentials.getPlugin(OhneeEssentials.class);
+
+    public void inventorySee(Player player, Player target){
+        PlayerInventory pi = target.getInventory();
+        Inventory inv = Bukkit.createInventory(null, 45, ChatColor.DARK_GREEN + "Player: " + target.getName());
+        ItemStack[] iStack = pi.getContents();
+        inv.setContents(iStack);
+        player.openInventory(inv);
+    }
 
     public void newFirstJoinInventory(Player player){
         Inventory i = plugin.getServer().createInventory(null, 27, ChatColor.DARK_GREEN + "Choose your destiny!");
