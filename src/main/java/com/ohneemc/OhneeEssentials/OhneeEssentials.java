@@ -229,7 +229,7 @@ public class OhneeEssentials extends JavaPlugin {
 
     public boolean loadSettings(){
         try {
-            //Wild settings
+            Bukkit.getLogger().info("[Ohnee] Grabbing settings for wild.");
             //Wild
             List<String> unsafeBlocks = settings.getStringList("PluginSettings.WildTP.UnsafeBlocks");
             wildWorld1 = settings.getString("PluginSettings.WildTP.Worlds.world1");
@@ -249,14 +249,16 @@ public class OhneeEssentials extends JavaPlugin {
                 materials.add(Material.getMaterial(material.toUpperCase()));
             }
 
+            Bukkit.getLogger().info("[Ohnee] Grabbing spawn locations.");
             //Spawn
             for (String spawn : worldData.getKeySet()){
+                Bukkit.getLogger().info("[Ohnee] Spawn Loc name "+spawn);
                 double x = worldData.getDouble(spawn + ".X");
                 double y = worldData.getDouble(spawn + ".Y");
                 double z = worldData.getDouble(spawn + ".Z");
                 float yaw = worldData.getFloat(spawn + ".Yaw");
                 float pitch = worldData.getFloat(spawn + ".Pitch");
-                String world = worldData.getString(spawn + "name");
+                String world = worldData.getString(spawn + ".name");
 
                 World currWorld = getServer().getWorld(world);
                 Location spawnLoc = new Location(currWorld, x,y,z,yaw,pitch);
