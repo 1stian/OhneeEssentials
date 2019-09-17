@@ -105,6 +105,10 @@ public class OhneeEssentials extends JavaPlugin {
     //Spawn
     public HashMap<World, Location> worldSpawns = new HashMap<>();
 
+    //AFK
+    public int afkTimer;
+    public boolean afkCancelOnChat;
+
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
@@ -136,6 +140,9 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
         List<String> defaultGroups = Arrays.asList("admin:10", "mod:10", "vip:5", "regular:3", "default:1");
         settings.setDefault("PluginSettings.Homes.LimitPrGroup", defaultGroups);
+        settings.setDefault("PluginSettings.AFK.After", 300);
+        settings.setDefault("PluginSettings.AFK.CancelOnChat", false);
+
         //Custom message file
         new MessageHelper(this); // <-- This will be redone at some point, so everything will be customizable!
 
@@ -213,6 +220,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new PreLogin(this), this);
         this.getServer().getPluginManager().registerEvents(new Wild(this), this);
         this.getServer().getPluginManager().registerEvents(new Invsee(this), this);
+        this.getServer().getPluginManager().registerEvents(new AfkListener(this), this);
     }
 
     private void setupPermissions() {
@@ -272,6 +280,13 @@ public class OhneeEssentials extends JavaPlugin {
                 worldSpawns.put(currWorld, spawnLoc);
             }
 
+            Bukkit.getLogger().info("[Ohnee] Grabbing AFK settings.");
+            //AFK
+            afkTimer = settings.getInt("PluginSettings.AFK.After");
+            afkCancelOnChat = settings.getBoolean("PluginSettings.AFK.CancelOnChat");
+
+
+            Bukkit.getLogger().info("[Ohnee] Settings loaded successfully.");
             return true;
         }catch (Exception e){
             e.printStackTrace();
