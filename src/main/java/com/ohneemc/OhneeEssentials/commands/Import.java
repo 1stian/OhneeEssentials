@@ -44,11 +44,11 @@ public class Import implements CommandExecutor {
                 UserData uData = ess.getOfflineUser(pName);
 
                 Yaml essentialsdata = new Yaml(i.getName().split("\\.")[0], plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
-                Json userHome = new Json(i.getName().split("\\.")[0], plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
                 File already = new File(plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/" + i.getName().split("\\.")[0] + ".json");
 
                 if (!already.exists()){
                     for (String h : uData.getHomes()){
+                        Json userHome = new Json(i.getName().split("\\.")[0], plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
                         userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
                         userHome.set(h + ".y", essentialsdata.getDouble("homes." + h + ".y"));
                         userHome.set(h + ".z", essentialsdata.getDouble("homes." + h + ".z"));
