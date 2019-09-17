@@ -89,8 +89,11 @@ public class JoinQuit implements Listener {
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
 
-        CreateCustomItem item = new CreateCustomItem();
-        item.giveFirstJoinItems(player);
+        //This is not ready yet.
+        //CreateCustomItem item = new CreateCustomItem();
+        //item.giveFirstJoinItems(player);
+
+
         //essentialsImport(player);
     }
 
