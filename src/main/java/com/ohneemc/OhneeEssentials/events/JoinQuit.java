@@ -105,28 +105,30 @@ public class JoinQuit implements Listener {
 
     private void essentialsImport(Player player){
         String UUID = player.getUniqueId().toString();
-        Essentials ess = (Essentials) plugin.getServer().getPluginManager().getPlugin("Essentials");
+        if (plugin.getServer().getPluginManager().getPlugin("Essentials") != null){
+            Essentials ess = (Essentials) plugin.getServer().getPluginManager().getPlugin("Essentials");
 
-        File p = new File(plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/"+UUID+".yml");
-        if (p.exists()){
-            UserData uData = null;
-            if (ess != null) {
-                uData = ess.getUser(player);
-            }
-            Yaml essentialsdata = new Yaml(UUID, plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
-
-            if (uData != null) {
-                for (String h : uData.getHomes()){
-                    Json userHome = new Json(UUID, plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
-                    userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
-                    userHome.set(h + ".y", essentialsdata.getDouble("homes." + h + ".y"));
-                    userHome.set(h + ".z", essentialsdata.getDouble("homes." + h + ".z"));
-                    userHome.set(h + ".pitch", essentialsdata.getFloat("homes." + h + ".pitch"));
-                    userHome.set(h + ".yaw", essentialsdata.getFloat("homes." + h + ".yaw"));
-                    userHome.set(h + ".world", essentialsdata.getString("homes." + h + ".world"));
+            File p = new File(plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/"+UUID+".yml");
+            if (p.exists()){
+                UserData uData = null;
+                if (ess != null) {
+                    uData = ess.getUser(player);
                 }
+                Yaml essentialsdata = new Yaml(UUID, plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
+
+                if (uData != null) {
+                    for (String h : uData.getHomes()){
+                        Json userHome = new Json(UUID, plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
+                        userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
+                        userHome.set(h + ".y", essentialsdata.getDouble("homes." + h + ".y"));
+                        userHome.set(h + ".z", essentialsdata.getDouble("homes." + h + ".z"));
+                        userHome.set(h + ".pitch", essentialsdata.getFloat("homes." + h + ".pitch"));
+                        userHome.set(h + ".yaw", essentialsdata.getFloat("homes." + h + ".yaw"));
+                        userHome.set(h + ".world", essentialsdata.getString("homes." + h + ".world"));
+                    }
+                }
+                plugin.getServer().getLogger().info("Successfully imported homes from essentials, for player: " + player.getName()+"("+ UUID + ")");
             }
-            plugin.getServer().getLogger().info("Successfully imported homes from essentials, for player: " + player.getName()+"("+ UUID + ")");
         }
     }
 }
