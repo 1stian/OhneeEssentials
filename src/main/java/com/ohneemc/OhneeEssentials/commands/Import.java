@@ -5,6 +5,7 @@ import com.earth2me.essentials.UserData;
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Yaml;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -36,7 +37,7 @@ public class Import implements CommandExecutor {
             for (File i : files){
                 String[] s1 = i.toString().split("\\.");
                 String s2 = s1[0].substring(0, s1[0].length() - 1);
-                String clean = s2+s1[1];
+                String clean = s2+s1[1]+".yml";
 
                 Yaml getName = new Yaml(i.getName().split("\\.")[0], plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
                 String pName = getName.getString("lastAccountName");
@@ -44,8 +45,8 @@ public class Import implements CommandExecutor {
 
                 Yaml essentialsdata = new Yaml(i.getName().split("\\.")[0], plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
                 Json userHome = new Json(i.getName().split("\\.")[0], plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
-                File already = new File(plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/" + i.getName());
-
+                File already = new File(plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/" + i.getName().split("\\.")[0] + ".json");
+                Bukkit.getLogger().warning(already.toString());
                 if (!already.exists()){
                     for (String h : uData.getHomes()){
                         userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
@@ -55,7 +56,7 @@ public class Import implements CommandExecutor {
                         userHome.set(h + ".yaw", essentialsdata.getFloat("homes." + h + ".yaw"));
                         userHome.set(h + ".world", essentialsdata.getString("homes." + h + ".world"));
 
-                        plugin.getServer().getLogger().info("Successfully imported homes from essentials, for player: " + pName+"("+ i + ")");
+                        plugin.getServer().getLogger().info("Successfully imported home: "+ h + " from essentials, for player: " + pName+"("+ uData.getConfigUUID() + ")");
                     }
                 }
             }
