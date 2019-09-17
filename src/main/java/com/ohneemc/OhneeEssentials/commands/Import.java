@@ -34,19 +34,16 @@ public class Import implements CommandExecutor {
         File[] files = path.listFiles();
         if (files != null){
             for (File i : files){
-                plugin.getServer().getLogger().info(i.toString());
                 String[] s1 = i.toString().split("\\.");
                 String s2 = s1[0].substring(0, s1[0].length() - 1);
-                String clean = s2+s1[1]+".yml";
-                plugin.getServer().getLogger().info(clean);
+                String clean = s2+s1[1];
 
-                Yaml getName = new Yaml(i.getName() + ".yml", plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
+                Yaml getName = new Yaml(i.getName().split("\\.")[0], plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
                 String pName = getName.getString("lastAccountName");
-                plugin.getServer().getLogger().info(pName);
                 UserData uData = ess.getOfflineUser(pName);
 
-                Yaml essentialsdata = new Yaml(i.getName(), plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
-                Json userHome = new Json(i.getName(), plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
+                Yaml essentialsdata = new Yaml(i.getName().split("\\.")[0], plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
+                Json userHome = new Json(i.getName().split("\\.")[0], plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
                 File already = new File(plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/" + i.getName());
 
                 if (!already.exists()){
