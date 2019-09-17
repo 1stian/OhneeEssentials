@@ -20,7 +20,6 @@ import java.util.Objects;
 
 public class JoinQuit implements Listener {
     private OhneeEssentials plugin;
-    private UserData uData;
     public JoinQuit(OhneeEssentials plugin) {
         this.plugin = plugin;
     }
