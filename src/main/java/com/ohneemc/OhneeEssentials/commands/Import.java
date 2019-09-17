@@ -46,7 +46,7 @@ public class Import implements CommandExecutor {
                 Yaml essentialsdata = new Yaml(i.getName().split("\\.")[0], plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
                 File already = new File(plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/" + i.getName().split("\\.")[0] + ".json");
 
-                if (!already.exists()){
+                if (!already.exists() && uData != null){
                     for (String h : uData.getHomes()){
                         Json userHome = new Json(i.getName().split("\\.")[0], plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
                         userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
