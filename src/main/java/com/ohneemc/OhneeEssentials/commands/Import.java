@@ -46,7 +46,7 @@ public class Import implements CommandExecutor {
                 Yaml essentialsdata = new Yaml(i.getName().split("\\.")[0], plugin.getServer().getWorldContainer().getAbsolutePath() + "/plugins/Essentials/userdata/");
                 Json userHome = new Json(i.getName().split("\\.")[0], plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/");
                 File already = new File(plugin.getDataFolder().getAbsolutePath() + "/userdata/homes/" + i.getName().split("\\.")[0] + ".json");
-                Bukkit.getLogger().warning(already.toString());
+
                 if (!already.exists()){
                     for (String h : uData.getHomes()){
                         userHome.set(h + ".x", essentialsdata.getDouble("homes." + h + ".x"));
