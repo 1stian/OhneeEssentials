@@ -29,6 +29,7 @@ public class JoinQuit implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        e.setJoinMessage("");
         plugin.getServer().broadcastMessage(ChatColor.GREEN + "[+] " + ChatColor.GRAY + e.getPlayer().getName());
         plugin.PlayerScoreboard(e.getPlayer());
         normalJoin(e.getPlayer());
@@ -36,6 +37,7 @@ public class JoinQuit implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
+        e.setQuitMessage("");
         plugin.getServer().broadcastMessage(ChatColor.RED + "[-] " + ChatColor.GRAY + e.getPlayer().getName());
         userLeave(e.getPlayer());
     }
