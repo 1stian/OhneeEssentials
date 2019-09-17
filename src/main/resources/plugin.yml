@@ -3,7 +3,7 @@ version: ${project.version}
 author: Stian "1stian" Tofte
 website: https://ohneemc.com
 main: com.ohneemc.OhneeEssentials.OhneeEssentials
-depend: [PlaceholderAPI, Vault, Essentials]
+depend: [PlaceholderAPI, Vault]
 api-version: "1.14"
 prefix: Ohnee
 commands:
