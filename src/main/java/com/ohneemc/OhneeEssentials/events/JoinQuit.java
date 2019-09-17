@@ -1,7 +1,5 @@
 package com.ohneemc.OhneeEssentials.events;
 
-import com.earth2me.essentials.Essentials;
-import com.earth2me.essentials.UserData;
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
 import com.ohneemc.OhneeEssentials.resources.CreateCustomItem;
 import de.leonhard.storage.Json;
@@ -91,7 +89,7 @@ public class JoinQuit implements Listener {
 
         CreateCustomItem item = new CreateCustomItem();
         item.giveFirstJoinItems(player);
-        essentialsImport(player);
+        //essentialsImport(player);
     }
 
     private void userLeave(Player player){
@@ -103,6 +101,7 @@ public class JoinQuit implements Listener {
     }
 
     private void essentialsImport(Player player){
+        /**
         String UUID = player.getUniqueId().toString();
         if (plugin.getServer().getPluginManager().getPlugin("Essentials") != null){
             Essentials ess = (Essentials) plugin.getServer().getPluginManager().getPlugin("Essentials");
@@ -129,5 +128,6 @@ public class JoinQuit implements Listener {
                 plugin.getServer().getLogger().info("Successfully imported homes from essentials, for player: " + player.getName()+"("+ UUID + ")");
             }
         }
+         **/
     }
 }
