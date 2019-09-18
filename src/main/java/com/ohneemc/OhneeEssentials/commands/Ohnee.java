@@ -30,6 +30,8 @@ public class Ohnee implements CommandExecutor {
                     System.out.print(strings[0]);
                     switch (strings[0]){
                         case "reload":
+                            plugin.settings().update();
+                            plugin.worldData().update();
                             if (plugin.loadSettings()){
                                 commandSender.sendMessage(ChatColor.GREEN + "Settings reloaded!");
                             }else{
