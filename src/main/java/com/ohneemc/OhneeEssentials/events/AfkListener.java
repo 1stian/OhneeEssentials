@@ -29,14 +29,18 @@ public class AfkListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event){
         notMovedSince.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
-        cancelAfk(event.getPlayer());
+        if (isAfk().get(event.getPlayer().getUniqueId())){
+            cancelAfk(event.getPlayer());
+        }
     }
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event){
         if (plugin.afkCancelOnChat){
             notMovedSince.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
-            cancelAfk(event.getPlayer());
+            if (isAfk().get(event.getPlayer().getUniqueId())){
+                cancelAfk(event.getPlayer());
+            }
         }
     }
 
@@ -63,7 +67,7 @@ public class AfkListener implements Listener {
                         long passed = System.currentTimeMillis() - minutes;
                         long oldTime = notMovedSince.get(player.getUniqueId());
                         if (oldTime < passed){
-                            if (!isAfk().containsKey(player.getUniqueId())) {
+                            if (!isAfk().get(player.getUniqueId())) {
                                 setAfk(player);
                             }
                         }
