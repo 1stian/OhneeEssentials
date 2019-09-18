@@ -65,7 +65,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
      */
     @Override
     public String getIdentifier(){
-        return "OhneeEssentials";
+        return "ohneeessentials";
     }
 
     /**
@@ -103,7 +103,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
 
         // %someplugin_placeholder1%
         if(identifier.equals("afk")){
-            return AfkListener.isAfk().get(player.getUniqueId()).toString();
+            return String.valueOf(AfkListener.isAfk().get(player.getUniqueId()));
         }
 
         // We return null if an invalid placeholder (f.e. %someplugin_placeholder3%)
