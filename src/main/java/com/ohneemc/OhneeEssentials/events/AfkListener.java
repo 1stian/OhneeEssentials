@@ -54,7 +54,7 @@ public class AfkListener implements Listener {
     public void onLeave(PlayerQuitEvent event){
         notMovedSince.remove(event.getPlayer().getUniqueId());
         isAfk().remove(event.getPlayer().getUniqueId());
-        cancelAfk(event.getPlayer());
+        //cancelAfk(event.getPlayer());
     }
 
     private void checkAfk(){
