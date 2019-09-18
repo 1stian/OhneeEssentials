@@ -102,7 +102,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
         }
 
         // %someplugin_placeholder1%
-        if(identifier.equals("OhneeEssentials_player_afk")){
+        if(identifier.equals("afk")){
             return AfkListener.isAfk().get(player.getUniqueId()).toString();
         }
 

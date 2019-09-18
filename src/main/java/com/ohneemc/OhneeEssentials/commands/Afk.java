@@ -11,7 +11,7 @@ public class Afk implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("afk") && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
-            if (player != null && AfkListener.isAfk().containsKey(player.getUniqueId())) {
+            if (player != null && AfkListener.isAfk().get(player.getUniqueId())) {
                 AfkListener.cancelAfk(player);
                 return true;
             }else if (player != null){

@@ -43,11 +43,14 @@ public class AfkListener implements Listener {
     @EventHandler
     public void onJoin(PlayerLoginEvent event){
         notMovedSince.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
+        isAfk().put(event.getPlayer().getUniqueId(), false);
     }
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
         notMovedSince.remove(event.getPlayer().getUniqueId());
+        isAfk().remove(event.getPlayer().getUniqueId());
+        cancelAfk(event.getPlayer());
     }
 
     private void checkAfk(){
@@ -71,8 +74,8 @@ public class AfkListener implements Listener {
     }
 
     public static void cancelAfk(Player player){
-        if (isAfk().containsKey(player.getUniqueId())){
-            isAfk().remove(player.getUniqueId());
+        if (isAfk().get(player.getUniqueId())){
+            isAfk().put(player.getUniqueId(), false);
             player.setSleepingIgnored(false);
             player.setDisplayName(player.getName());
             player.setPlayerListName(player.getName());
