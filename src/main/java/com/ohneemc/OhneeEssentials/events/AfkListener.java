@@ -23,8 +23,8 @@ public class AfkListener implements Listener {
 
     private HashMap<UUID, Long> notMovedSince = new HashMap<>();
 
-    private HashMap<UUID, Boolean> playerAFk = new HashMap<>();
-    private HashMap<UUID, Boolean> isAfk(){return playerAFk;}
+    private static HashMap<UUID, Boolean> playerAFk = new HashMap<>();
+    public static HashMap<UUID, Boolean> isAfk(){return playerAFk;}
 
     @EventHandler
     public void onMove(PlayerMoveEvent event){
@@ -70,7 +70,7 @@ public class AfkListener implements Listener {
         }, 40L, 100L);
     }
 
-    private void cancelAfk(Player player){
+    public static void cancelAfk(Player player){
         if (isAfk().containsKey(player.getUniqueId())){
             isAfk().remove(player.getUniqueId());
             player.setSleepingIgnored(false);
@@ -80,7 +80,7 @@ public class AfkListener implements Listener {
         }
     }
 
-    private void setAfk(Player player){
+    public static void setAfk(Player player){
         isAfk().put(player.getUniqueId(), true);
         player.setSleepingIgnored(true);
         player.setDisplayName(player.getName() + ChatColor.ITALIC + "" + ChatColor.GRAY + " away");

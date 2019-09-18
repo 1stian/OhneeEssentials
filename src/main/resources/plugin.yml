@@ -158,6 +158,11 @@ commands:
     usage: /guide
     permission: ohnee.guide
     permission-message: You do not have acces to this command /guide.
+  afk:
+    description: Toggles your afk status.
+    usage: /afk
+    permission: ohnee.afk
+    permission-message: You do not have acces to this command /afk.
 permissions:
   ohnee.*:
     default: false
@@ -192,6 +197,7 @@ permissions:
       ohnee.vanish: true
       ohnee.guide: true
       ohnee.guide.other: true
+      ohnee.afk: true
   ohnee.use:
     default: false
     description: Access to all the basic uses of OhneeEssentials.
@@ -205,6 +211,7 @@ permissions:
       ohnee.me: true
       ohnee.scoreboard: true
       ohnee.guide: true
+      ohnee.afk: true
   ohnee.tpa:
     default: false
     description: Access to all the tpa commands.

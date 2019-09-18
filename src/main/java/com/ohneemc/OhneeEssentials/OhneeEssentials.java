@@ -210,6 +210,7 @@ public class OhneeEssentials extends JavaPlugin {
         this.getCommand("scoreboard").setExecutor(new Scoreboard(this));
         this.getCommand("vanish").setExecutor(new Vanish(this));
         this.getCommand("guide").setExecutor(new Guide(this));
+        this.getCommand("afk").setExecutor(new Afk());
     }
 
     private void registerEvents() {
