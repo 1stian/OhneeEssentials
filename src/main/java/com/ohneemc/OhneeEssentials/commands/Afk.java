@@ -12,10 +12,10 @@ public class Afk implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("afk") && sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
             if (player != null && AfkListener.isAfk().containsKey(player.getUniqueId())) {
-                AfkListener.setAfk(player);
-                return true;
-            }else{
                 AfkListener.cancelAfk(player);
+                return true;
+            }else if (player != null){
+                AfkListener.setAfk(player);
                 return true;
             }
         }
