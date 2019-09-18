@@ -140,7 +140,7 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.Teleportation.Tp.TimeToRespond", 30);
         List<String> defaultGroups = Arrays.asList("admin:10", "mod:10", "vip:5", "regular:3", "default:1");
         settings.setDefault("PluginSettings.Homes.LimitPrGroup", defaultGroups);
-        settings.setDefault("PluginSettings.AFK.After", 300);
+        settings.setDefault("PluginSettings.AFK.After", 5);
         settings.setDefault("PluginSettings.AFK.CancelOnChat", false);
 
         //Custom message file
