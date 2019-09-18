@@ -7,9 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -21,14 +22,12 @@ public class AfkListener implements Listener {
     }
 
     private HashMap<UUID, Long> notMovedSince = new HashMap<>();
-    public HashMap<UUID, Long> afkPlayer(){return notMovedSince;}
 
     private HashMap<UUID, Boolean> playerAFk = new HashMap<>();
-    public HashMap<UUID, Boolean> isAfk(){return playerAFk;}
+    private HashMap<UUID, Boolean> isAfk(){return playerAFk;}
 
     @EventHandler
     public void onMove(PlayerMoveEvent event){
-        //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         notMovedSince.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
         cancelAfk(event.getPlayer());
     }
@@ -36,10 +35,19 @@ public class AfkListener implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event){
         if (plugin.afkCancelOnChat){
-            //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             notMovedSince.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
             cancelAfk(event.getPlayer());
         }
+    }
+
+    @EventHandler
+    public void onJoin(PlayerLoginEvent event){
+        notMovedSince.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
+    }
+
+    @EventHandler
+    public void onLeave(PlayerQuitEvent event){
+        notMovedSince.remove(event.getPlayer().getUniqueId());
     }
 
     private void checkAfk(){
@@ -65,6 +73,7 @@ public class AfkListener implements Listener {
     private void cancelAfk(Player player){
         if (isAfk().containsKey(player.getUniqueId())){
             isAfk().remove(player.getUniqueId());
+            player.setSleepingIgnored(false);
             player.setDisplayName(player.getName());
             player.setPlayerListName(player.getName());
             Bukkit.getServer().broadcastMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN+" is no longer AFK.");
@@ -73,8 +82,13 @@ public class AfkListener implements Listener {
 
     private void setAfk(Player player){
         isAfk().put(player.getUniqueId(), true);
+        player.setSleepingIgnored(true);
         player.setDisplayName(player.getName() + ChatColor.ITALIC + "" + ChatColor.GRAY + " away");
         player.setPlayerListName(player.getName() + ChatColor.ITALIC + "" + ChatColor.GRAY + " away");
         Bukkit.getServer().broadcastMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN+" is now AFK.");
+    }
+
+    public int Difference(int a, int b){
+        return Math.abs(a-b);
     }
 }
