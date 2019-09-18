@@ -7,6 +7,7 @@ import com.ohneemc.OhneeEssentials.resources.WarpConfigHelper;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Toml;
 import de.leonhard.storage.Yaml;
+import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
@@ -32,11 +33,13 @@ public class OhneeEssentials extends JavaPlugin {
     private Integer fileType;
     private Permission vPerm;
     private Economy eco;
+    private Chat chat;
 
     public Permission vPerm(){
         return vPerm;
     }
     public Economy eco(){return eco;}
+    public Chat chat() {return chat;}
     public Toml settings() {
         return settings;
     }
@@ -114,8 +117,11 @@ public class OhneeEssentials extends JavaPlugin {
     public void onEnable() {
         //Enabling metrics
         Metrics metrics = new Metrics(this);
+
+        //Vault
         setupPermissions();
         setupEconomy();
+        setupChat();
 
         s = Bukkit.getScoreboardManager().getNewScoreboard();
         o = s.registerNewObjective("sidebar", "dummy", ChatColor.DARK_GREEN + "OhneeMC Sidebar");
@@ -233,14 +239,19 @@ public class OhneeEssentials extends JavaPlugin {
     }
 
     private void setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return;
-        }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             return;
         }
         eco = rsp.getProvider();
+    }
+
+    private void setupChat() {
+        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+        if (rsp == null) {
+            return;
+        }
+        chat = rsp.getProvider();
     }
 
     public boolean loadSettings(){

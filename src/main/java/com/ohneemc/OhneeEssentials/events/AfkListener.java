@@ -15,9 +15,9 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class AfkListener implements Listener {
-    private OhneeEssentials plugin;
+    private static OhneeEssentials plugin;
     public AfkListener(OhneeEssentials plugin){
-        this.plugin = plugin;
+        AfkListener.plugin = plugin;
         checkAfk();
     }
 
@@ -74,6 +74,7 @@ public class AfkListener implements Listener {
         if (isAfk().containsKey(player.getUniqueId())){
             isAfk().remove(player.getUniqueId());
             player.setSleepingIgnored(false);
+            plugin.chat().setPlayerSuffix(player, "");
             player.setDisplayName(player.getName());
             player.setPlayerListName(player.getName());
             Bukkit.getServer().broadcastMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN+" is no longer AFK.");
@@ -83,6 +84,7 @@ public class AfkListener implements Listener {
     public static void setAfk(Player player){
         isAfk().put(player.getUniqueId(), true);
         player.setSleepingIgnored(true);
+        plugin.chat().setPlayerSuffix(player, ChatColor.ITALIC + "" + ChatColor.GRAY + " away");
         player.setDisplayName(player.getName() + ChatColor.ITALIC + "" + ChatColor.GRAY + " away");
         player.setPlayerListName(player.getName() + ChatColor.ITALIC + "" + ChatColor.GRAY + " away");
         Bukkit.getServer().broadcastMessage(ChatColor.GOLD + player.getName() + ChatColor.GREEN+" is now AFK.");
