@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -28,7 +29,7 @@ public class JoinQuit implements Listener {
     public Json uData(){return userdata;}
     private com.ohneemc.OhneeEssentials.resources.UserData PlayerData = new com.ohneemc.OhneeEssentials.resources.UserData();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage("");
         plugin.getServer().broadcastMessage(ChatColor.GREEN + "[+] " + ChatColor.GRAY + e.getPlayer().getName());
@@ -99,7 +100,7 @@ public class JoinQuit implements Listener {
         userdata.set("PlayerInfo.Banned", false);
         userdata.set("PlayerInfo.Muted", false);
         userdata.set("PlayerInfo.Fly", false);
-        userdata.set("PlayerInfo.Gamemode", "");
+        userdata.set("PlayerInfo.Gamemode", "SURVIVAL");
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
 
