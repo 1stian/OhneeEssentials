@@ -126,6 +126,7 @@ public class OhneeEssentials extends JavaPlugin {
         //Adding placeholders
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
             new PlaceholderAPI(this).register();
+            Bukkit.getLogger().info("[Ohnee] Registered placeholders!");
         }
 
         s = Bukkit.getScoreboardManager().getNewScoreboard();
