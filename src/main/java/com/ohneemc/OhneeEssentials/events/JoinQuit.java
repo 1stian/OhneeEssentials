@@ -5,6 +5,7 @@ import com.ohneemc.OhneeEssentials.resources.CreateCustomItem;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Yaml;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -74,6 +75,18 @@ public class JoinQuit implements Listener {
             if (e.getPlayer().hasPermission("plugin.fly.safe")){
                 e.getPlayer().setFlying(PlayerData.getFly(e.getPlayer(), plugin.getDataFolder().getAbsolutePath() + "/userdata"));
             }
+
+            if (userdata.get("PlayerInfo.Gamemode") != null){
+                GameMode gm = (GameMode.valueOf(userdata.getString("PlayerInfo.Gamemode")));
+                if (gm == GameMode.CREATIVE){
+                    e.setGameMode(gm);
+                    e.setFlying(true);
+                }
+                if (gm == GameMode.SURVIVAL){
+                    e.setGameMode(gm);
+                    e.setFlying(false);
+                }
+            }
         }
     }
 
@@ -86,6 +99,7 @@ public class JoinQuit implements Listener {
         userdata.set("PlayerInfo.Banned", false);
         userdata.set("PlayerInfo.Muted", false);
         userdata.set("PlayerInfo.Fly", false);
+        userdata.set("PlayerInfo.Gamemode", "");
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
 
@@ -98,10 +112,11 @@ public class JoinQuit implements Listener {
     }
 
     private void userLeave(Player player){
-        userdata.update();
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
         userdata.set("PlayerStats.LastSeen", formatter.format(date));
+        GameMode gm = player.getGameMode();
+        userdata.set("PlayerInfo.Gamemode", gm);
         plugin.pTime().remove(player.getUniqueId());
     }
 
