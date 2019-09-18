@@ -123,6 +123,11 @@ public class OhneeEssentials extends JavaPlugin {
         setupEconomy();
         setupChat();
 
+        //Adding placeholders
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+            new PlaceholderAPI(this).register();
+        }
+
         s = Bukkit.getScoreboardManager().getNewScoreboard();
         o = s.registerNewObjective("sidebar", "dummy", ChatColor.DARK_GREEN + "OhneeMC Sidebar");
 
@@ -239,6 +244,9 @@ public class OhneeEssentials extends JavaPlugin {
     }
 
     private void setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return;
+        }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             return;
