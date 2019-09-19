@@ -104,6 +104,7 @@ public class JoinQuit implements Listener {
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
 
+        Bukkit.broadcastMessage("Welcome, " + ChatColor.GOLD + player.getName() + " to OhneeMC!");
         giveStarterKit(player);
 
         //This is not ready yet.
