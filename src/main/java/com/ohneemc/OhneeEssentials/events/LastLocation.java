@@ -19,7 +19,7 @@ public class LastLocation implements Listener {
     @EventHandler (priority = EventPriority.LOW)
     public void lastLoc(PlayerTeleportEvent e){
         Player player = e.getPlayer();
-        Location loc = player.getLocation();
+        Location loc = e.getFrom();
 
         //Storing last location before teleport.
         plugin.lLoc().put(player.getUniqueId(), loc);
