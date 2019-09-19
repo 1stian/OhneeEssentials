@@ -107,6 +107,9 @@ public class JoinQuit implements Listener {
         Bukkit.broadcastMessage("Welcome, " + ChatColor.GOLD + player.getName() + " to OhneeMC!");
         giveStarterKit(player);
 
+        player.sendMessage(ChatColor.GOLD + "------------" + ChatColor.BOLD + "Server guides" + ChatColor.GOLD + "-----------");
+        player.sendMessage(ChatColor.GOLD + "----- " + ChatColor.GREEN + "https://ohneemc.com/get-started/" + ChatColor.GOLD + " -----");
+        player.sendMessage(ChatColor.GOLD + "-------------------------------------");
         //This is not ready yet.
         //CreateCustomItem item = new CreateCustomItem();
         //item.giveFirstJoinItems(player);
