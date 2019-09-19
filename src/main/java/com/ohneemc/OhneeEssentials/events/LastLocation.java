@@ -16,7 +16,7 @@ public class LastLocation implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler (priority = EventPriority.LOW)
+    @EventHandler (priority = EventPriority.LOWEST)
     public void lastLoc(PlayerTeleportEvent e){
         Player player = e.getPlayer();
         Location loc = e.getFrom();
