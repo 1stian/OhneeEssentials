@@ -34,9 +34,9 @@ public class Guide implements CommandExecutor {
 
     private boolean sendGuides(Player player) {
         if (player != null) {
-            player.sendMessage(ChatColor.GOLD + "-----------" + ChatColor.BOLD + "Server guides" + ChatColor.GOLD + "----------");
-            player.sendMessage(ChatColor.GOLD + "----- " + ChatColor.GREEN + "https://ohneemc.com/guides/" + ChatColor.GOLD + " -----");
-            player.sendMessage(ChatColor.GOLD + "-----------------------------------");
+            player.sendMessage(ChatColor.GOLD + "------------" + ChatColor.BOLD + "Server guides" + ChatColor.GOLD + "-----------");
+            player.sendMessage(ChatColor.GOLD + "----- " + ChatColor.GREEN + "https://ohneemc.com/get-started/" + ChatColor.GOLD + " -----");
+            player.sendMessage(ChatColor.GOLD + "-------------------------------------");
             return true;
         } else {
             return false;
