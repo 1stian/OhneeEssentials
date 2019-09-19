@@ -30,6 +30,7 @@ public class OhneeEssentials extends JavaPlugin {
     private Yaml ymlWarpsConfig;
     private Toml settings = new Toml("settings", getDataFolder().toString());
     private Json worldData = new Json("worlddata", getDataFolder().toString());
+    private Toml kits = new Toml("kits", getDataFolder().toString());
     private Integer fileType;
     private Permission vPerm;
     private Economy eco;
@@ -46,6 +47,7 @@ public class OhneeEssentials extends JavaPlugin {
     public Json worldData() {
         return worldData;
     }
+    public Toml kits(){return kits;}
     public Toml tomlWarps() {
         return tomlWarpsConfig;
     }
@@ -154,6 +156,12 @@ public class OhneeEssentials extends JavaPlugin {
         settings.setDefault("PluginSettings.Homes.LimitPrGroup", defaultGroups);
         settings.setDefault("PluginSettings.AFK.After", 5);
         settings.setDefault("PluginSettings.AFK.CancelOnChat", false);
+
+        //Kits
+        List<String> starterKit = Arrays.asList("stone_sword:1", "stone_axe:1", "stone_pickaxe:1", "cooked_porkchop:32", "shield:1",
+                "leather_chestplate:1", "leather_leggings:1", "leather_boots:1", "torch:14");
+        kits().setDefault("Starter.items", starterKit);
+        kits().setDefault("Starter.OneTime", true);
 
         //Custom message file
         new MessageHelper(this); // <-- This will be redone at some point, so everything will be customizable!
