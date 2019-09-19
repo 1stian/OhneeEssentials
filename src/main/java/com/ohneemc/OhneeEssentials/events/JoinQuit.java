@@ -1,22 +1,22 @@
 package com.ohneemc.OhneeEssentials.events;
 
 import com.ohneemc.OhneeEssentials.OhneeEssentials;
-import com.ohneemc.OhneeEssentials.resources.CreateCustomItem;
 import de.leonhard.storage.Json;
-import de.leonhard.storage.Yaml;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class JoinQuit implements Listener {
     private OhneeEssentials plugin;
@@ -104,10 +104,11 @@ public class JoinQuit implements Listener {
         userdata.set("PlayerStats.FirstSeen", formatter.format(date));
         userdata.set("PlayerStats.lastSessionStarted", formatter.format(date));
 
+        giveStarterKit(player);
+
         //This is not ready yet.
         //CreateCustomItem item = new CreateCustomItem();
         //item.giveFirstJoinItems(player);
-
 
         //essentialsImport(player);
     }
@@ -121,8 +122,27 @@ public class JoinQuit implements Listener {
         plugin.pTime().remove(player.getUniqueId());
     }
 
+    private void giveStarterKit(Player player){
+        List<String> items = plugin.kits().getStringList("Starter.items");
+
+        for (String i : items){
+            String[] split = i.split(":");
+            String iName = split[0];
+            int iAmount = Integer.valueOf(split[1]);
+            Material item = Material.matchMaterial(iName);
+            ItemStack stack;
+            if (item != null){
+                stack = new ItemStack(item, iAmount);
+                player.getInventory().addItem(stack);
+            }else{
+                Bukkit.getLogger().warning("[Ohnee] There was a problem with the starter kit... Unrecognized item..");
+            }
+        }
+        Bukkit.getLogger().info(player.getName() + " received the starter kit.");
+    }
+
     private void essentialsImport(Player player){
-        /**
+        /*
         String UUID = player.getUniqueId().toString();
         if (plugin.getServer().getPluginManager().getPlugin("Essentials") != null){
             Essentials ess = (Essentials) plugin.getServer().getPluginManager().getPlugin("Essentials");
@@ -149,6 +169,6 @@ public class JoinQuit implements Listener {
                 plugin.getServer().getLogger().info("Successfully imported homes from essentials, for player: " + player.getName()+"("+ UUID + ")");
             }
         }
-         **/
+         */
     }
 }
